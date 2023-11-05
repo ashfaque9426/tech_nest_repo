@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const configOptions = {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    dbName: 'TechNestCluster'
 }
 
 const connectToDB = async () => {
