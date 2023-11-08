@@ -1,5 +1,10 @@
 import React from 'react'
 
+export const metadata = {
+  title: 'Dashboard/Home Page',
+  description: 'Dashboard Home Page for users to learn about monitoring and features.',
+}
+
 function Page() {
   return (
     <section className='border w-2/3'>

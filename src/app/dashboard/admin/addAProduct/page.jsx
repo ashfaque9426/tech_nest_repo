@@ -1,5 +1,10 @@
 import React from 'react'
 
+export const metadata = {
+    title: 'TechNest/Admin/Add Product Page',
+    description: 'Here admin can add product details for each particular product which will be stored at MongoDB.',
+}
+
 function Page() {
   return (
       <section className='border w-2/3'>
