@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId
+    apiKey: process.env.firebase_apiKey,
+    authDomain: process.env.firebase_authDomain,
+    projectId: process.env.firebase_projectId,
+    storageBucket: process.env.firebase_storageBucket,
+    messagingSenderId: process.env.firebase_messagingSenderId,
+    appId: process.env.firebase_appId
 };
 
 // Initialize Firebase
