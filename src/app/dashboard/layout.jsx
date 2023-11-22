@@ -1,5 +1,5 @@
-import React from 'react'
-import Sidebar from './components/client/shared/Sidebar/Sidebar'
+import React from 'react';
+import Sidebar from './components/client/shared/Sidebar/Sidebar';
 
 function Layout2({children}) {
   return (
@@ -10,4 +10,4 @@ function Layout2({children}) {
   )
 }
 
-export default Layout2
+export default Layout2;

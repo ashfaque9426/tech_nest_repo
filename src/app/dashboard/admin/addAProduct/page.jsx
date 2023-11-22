@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Form from './components/client/Form';
 
 export const metadata = {
     title: 'TechNest/Admin/Add Product Page',
@@ -6,11 +7,12 @@ export const metadata = {
 }
 
 function Page() {
-  return (
-      <section className='border w-2/3'>
-          <h1 className='text-2xl font-bold text-center'>This is add a product page</h1>
-      </section>
-  )
+    return (
+        <section className='border w-2/3'>
+            <h1 className='text-2xl font-bold text-center'>This is add a product page</h1>
+            <Form />
+        </section>
+    )
 }
 
-export default Page
+export default Page;

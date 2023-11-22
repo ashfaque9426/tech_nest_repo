@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const metadata = {
   title: 'Dashboard/Home Page',
@@ -13,4 +13,4 @@ function Page() {
   )
 }
 
-export default Page
+export default Page;
