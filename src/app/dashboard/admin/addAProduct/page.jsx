@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from './components/client/Form';
+import AddAProductForm from '../../_components/client/AddAProductFrom';
 
 export const metadata = {
     title: 'TechNest/Admin/Add Product Page',
@@ -10,7 +10,7 @@ function Page() {
     return (
         <section className='border w-2/3'>
             <h1 className='text-2xl font-bold text-center'>This is add a product page</h1>
-            <Form />
+            <AddAProductForm />
         </section>
     )
 }

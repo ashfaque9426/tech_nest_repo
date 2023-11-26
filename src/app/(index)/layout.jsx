@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './components/client/shared/Navbar/Navbar';
-import Footer from './components/server/shared/Footer/Footer';
+import Navbar from './_components/shared/client/Navbar';
+import Footer from './_components/shared/server/Footer';
 
 function Layout1({children}) {
   return (

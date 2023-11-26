@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from './components/client/shared/Sidebar/Sidebar';
+import Sidebar from './_components/shared/client/Sidebar';
 
 function Layout2({children}) {
   return (

@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 
-function Form() {
+function AddAProductForm() {
     const handleSubmit = async e => {
         e.preventDefault();
         console.log("inside handle submit");
@@ -15,4 +15,4 @@ function Form() {
     )
 }
 
-export default Form;
+export default AddAProductForm;
