@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DashboardCustomFormInput = ({ className, name, type, placeholder, onChange }) => {
+const DashboardCustomFormInput = ({ className, name, type, placeholder, onChange, id }) => {
     return (
-        <input type={type} name={name} className={`${className}`} placeholder={placeholder} onChange={onChange && onChange} required />
+        <input type={type} name={name} id={id && id} className={`${className}`} placeholder={placeholder} onChange={onChange && onChange} />
     );
 };
 
