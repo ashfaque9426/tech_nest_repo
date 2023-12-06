@@ -1,19 +1,17 @@
 "use client"
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import DashboardCustomFormInput from '../../shared/server/DashboardCustomFormInput';
 import AddSpecsSection from '../AddSpecsSection';
 
 function AddAProductForm() {
     // declaring states
-    const [imgUrls, setImgUrls] = useState([]);
     const [childElems0, setChildElems0] = useState([]);
     const [childElems1, setChildElems1] = useState([]);
     const [childElems2, setChildElems2] = useState([]);
     const [childElems3, setChildElems3] = useState([]);
     const [imgUrlInputFieldValues, setImgUrlInputFieldValues] = useState({});
-    const [specsObjArr, setSpecsObjArr] = useState([]);
-    const [productDescriptions, setProductDescriptions] = useState([]);
+    const [specsFieldAdded, setSpecsFieldAdded] = useState(false);
 
     // references of features field parent elements of input fields
     const keyFeaturesRef = useRef(null);
@@ -21,10 +19,10 @@ function AddAProductForm() {
     const productDescriptionsRef = useRef(null);
 
     // for adding img urls to the imgUrls state
-    const addImgUrls = e => {
+    const addImgUrls = (e, imgUrlsArr) => {
         e.preventDefault();
         for (let key in imgUrlInputFieldValues) {
-            setImgUrls(prevImgUrlElems => [...prevImgUrlElems, imgUrlInputFieldValues[key]]);
+            imgUrlsArr.push(imgUrlInputFieldValues[key]);
         }
     }
 
@@ -32,6 +30,8 @@ function AddAProductForm() {
     const handleIImgUrlnputChange = (name, value) => {
         setImgUrlInputFieldValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
+
+    
 
     // for adding input fields dynamically
     const handleChildInput = e => {
@@ -47,6 +47,7 @@ function AddAProductForm() {
         }
         else if(e.target.id === 'addSpecsField') {
             setChildElems2(prevElem => [...prevElem, <AddSpecsSection key={uuidv4()} />]);
+            setSpecsFieldAdded(true);
         }
         else if(e.target.id === 'addImgUrlBtn') {
             setChildElems0(prevImgUrlElems => [...prevImgUrlElems, newImgUrlInputElem]);
@@ -75,11 +76,11 @@ function AddAProductForm() {
     }
 
     // for adding specifications to the state
-    const handleAddSpecsState = e => {
+    const handleAddSpecsState = (e, specObjArr) => {
         e.preventDefault();
-
+        if (!specsFieldAdded) return;
         let i = 0;
-        console.log(productSpecificationsRef.current.children);
+        // console.log(productSpecificationsRef.current.children);
         if (productSpecificationsRef.current) {
             for (const child of productSpecificationsRef.current.children) {
                 const title = child.children[0].value;
@@ -102,16 +103,25 @@ function AddAProductForm() {
                 });
 
                 // console.log(obj);
-                setSpecsObjArr(prevObjs => [...prevObjs, obj]);
-                console.log(specsObjArr);
+                specObjArr.push(obj);
             }
+            setSpecsFieldAdded(false);
         }
     }
 
     // for handling submitting action
     const handleSubmit = e => {
-        const form = e.target;
+        e.preventDefault();
 
+        // declaring array for getting input fields data.
+        const specObjArr = [];
+        const imgUrlsArr = [];
+        const productDescriptionsArr = [];
+
+        handleAddSpecsState(e, specObjArr);
+        addImgUrls(e, imgUrlsArr);
+        
+        const form = e.target;
         const formData = {
             status: "approved",
             brand: form.brand.value,
@@ -122,18 +132,19 @@ function AddAProductForm() {
             quantity: form.quantity.value,
             userRating: 0,
             questions: [],
-            imgUrls: imgUrls,
+            imgUrls: imgUrlsArr,
             regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
             price: parseFloat(parseFloat(form.price.value).toFixed(2)),
             keyFeatures: {
 
             },
-            productSpecifications: specsObjArr,
-            productDescriptions: productDescriptions
+            productSpecifications: specObjArr,
+            productDescriptions: productDescriptionsArr
 
         }
 
         console.log(formData);
+        
     }
 
     return (
@@ -202,7 +213,6 @@ function AddAProductForm() {
                         <div className='flex flex-wrap gap-2'>
                             <button className='border border-red-500 px-3' id='addImgUrlBtn' onClick={handleChildInput}>Add Field</button>
                             <button className='border border-red-500 px-3' id='removeImgUrlBtn' onClick={removeChildInput}>Remove Field</button>
-                            <button className='border border-red-500 px-3' onClick={addImgUrls}>Add Img Urls</button>
                         </div>
                     </section>
                     <section></section>
@@ -233,7 +243,6 @@ function AddAProductForm() {
                     <div className='flex flex-wrap gap-2'>
                         <button className='border border-red-500 px-3' id='addSpecsField' onClick={handleChildInput}>Add Field</button>
                         <button className='border border-red-500 px-3' id='removeSpecsInputArea' onClick={removeChildInput}>Remove Field</button>
-                        <button className='border border-red-500 px-3' id='removeSpecsInputArea' onClick={handleAddSpecsState}>Add Specifications</button>
                     </div>
                 </div>
             </fieldset>

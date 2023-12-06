@@ -31,7 +31,7 @@ function AddSpecsSection() {
   return (
       <div className='flex flex-col gap-3'>
           <DashboardCustomFormInput type='text' name={`SpecTitle${uuidv4()}`} className="text-blue-500 border border-gray-700" placeholder='Insert Specification Title' />
-          <section>
+          <section className='flex flex-wrap gap-2'>
               {
                   productSpecsInputFields.length > 0 ? productSpecsInputFields : <h2>Please Add Product Specification fields here.</h2>
               }
