@@ -5,8 +5,8 @@ import DashboardCustomFormInput from '../../shared/server/DashboardCustomFormInp
 function AddDescriptionInputFields() {
   return (
     <section className='flex flex-wrap gap-2'>
-      <DashboardCustomFormInput type='text' name={`ProductDescription${uuidv4()}`} className="text-blue-500 border border-gray-700" placeholder='Description Title' />
-      <DashboardCustomFormInput type='text' name={`ProductDescription${uuidv4()}`} className="text-blue-500 border border-gray-700" placeholder='Description' />
+      <DashboardCustomFormInput type='text' name={`ProductDescription${uuidv4()}`} className="" placeholder='Description Title*' required />
+      <DashboardCustomFormInput type='text' name={`ProductDescription${uuidv4()}`} className="" placeholder='Description*' required />
     </section>
   )
 }

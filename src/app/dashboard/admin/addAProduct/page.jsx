@@ -8,8 +8,8 @@ export const metadata = {
 
 function Page() {
     return (
-        <section className='border w-2/3'>
-            <h1 className='text-2xl font-bold text-center'>This is add a product page</h1>
+        <section className='border lg:w-2/3 px-5 py-5'>
+            <h1 className='text-2xl font-bold'>Please fill up the product specification form bellow.</h1>
             <AddAProductForm />
         </section>
     )

@@ -6,6 +6,7 @@ import AddSpecsSection from '../AddSpecsSection';
 import { toCamelCase } from '@/utils';
 import AddDescriptionInputFields from '../../server/AddDeccriptionInputFields';
 import AddKeyFeaturesInputFields from '../../server/AddKeyFeaturesInputFields';
+import DashboardBtn from '../../shared/server/DashboardBtn';
 
 function AddAProductForm() {
     // declaring states
@@ -50,7 +51,7 @@ function AddAProductForm() {
         // for imgUrl field inputs
         const imgInputKey = uuidv4();
         const imgInputName = `imgUrl${uuidv4()}`
-        const newImgUrlInputElem = <DashboardCustomFormInput key={imgInputKey} type='text' name={imgInputName} className="text-blue-500 border border-gray-700" placeholder='Insert Image url' onChange={(e) => handleIImgUrlnputChange(e.target.name, e.target.value)} />
+        const newImgUrlInputElem = <DashboardCustomFormInput key={imgInputKey} type='text' name={imgInputName} className="" placeholder='Insert Image url*' onChange={(e) => handleIImgUrlnputChange(e.target.name, e.target.value)} required />
         
         if(e.target.id === 'addFeaturesInput') {
             setChildElems1(prevElem => [...prevElem, <AddKeyFeaturesInputFields key={uuidv4()} />]);
@@ -192,7 +193,6 @@ function AddAProductForm() {
         handleAddSpecs(e, specObjArr);
         handleAddDesc(e, productDescriptionsArr);
         handleAddKeyFeatures(e, keyFeatursObj);
-        console.log(keyFeatursObj);
         
         const form = e.target;
         const formData = {
@@ -215,6 +215,15 @@ function AddAProductForm() {
         }
 
         console.log(formData);
+
+        // reseting dynamically added input fields
+        setChildElems0([]);
+        setChildElems1([]);
+        setChildElems2([]);
+        setChildElems3([]);
+
+        // reseting the form
+        form.reset();
         
     }
 
@@ -225,54 +234,54 @@ function AddAProductForm() {
                 <section className='flex flex-col gap-2'>
                     <div className='flex flex-wrap gap-2'>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor='brand'>Brand Name</label>
-                            <DashboardCustomFormInput type='text' name='brand' id='brand' className="text-blue-500 border border-gray-700" placeholder='Brand Name' />
+                            <label htmlFor='brand'>Brand Name*</label>
+                            <DashboardCustomFormInput type='text' name='brand' id='brand' className="" placeholder='Brand Name' required />
                         </section>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="model">Model Name</label>
-                            <DashboardCustomFormInput type='text' name='model' id='model' className="text-blue-500 border border-gray-700" placeholder='Model' />
+                            <label htmlFor="model">Model Name*</label>
+                            <DashboardCustomFormInput type='text' name='model' id='model' className="" placeholder='Model' required />
                         </section>
                     </div>
 
                     <div className='flex flex-wrap gap-2'>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="productTitle">Product Title</label>
-                            <DashboardCustomFormInput type='text' name='productTitle' id='productTitle' className="text-blue-500 border border-gray-700" placeholder='Product Title' />
+                            <label htmlFor="productTitle">Product Title*</label>
+                            <DashboardCustomFormInput type='text' name='productTitle' id='productTitle' className="" placeholder='Product Title' required />
                         </section>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="productCategory">Product Category</label>
-                            <DashboardCustomFormInput type='text' name='productCategory' id='productCategory' className="text-blue-500 border border-gray-700" placeholder='Product Category' />
-                        </section>
-                    </div>
-                    
-                    <div className='flex flex-wrap gap-2'>
-                        <section className='flex flex-col gap-1'>
-                            <label htmlFor="productStatus">Product Status</label>
-                            <DashboardCustomFormInput type='text' name='productStatus' id='productStatus' className="text-blue-500 border border-gray-700" placeholder='Product Status' />
-                        </section>
-                        <section className='flex flex-col gap-1'>
-                            <label htmlFor="points">Points</label>
-                            <DashboardCustomFormInput type='number' name='points' id='points' className="text-blue-500 border border-gray-700" placeholder='Points' />
+                            <label htmlFor="productCategory">Product Category*</label>
+                            <DashboardCustomFormInput type='text' name='productCategory' id='productCategory' className="" placeholder='Product Category' required />
                         </section>
                     </div>
                     
                     <div className='flex flex-wrap gap-2'>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="quantity">Product Quantity</label>
-                            <DashboardCustomFormInput type='number' name='quantity' id='quantity' className="text-blue-500 border border-gray-700" placeholder='Product Quantity' />
+                            <label htmlFor="productStatus">Product Status*</label>
+                            <DashboardCustomFormInput type='text' name='productStatus' id='productStatus' className="" placeholder='Product Status' required />
+                        </section>
+                        <section className='flex flex-col gap-1'>
+                            <label htmlFor="points">Points*</label>
+                            <DashboardCustomFormInput type='number' name='points' id='points' className="" placeholder='Points' required />
+                        </section>
+                    </div>
+                    
+                    <div className='flex flex-wrap gap-2'>
+                        <section className='flex flex-col gap-1'>
+                            <label htmlFor="quantity">Product Quantity*</label>
+                            <DashboardCustomFormInput type='number' name='quantity' id='quantity' className="" placeholder='Product Quantity' required />
                         </section>
                         <section className='flex flex-col gap-1 lg:mr-24'>
-                            <label htmlFor="regularPrice">Regular Price</label>
-                            <DashboardCustomFormInput type='text' name='regularPrice' id='regularPrice' className="text-blue-500 border border-gray-700" placeholder='Regular Price' />
+                            <label htmlFor="regularPrice">Regular Price*</label>
+                            <DashboardCustomFormInput type='text' name='regularPrice' id='regularPrice' className="" placeholder='Regular Price' required />
                         </section>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="price">Price</label>
-                            <DashboardCustomFormInput type='text' name='price' id='price' className="text-blue-500 border border-gray-700" placeholder='Product Price' />
+                            <label htmlFor="price">Price*</label>
+                            <DashboardCustomFormInput type='text' name='price' id='price' className="" placeholder='Product Price' required />
                         </section>
                     </div>
                 </section>
             </fieldset>
-            <fieldset>
+            <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Product Image Field</legend>
                 <div>
                     <section className='flex flex-col gap-3'>
@@ -282,14 +291,14 @@ function AddAProductForm() {
                             }
                         </div>
                         <div className='flex flex-wrap gap-2'>
-                            <button className='border border-red-500 px-3' id='addImgUrlBtn' onClick={handleChildInput}>Add Field</button>
-                            <button className='border border-red-500 px-3' id='removeImgUrlBtn' onClick={removeChildInput}>Remove Field</button>
+                            <DashboardBtn id='addImgUrlBtn' onClick={handleChildInput}>Add Field</DashboardBtn>
+                            <DashboardBtn id='removeImgUrlBtn' onClick={removeChildInput}>Remove Field</DashboardBtn>
                         </div>
                     </section>
                     <section></section>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Key Features</legend>
                 <div className='flex flex-col gap-3'>
                     <section className='flex flex-wrap gap-2' ref={keyFeaturesRef}>
@@ -298,12 +307,12 @@ function AddAProductForm() {
                         }
                     </section>
                     <div className='flex flex-wrap gap-2'>
-                        <button className='border border-red-500 px-3' id='addFeaturesInput' onClick={handleChildInput}>Add Field</button>
-                        <button className='border border-red-500 px-3' id='removeFeaturesInput' onClick={removeChildInput}>Remove Field</button>
+                        <DashboardBtn id='addFeaturesInput' onClick={handleChildInput}>Add Field</DashboardBtn>
+                        <DashboardBtn id='removeFeaturesInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
                     </div>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Product Specifications</legend>
                 <div className='flex flex-col gap-3'>
                     <section className='flex flex-wrap gap-2' ref={productSpecificationsRef}>
@@ -312,24 +321,24 @@ function AddAProductForm() {
                         }
                     </section>
                     <div className='flex flex-wrap gap-2'>
-                        <button className='border border-red-500 px-3' id='addSpecsField' onClick={handleChildInput}>Add Field</button>
-                        <button className='border border-red-500 px-3' id='removeSpecsInputArea' onClick={removeChildInput}>Remove Field</button>
+                        <DashboardBtn id='addSpecsField' onClick={handleChildInput}>Add Field</DashboardBtn>
+                        <DashboardBtn id='removeSpecsInputArea' onClick={removeChildInput}>Remove Field</DashboardBtn>
                     </div>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Product Descriptions</legend>
                 <div className='flex flex-col gap-3' ref={productDescriptionsRef}>
                     {
                         childElems3.length > 0 ? childElems3 : <h2>Please Add Product&apos;s Description here.</h2>
                     }
                 </div>
-                <div className='flex flex-wrap gap-2'>
-                    <button className='border border-red-500 px-3' id='addDescInput' onClick={handleChildInput}>Add Field</button>
-                    <button className='border border-red-500 px-3' id='removeDescInput' onClick={removeChildInput}>Remove Field</button>
+                <div className='flex flex-wrap gap-2 mt-3'>
+                    <DashboardBtn id='addDescInput' onClick={handleChildInput}>Add Field</DashboardBtn>
+                    <DashboardBtn id='removeDescInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
                 </div>
             </fieldset>
-            <input className='w-1/3 border border-red-500 px-3' type="submit" value="Submit" />
+            <input className='w-full 2xl:w-1/2 bg-black text-white px-3 rounded-md py-2 hover:cursor-pointer' type="submit" value="Submit" />
         </form>
     )
 }

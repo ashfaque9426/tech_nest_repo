@@ -5,8 +5,8 @@ import DashboardCustomFormInput from '../../shared/server/DashboardCustomFormInp
 function AddKeyFeaturesInputFields() {
   return (
       <section className='flex flex-wrap gap-2'>
-          <DashboardCustomFormInput type='text' name={`KeyFeatureName${uuidv4()}`} className="text-blue-500 border border-gray-700" placeholder='Feature Name' />
-          <DashboardCustomFormInput type='text' name={`keyFeatureDescription${uuidv4()}`} className="text-blue-500 border border-gray-700" placeholder='Feature Description' />
+          <DashboardCustomFormInput type='text' name={`KeyFeatureName${uuidv4()}`} className="" placeholder='Feature Name*' required />
+          <DashboardCustomFormInput type='text' name={`keyFeatureDescription${uuidv4()}`} className="" placeholder='Feature Description*' required />
     </section>
   )
 }
