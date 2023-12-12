@@ -7,6 +7,7 @@ import { toCamelCase } from '@/utils';
 import AddDescriptionInputFields from '../../server/AddDeccriptionInputFields';
 import AddKeyFeaturesInputFields from '../../server/AddKeyFeaturesInputFields';
 import DashboardBtn from '../../shared/server/DashboardBtn';
+import { toast } from 'react-toastify';
 
 function AddAProductForm() {
     // declaring states
@@ -19,6 +20,7 @@ function AddAProductForm() {
     const [specsFieldAdded, setSpecsFieldAdded] = useState(false);
     const [productDescFieldAdded, setProductDescFieldAdded] = useState(false);
     const [keyFeaturesFieldAdded, setKeyFeaturesFieldAdded] = useState(false);
+    const [error, setError] = useState(false);
 
     // references of features field parent elements of input fields
     const keyFeaturesRef = useRef(null);
@@ -33,8 +35,6 @@ function AddAProductForm() {
         for (let key in imgUrlInputFieldValues) {
             imgUrlsArr.push(imgUrlInputFieldValues[key]);
         }
-
-        setImgUrlFieldAdded(false);
     }
 
     // this is for capturing img url input field value on change event
@@ -122,7 +122,6 @@ function AddAProductForm() {
                 // console.log(obj);
                 specObjArr.push(obj);
             }
-            setSpecsFieldAdded(false);
         }
     }
 
@@ -152,7 +151,6 @@ function AddAProductForm() {
             });
             
         }
-        setImgUrlFieldAdded(false);
     }
 
     // for handleing adding key features
@@ -175,8 +173,6 @@ function AddAProductForm() {
                 }
             });
         }
-
-        setKeyFeaturesFieldAdded(false);
     }
 
     // for handling submitting action
@@ -217,13 +213,32 @@ function AddAProductForm() {
         console.log(formData);
 
         // reseting dynamically added input fields
-        setChildElems0([]);
-        setChildElems1([]);
-        setChildElems2([]);
-        setChildElems3([]);
+        if(!error) {
+            setChildElems0([]);
+            setChildElems1([]);
+            setChildElems2([]);
+            setChildElems3([]);
+            setImgUrlFieldAdded(false);
+            setSpecsFieldAdded(false);
+            setKeyFeaturesFieldAdded(false);
+            setProductDescFieldAdded(false);
 
-        // reseting the form
-        form.reset();
+            // reseting the form
+            form.reset();
+        }
+
+        if(error) {
+            toast.error('Submission Error Occured!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
         
     }
 

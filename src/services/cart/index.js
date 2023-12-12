@@ -1,3 +1,4 @@
+"use server"
 // for adding items to users cart
 export const addToCart = async formData => {
 

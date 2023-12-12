@@ -1,3 +1,4 @@
+"use server"
 // for addding product to database
 export const addNewProduct = async formData => {
 
