@@ -39,9 +39,9 @@ function AddSpecsSection() {
           </section>
           <div className='flex flex-wrap gap-2'>
               <DashboardBtn id='addSpecsInputs' onClick={addSpecInputs}>Add Specification Fields</DashboardBtn>
-              <DashboardBtn id='removeSpecInput' onClick={removeInputField}>Remove Specification Fields</DashboardBtn>
-              {/* <button className='bg-black text-white px-3 rounded-md py-1' id='addSpecsInputs' onClick={addSpecInputs}>Add Specification Fields</button>
-              <button className='bg-black text-white px-3 rounded-md py-1' id='removeSpecInput' onClick={removeInputField}>Remove Specification Fields</button> */}
+              {
+                  productSpecsInputFields.length > 0 && <DashboardBtn id='removeSpecInput' onClick={removeInputField}>Remove Specification Fields</DashboardBtn>
+              }
           </div>
       </div>
   )

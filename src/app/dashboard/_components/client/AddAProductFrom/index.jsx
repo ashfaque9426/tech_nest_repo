@@ -20,7 +20,7 @@ function AddAProductForm() {
     const [specsFieldAdded, setSpecsFieldAdded] = useState(false);
     const [productDescFieldAdded, setProductDescFieldAdded] = useState(false);
     const [keyFeaturesFieldAdded, setKeyFeaturesFieldAdded] = useState(false);
-    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     // references of features field parent elements of input fields
     const keyFeaturesRef = useRef(null);
@@ -179,6 +179,10 @@ function AddAProductForm() {
     const handleSubmit = e => {
         e.preventDefault();
 
+        // error flag initialization
+        let error = false;
+        let errorMsgStr = "Submission Error Occured! Please try again.";
+
         // declaring array for getting input fields data.
         const imgUrlsArr = [];
         const specObjArr = [];
@@ -228,7 +232,7 @@ function AddAProductForm() {
         }
 
         if(error) {
-            toast.error('Submission Error Occured!', {
+            toast.error(errorMsgStr, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -307,7 +311,10 @@ function AddAProductForm() {
                         </div>
                         <div className='flex flex-wrap gap-2'>
                             <DashboardBtn id='addImgUrlBtn' onClick={handleChildInput}>Add Field</DashboardBtn>
-                            <DashboardBtn id='removeImgUrlBtn' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                            {
+                                childElems0.length > 0 &&
+                                <DashboardBtn id='removeImgUrlBtn' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                            }
                         </div>
                     </section>
                     <section></section>
@@ -323,7 +330,9 @@ function AddAProductForm() {
                     </section>
                     <div className='flex flex-wrap gap-2'>
                         <DashboardBtn id='addFeaturesInput' onClick={handleChildInput}>Add Field</DashboardBtn>
-                        <DashboardBtn id='removeFeaturesInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                        {
+                            childElems1.length > 0 && <DashboardBtn id='removeFeaturesInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                        }
                     </div>
                 </div>
             </fieldset>
@@ -337,7 +346,9 @@ function AddAProductForm() {
                     </section>
                     <div className='flex flex-wrap gap-2'>
                         <DashboardBtn id='addSpecsField' onClick={handleChildInput}>Add Field</DashboardBtn>
-                        <DashboardBtn id='removeSpecsInputArea' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                        {
+                            childElems2.length > 0 && <DashboardBtn id='removeSpecsInputArea' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                        }
                     </div>
                 </div>
             </fieldset>
@@ -350,10 +361,17 @@ function AddAProductForm() {
                 </div>
                 <div className='flex flex-wrap gap-2 mt-3'>
                     <DashboardBtn id='addDescInput' onClick={handleChildInput}>Add Field</DashboardBtn>
-                    <DashboardBtn id='removeDescInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                    {
+                        childElems3.length > 0 && <DashboardBtn id='removeDescInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                    }
                 </div>
             </fieldset>
             <input className='w-full 2xl:w-1/2 bg-black text-white px-3 rounded-md py-2 hover:cursor-pointer' type="submit" value="Submit" />
+            <section>
+                {
+                    errorMsg.length > 0 && <p className='text-red-600'>{errorMsg}</p>
+                }
+            </section>
         </form>
     )
 }
