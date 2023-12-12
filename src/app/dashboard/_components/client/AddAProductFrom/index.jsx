@@ -242,7 +242,7 @@ function AddAProductForm() {
         // passing collected formData to addNewProduct function. this function bellow returns a promise and from there I am extracting the data
         addNewProduct(formData).then(data => {
             // if the formData/Product successfully added to the database then reseting form input fields and showing success message.
-            if(data.message.includes('success'.toLocaleLowerCase() || 'Success')) {
+            if(data.message.includes('success' || 'Success')) {
                 setChildElems0([]);
                 setChildElems1([]);
                 setChildElems2([]);
