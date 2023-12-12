@@ -1,7 +1,17 @@
 "use server"
+
+import AxiosSecure from "@/lib/axios/axiosSecure/config"
+
 // for addding product to database
 export const addNewProduct = async formData => {
-
+    const [axiosSecure] = AxiosSecure();
+    // console.log(axiosSecure, formData);
+    try {
+        const response = await axiosSecure.post('/admin/addAProduct', formData)
+        return response.data;
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 // for retrieving stored products from the database

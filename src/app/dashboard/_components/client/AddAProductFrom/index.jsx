@@ -8,6 +8,7 @@ import AddDescriptionInputFields from '../../server/AddDeccriptionInputFields';
 import AddKeyFeaturesInputFields from '../../server/AddKeyFeaturesInputFields';
 import DashboardBtn from '../../shared/server/DashboardBtn';
 import { toast } from 'react-toastify';
+import { addNewProduct } from '@/services/productServices';
 
 function AddAProductForm() {
     // declaring states
@@ -92,6 +93,8 @@ function AddAProductForm() {
     // for adding product specifications
     const handleAddSpecs = (e, specObjArr) => {
         e.preventDefault();
+
+        // looking for specific state to be truthy for getting the input fields value properly. If the state is falsy then there is no input fields or values.
         if (!specsFieldAdded) return;
 
         let i = 0;
@@ -105,7 +108,10 @@ function AddAProductForm() {
                 obj[title] = {};
                 let objKey;
                 let objValue;
+
+                // getting the keys for each child elements from the dom as all the elements of dom are objects.
                 Object.keys(child.children[1].children).forEach(key => {
+                    // iterating through the expected child elements and processing and organising data.
                     for (const secondChild of child.children[1].children[key].children) {
                         if (i % 2 === 0) {
                             
@@ -128,16 +134,21 @@ function AddAProductForm() {
     // for adding product descriptions.
     const handleAddDesc = (e, productDescriptionsArr) => {
         e.preventDefault();
+
+        // looking for specific state to be truthy for getting the input fields value properly. If the state is falsy then there is no input fields or values.
         if (!productDescFieldAdded) return;
 
         let i = 0;
 
+        // checking for specifiq dom reference if it is truthy then proceeding.
         if (productDescriptionsRef.current) {
             Object.keys(productDescriptionsRef.current.children).forEach(key => {
                 // console.log(productDescriptionsRef.current.children[key]);
                 const obj = {};
                 let firstValueTitle;
                 let secondValueDescription;
+
+                // iterating through the child elements from the dom as all the elements of dom are objects and so do processing and organising the data.
                 for (const secondChild of productDescriptionsRef.current.children[key].children) {
                     if (i % 2 === 0) {
                         firstValueTitle = toCamelCase(secondChild.value);
@@ -156,12 +167,17 @@ function AddAProductForm() {
     // for handleing adding key features
     const handleAddKeyFeatures = (e, keyFeatursObj) => {
         e.preventDefault();
+
+        // looking for specific state to be truthy for getting the input fields value properly. If the state is falsy then there is no input fields or values.
         if (!keyFeaturesFieldAdded) return;
 
+        // checking for specifiq dom reference if it is truthy then proceeding.
         if (keyFeaturesRef.current) {
             let i = 0;
             let objKey;
             let objValue;
+
+            // getting the keys for each child elements from the dom as all the elements of dom are objects and so do processing and organising data.
             Object.keys(keyFeaturesRef.current.children).forEach(key => {
                 for (const secondChild of keyFeaturesRef.current.children[key].children) {
                     if(i%2 === 0) {
@@ -179,60 +195,93 @@ function AddAProductForm() {
     const handleSubmit = e => {
         e.preventDefault();
 
-        // error flag initialization
-        let error = false;
-        let errorMsgStr = "Submission Error Occured! Please try again.";
-
-        // declaring array for getting input fields data.
+        // declaring arrays and object for getting input fields data. storing data to the arrays or objects not in the states because handleSummit function on onSubmit event by default asychronous. So it doesn't instantly update the states.
         const imgUrlsArr = [];
         const specObjArr = [];
         const productDescriptionsArr = [];
         const keyFeatursObj = {};
 
+        // this function is for addding image urls to the imgUrlsArr(Array) after iterations.
         addImgUrls(e, imgUrlsArr);
+
+        // this function is responsible for organising data in an object format after iterations then pushing data to specObjArr array.
         handleAddSpecs(e, specObjArr);
+
+        // this function do the same thing like above function and push this into productDescriptionsArr(Array) after iterations.
         handleAddDesc(e, productDescriptionsArr);
+
+        // this function bellow is organising the data only as a single object and adding to keyFeatursObj(Object).
         handleAddKeyFeatures(e, keyFeatursObj);
         
+        // targeting the form jsx element.
         const form = e.target;
+
+        // collecting form data
         const formData = {
             status: "approved",
             brand: form.brand.value,
+            model: form.model.value,
             productTitle: form.productTitle.value,
             productCategory: form.productCategory.value,
             productStatus: form.productStatus.value,
             points: parseInt(form.points.value),
-            quantity: form.quantity.value,
+            quantity: parseInt(form.quantity.value),
             userRating: 0,
             questions: [],
             imgUrls: imgUrlsArr,
+            keyFeatures: keyFeatursObj,
             regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
             price: parseFloat(parseFloat(form.price.value).toFixed(2)),
-            keyFeatures: keyFeatursObj,
             productSpecifications: specObjArr,
             productDescriptions: productDescriptionsArr
 
         }
 
-        console.log(formData);
+        // console.log(formData);
 
-        // reseting dynamically added input fields
-        if(!error) {
-            setChildElems0([]);
-            setChildElems1([]);
-            setChildElems2([]);
-            setChildElems3([]);
-            setImgUrlFieldAdded(false);
-            setSpecsFieldAdded(false);
-            setKeyFeaturesFieldAdded(false);
-            setProductDescFieldAdded(false);
-
-            // reseting the form
-            form.reset();
-        }
-
-        if(error) {
-            toast.error(errorMsgStr, {
+        // passing collected formData to addNewProduct function. this function bellow returns a promise and from there I am extracting the data
+        addNewProduct(formData).then(data => {
+            // if the formData/Product successfully added to the database then reseting form input fields and showing success message.
+            if(data.message.includes('success'.toLocaleLowerCase() || 'Success')) {
+                setChildElems0([]);
+                setChildElems1([]);
+                setChildElems2([]);
+                setChildElems3([]);
+                setImgUrlFieldAdded(false);
+                setSpecsFieldAdded(false);
+                setKeyFeaturesFieldAdded(false);
+                setProductDescFieldAdded(false);
+                toast.success(data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+                form.reset();
+            }
+            else {
+                // else showing the error message
+                setErrorMsg(data.message);
+                toast.error(data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+        })
+        .catch(error => {
+            // if its a database connection error or any major error showing the error message to UI also to the browser console.
+            console.log(error);
+            toast.error(error.message, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -242,12 +291,15 @@ function AddAProductForm() {
                 progress: undefined,
                 theme: "light",
             });
-        }
+        });
         
     }
 
     return (
         <form className='flex flex-col gap-5 p-5' onSubmit={handleSubmit}>
+            {/* form for product specifications */}
+
+            {/*basic required input fields */}
             <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Specification From</legend>
                 <section className='flex flex-col gap-2'>
@@ -300,6 +352,8 @@ function AddAProductForm() {
                     </div>
                 </section>
             </fieldset>
+
+            {/* input fields jsx elements for img urls fieldset with dynamic input fields */}
             <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Product Image Field</legend>
                 <div>
@@ -320,6 +374,8 @@ function AddAProductForm() {
                     <section></section>
                 </div>
             </fieldset>
+
+            {/* key features fieldset with dynamically added input fields */}
             <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Key Features</legend>
                 <div className='flex flex-col gap-3'>
@@ -336,6 +392,8 @@ function AddAProductForm() {
                     </div>
                 </div>
             </fieldset>
+
+            {/* Add Product Specifications fieldset with dynamically added input fields */}
             <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Product Specifications</legend>
                 <div className='flex flex-col gap-3'>
@@ -352,6 +410,8 @@ function AddAProductForm() {
                     </div>
                 </div>
             </fieldset>
+
+            {/* Add Product Descriptions fieldset with dynamically added input fields */}
             <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
                 <legend className='my-3 text-lg font-semibold'>Add Product Descriptions</legend>
                 <div className='flex flex-col gap-3' ref={productDescriptionsRef}>
@@ -366,7 +426,11 @@ function AddAProductForm() {
                     }
                 </div>
             </fieldset>
+
+            {/* submit button input field of type submit */}
             <input className='w-full 2xl:w-1/2 bg-black text-white px-3 rounded-md py-2 hover:cursor-pointer' type="submit" value="Submit" />
+
+            {/* error field shows error sg if errorMsg state length is greater than zero */}
             <section>
                 {
                     errorMsg.length > 0 && <p className='text-red-600'>{errorMsg}</p>
