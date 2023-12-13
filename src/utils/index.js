@@ -27,3 +27,18 @@ export function fromCamelCase(inputString) {
     // Convert the string to lowercase and trim leading space
     return stringWithSpaces.trim().toLowerCase();
 }
+
+// capitalize first letter from a string.
+export function capitalizeFirstLetter(sentence) {
+    const words = sentence.split(' ');
+
+    const capitalizedWords = words.map(word => {
+        // Capitalize the first letter of each word
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+
+    // Join the words back into a sentence
+    const capitalizedSentence = capitalizedWords.join(' ');
+
+    return capitalizedSentence;
+}

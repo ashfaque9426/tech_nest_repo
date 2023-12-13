@@ -241,7 +241,7 @@ function AddAProductForm() {
 
         // console.log(formData);
 
-        ('Data is processing. Please wait.')
+        setResponseMsg('Data is processing. Please wait.');
 
         // passing collected formData to addNewProduct function. this function bellow returns a promise and from there I am extracting the data
         addNewProduct(formData).then(data => {
