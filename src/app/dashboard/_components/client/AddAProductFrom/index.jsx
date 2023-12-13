@@ -21,7 +21,7 @@ function AddAProductForm() {
     const [specsFieldAdded, setSpecsFieldAdded] = useState(false);
     const [productDescFieldAdded, setProductDescFieldAdded] = useState(false);
     const [keyFeaturesFieldAdded, setKeyFeaturesFieldAdded] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [responseMsg, setResponseMsg] = useState("");
 
     // references of features field parent elements of input fields
     const keyFeaturesRef = useRef(null);
@@ -194,6 +194,7 @@ function AddAProductForm() {
     // for handling submitting action
     const handleSubmit = e => {
         e.preventDefault();
+        setResponseMsg("");
 
         // declaring arrays and object for getting input fields data. storing data to the arrays or objects not in the states because handleSummit function on onSubmit event by default asychronous. So it doesn't instantly update the states.
         const imgUrlsArr = [];
@@ -224,6 +225,7 @@ function AddAProductForm() {
             productTitle: form.productTitle.value,
             productCategory: form.productCategory.value,
             productStatus: form.productStatus.value,
+            offer: form.offer.value,
             points: parseInt(form.points.value),
             quantity: parseInt(form.quantity.value),
             userRating: 0,
@@ -239,6 +241,8 @@ function AddAProductForm() {
 
         // console.log(formData);
 
+        ('Data is processing. Please wait.')
+
         // passing collected formData to addNewProduct function. this function bellow returns a promise and from there I am extracting the data
         addNewProduct(formData).then(data => {
             // if the formData/Product successfully added to the database then reseting form input fields and showing success message.
@@ -251,6 +255,7 @@ function AddAProductForm() {
                 setSpecsFieldAdded(false);
                 setKeyFeaturesFieldAdded(false);
                 setProductDescFieldAdded(false);
+                setResponseMsg('Data Processing Successfull.');
                 toast.success(data.message, {
                     position: "top-right",
                     autoClose: 5000,
@@ -262,10 +267,11 @@ function AddAProductForm() {
                     theme: "light",
                 })
                 form.reset();
+                setTimeout(() => setResponseMsg(""), 5000);
             }
             else {
                 // else showing the error message
-                setErrorMsg(data.message);
+                setResponseMsg(data.message);
                 toast.error(data.message, {
                     position: "top-right",
                     autoClose: 5000,
@@ -276,6 +282,7 @@ function AddAProductForm() {
                     progress: undefined,
                     theme: "light",
                 });
+                setTimeout(() => setResponseMsg(""), 5000);
             }
         })
         .catch(error => {
@@ -331,23 +338,30 @@ function AddAProductForm() {
                             <DashboardCustomFormInput type='text' name='productStatus' id='productStatus' className="" placeholder='Product Status' required />
                         </section>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="points">Points*</label>
-                            <DashboardCustomFormInput type='number' name='points' id='points' className="" placeholder='Points' required />
+                            <label htmlFor="quantity">Product Quantity*</label>
+                            <DashboardCustomFormInput type='number' name='quantity' id='quantity' className="" placeholder='Product Quantity' required />
                         </section>
                     </div>
                     
                     <div className='flex flex-wrap gap-2'>
-                        <section className='flex flex-col gap-1'>
-                            <label htmlFor="quantity">Product Quantity*</label>
-                            <DashboardCustomFormInput type='number' name='quantity' id='quantity' className="" placeholder='Product Quantity' required />
-                        </section>
                         <section className='flex flex-col gap-1 lg:mr-24'>
                             <label htmlFor="regularPrice">Regular Price*</label>
-                            <DashboardCustomFormInput type='text' name='regularPrice' id='regularPrice' className="" placeholder='Regular Price' required />
+                            <DashboardCustomFormInput type='text' name='regularPrice' id='regularPrice' className="" placeholder='numeric value without comma' required />
                         </section>
                         <section className='flex flex-col gap-1'>
-                            <label htmlFor="price">Price*</label>
-                            <DashboardCustomFormInput type='text' name='price' id='price' className="" placeholder='Product Price' required />
+                            <label htmlFor="price">Product Price*</label>
+                            <DashboardCustomFormInput type='text' name='price' id='price' className="" placeholder='numeric value without comma' required />
+                        </section>
+                    </div>
+
+                    <div className='flex flex-wrap gap-2'>
+                        <section className='flex flex-col gap-1'>
+                            <label htmlFor="points">Points*</label>
+                            <DashboardCustomFormInput type='number' name='points' id='points' className="" placeholder='0 or more numaric value' required />
+                        </section>
+                        <section className='flex flex-col gap-1'>
+                            <label htmlFor="offer">Offer</label>
+                            <DashboardCustomFormInput type='text' name='offer' id='offer' className="" placeholder='inset offer details(optional)' />
                         </section>
                     </div>
                 </section>
@@ -402,10 +416,10 @@ function AddAProductForm() {
                             childElems2.length > 0 ? childElems2 : <h2>Please Add Product&apos;s Specifications here.</h2>
                         }
                     </section>
-                    <div className='flex flex-wrap gap-2'>
-                        <DashboardBtn id='addSpecsField' onClick={handleChildInput}>Add Field</DashboardBtn>
+                    <div className={`flex flex-wrap gap-2 ${childElems2.length > 0 && 'border border-red-500 rounded-md py-5 justify-center'}`}>
+                        <DashboardBtn id='addSpecsField' onClick={handleChildInput}>Add Spec Type Field</DashboardBtn>
                         {
-                            childElems2.length > 0 && <DashboardBtn id='removeSpecsInputArea' onClick={removeChildInput}>Remove Field</DashboardBtn>
+                            childElems2.length > 0 && <DashboardBtn id='removeSpecsInputArea' onClick={removeChildInput}>Remove Spec Type Field</DashboardBtn>
                         }
                     </div>
                 </div>
@@ -430,10 +444,10 @@ function AddAProductForm() {
             {/* submit button input field of type submit */}
             <input className='w-full 2xl:w-1/2 bg-black text-white px-3 rounded-md py-2 hover:cursor-pointer' type="submit" value="Submit" />
 
-            {/* error field shows error sg if errorMsg state length is greater than zero */}
+            {/* error field shows error sg if responseMsg state length is greater than zero */}
             <section>
                 {
-                    errorMsg.length > 0 && <p className='text-red-600'>{errorMsg}</p>
+                    responseMsg.length > 0 && <p className={`${responseMsg.includes('Successfull') && 'text-green-600' || responseMsg.includes('processing') && 'text-yellow-700' || responseMsg.includes('try again') && 'text-red-500'}`}>{responseMsg}</p>
                 }
             </section>
         </form>

@@ -36,6 +36,7 @@ export async function POST(req) {
 
         // receiving data from reqest object parameter
         const requestedData = await req.json();
+        // console.log(requestedData);
 
         // extracting data from request object.
         const {
@@ -106,7 +107,7 @@ export async function POST(req) {
         // for any unexpected errors or if failed to connect to the database then showing the error message
         return NextResponse.json({
             success: false,
-            message: `Something went wrong. Please again later. msg: ${err.message}.`
+            message: `Something went wrong. Please try again later. msg: ${err.message}.`
         })
     }
 }
