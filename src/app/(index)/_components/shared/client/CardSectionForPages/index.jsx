@@ -9,14 +9,14 @@ function CardSectionForPages({ title, fetchData }) {
     useEffect(() => {
         fetchData.then(data => {
             setDataArr(data.data);
-            console.log(data.data)
+            // console.log(data.data);
         })
     }, [fetchData]);
 
     return (
         <section>
-            <h2 className='font-bold text-xl my-3'>{title}:</h2>
-            <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-3'>
+            <h2 className='mx-5 lg:mx-auto font-bold text-xl my-3'>{title}:</h2>
+            <div className='mx-5 grid grid-cols-1 md:grid-cols-2 lg:mx-auto xl:grid-cols-3 2xl:grid-cols-5 gap-3'>
                 {
                     dataArr.length > 0 && dataArr.map(dataObj => (
 

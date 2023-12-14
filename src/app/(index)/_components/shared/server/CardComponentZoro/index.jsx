@@ -5,8 +5,8 @@ import cn from '@/lib/clsx/cn';
 
 function CardComponentZero({ className, imgSrcUrl, altTextForImg, cardTitle, status, price, offer, date, points }) {
   return (
-    <article className={cn('overflow-hidden shadow-md h-full cursor-pointer', className)}>
-      <figure className='relative overflow-hidden'>
+    <article className={cn('overflow-clip shadow-md h-full flex flex-col cursor-pointer', className)}>
+      <figure className='relative overflow-clip'>
         {/* offers section */}
         {
           offer.length > 0 && <>
@@ -24,17 +24,19 @@ function CardComponentZero({ className, imgSrcUrl, altTextForImg, cardTitle, sta
         }
 
         {/* status section */}
-        <span className={`absolute top-2 left-2 font-bold text-xl ${!imgSrcUrl.length > 0 ? 'text-black' : 'text-white' }`}>{status}</span>
+        <span className={`absolute bottom-2 left-2 font-bold text-xl ${!imgSrcUrl.length > 0 ? 'text-black' : 'px-1 text-white bg-gray-700 bg-opacity-50' }`}>{status}</span>
       </figure>
 
-      {/* card title */}
-      <h3 className="px-6 pt-4 font-bold text-xl mb-2">{cardTitle}</h3>
+      <section className='flex-1 flex flex-col justify-between border'>
+        {/* card title */}
+        <h3 className="px-3 pt-4 font-bold text-lg 2xl:text-xl mb-2">{cardTitle}</h3>
 
-      {/* card content */}
-      <div className="px-6 pt-4 pb-4 flex justify-between items-center gap-2">
-        <span className='text-red-500 font-semibold'>{formatNumberWithCommas(price)} BDT only</span>
-        <span className='text-right'>{convertToBangladeshiDateTime(date)}</span>
-      </div>
+        {/* card content */}
+        <div className="px-3 py-4 flex justify-between items-center gap-2">
+          <p className='text-red-500 font-semibold flex flex-col shrink-0'>{formatNumberWithCommas(price)} <span>BDT only</span></p>
+          <p className='text-right'>{convertToBangladeshiDateTime(date)}</p>
+        </div>
+      </section>
     </article>
   )
 }
