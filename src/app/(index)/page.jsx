@@ -8,11 +8,10 @@ export const metadata = {
 }
 
 function Page() {
-
   return (
-    <main className='w-full lg:w-2/3 mx-auto' role='main'>
-      <h1 className='text-2xl underline underline-offset-4 font-bold text-center'>Available Products</h1>
-      <CardSectionForPages title='Available products by category' fetchData={productByCategory('desktop processor')} />
+    <main className='w-full xl:w-2/3 mx-auto' role='main'>
+      <h1 className='text-2xl underline underline-offset-4 font-bold text-center'>Available Products By Category</h1>
+      <CardSectionForPages title='Desktop Processors' fetchData={productByCategory('desktop processor')} />
     </main>
   )
 }

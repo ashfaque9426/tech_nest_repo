@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import CardComponentZero from '../../server/CardComponentZoro';
+import CardComponentZero from '../../server/CardComponentZero';
 import { v4 as uuidv4 } from 'uuid';
 
 function CardSectionForPages({ title, fetchData }) {
@@ -15,8 +15,8 @@ function CardSectionForPages({ title, fetchData }) {
 
     return (
         <section>
-            <h2 className='mx-5 lg:mx-auto font-bold text-2xl my-3'>{title}:</h2>
-            <div className='mx-5 grid grid-cols-1 md:grid-cols-2 lg:mx-auto xl:grid-cols-3 2xl:grid-cols-5 gap-3'>
+            <h2 className='mx-5 xl:mx-auto font-bold text-2xl my-3'>{title}:</h2>
+            <div className='mx-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:mx-auto 2xl:grid-cols-5 gap-3'>
                 {
                     dataArr.length > 0 && dataArr.map(dataObj => (
 

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const configOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
     dbName: 'TechNestCluster'
 }
 
