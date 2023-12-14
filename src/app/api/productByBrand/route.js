@@ -18,18 +18,33 @@ export async function GET(req) {
         // if search params is truthy then the database seach option will be performed
         if(searchParams) {
             const result = await Product.find({
-                $or: [
+                $and: [
                     {
-                        brand: { $regex: brand, $options: 'i' }
+                        $or: [
+                            {
+                                brand: { $regex: brand, $options: 'i' }
+                            },
+                            {
+                                brand: { $regex: capitalizedBrand, $options: 'i' }
+                            },
+                            {
+                                brand: { $regex: lowerCasedBrand, $options: 'i' }
+                            }
+                        ]
                     },
                     {
-                        brand: { $regex: capitalizedBrand, $options: 'i' }
-                    },
-                    {
-                        brand: { $regex: lowerCasedBrand, $options: 'i' }
+                        $or: [
+                            {
+                                productStatus: capitalizeFirstLetter('in stock'),
+                            },
+                            {
+                                productStatus: 'in stock'
+                            }
+                        ]
                     }
                 ]
-            }).select('brand imgUrls productCategory productStatus points offer createdAt');
+                
+            }).select('brand imgUrls productCategory productStatus points price offer createdAt');
 
             // if database doesnot return an empty array then returning the results
             if(result.length > 0) {

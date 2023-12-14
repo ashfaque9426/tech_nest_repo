@@ -42,3 +42,33 @@ export function capitalizeFirstLetter(sentence) {
 
     return capitalizedSentence;
 }
+
+// function for bangladeshi time conversion
+export function convertToBangladeshiDateTime(utcDateString) {
+    // Create a Date object from the UTC string
+    const utcDate = new Date(utcDateString);
+
+    // Specify the options for formatting
+    const options = {
+        timeZone: 'Asia/Dhaka', // Set the time zone to Bangladesh (Asia/Dhaka)
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false // Use 24-hour format
+    };
+
+    // Convert the UTC date to the Bangladeshi time zone and format it
+    const bangladeshiDateTime = utcDate.toLocaleString('en-US', options);
+
+    return bangladeshiDateTime;
+}
+
+// formating number input with commas
+export function formatNumberWithCommas(inputNumber) {
+    // Use toLocaleString with options to format the number
+    const formattedNumber = inputNumber.toLocaleString('en-US');
+    return formattedNumber;
+}

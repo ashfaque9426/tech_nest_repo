@@ -344,7 +344,7 @@ function AddAProductForm() {
                     </div>
                     
                     <div className='flex flex-wrap gap-2'>
-                        <section className='flex flex-col gap-1 lg:mr-24'>
+                        <section className='flex flex-col gap-1'>
                             <label htmlFor="regularPrice">Regular Price*</label>
                             <DashboardCustomFormInput type='text' name='regularPrice' id='regularPrice' className="" placeholder='numeric value without comma' required />
                         </section>

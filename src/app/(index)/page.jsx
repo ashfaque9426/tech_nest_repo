@@ -1,4 +1,6 @@
 import React from 'react';
+import CardSectionForPages from './_components/shared/client/CardSectionForPages';
+import { productByCategory } from '@/services/productServices';
 
 export const metadata = {
   title: 'TechNest/Home Page',
@@ -8,8 +10,9 @@ export const metadata = {
 function Page() {
 
   return (
-    <main role='main'>
-      <h1 className='text-2xl font-bold text-center'>There will be home page contents avaialble soon.</h1>
+    <main className='w-full lg:w-2/3 mx-auto' role='main'>
+      <h1 className='text-xl font-bold text-center'>Available Products</h1>
+      <CardSectionForPages title='Available products by category' fetchData={productByCategory('desktop processor')} />
     </main>
   )
 }
