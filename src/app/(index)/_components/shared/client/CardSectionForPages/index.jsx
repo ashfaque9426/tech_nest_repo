@@ -15,8 +15,8 @@ function CardSectionForPages({ title, fetchData }) {
 
     return (
         <section>
-            <h2 className='font-bold text-lg my-3'>{title}</h2>
-            <div className='flex flex-wrap gap-2 items-center'>
+            <h2 className='font-bold text-xl my-3'>{title}:</h2>
+            <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-3'>
                 {
                     dataArr.length > 0 && dataArr.map(dataObj => (
 
