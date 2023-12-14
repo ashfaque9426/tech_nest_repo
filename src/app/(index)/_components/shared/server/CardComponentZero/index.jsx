@@ -4,7 +4,7 @@ import { convertToBangladeshiDateTime, formatNumberWithCommas } from '@/utils';
 import cn from '@/lib/clsx/cn';
 import Link from 'next/link';
 
-function CardComponentZero({ className, imgSrcUrl, altTextForImg, cardTitle, status, price, offer, date, points }) {
+function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle, status, price, offer, date, points }) {
   return (
     <Link href="">
       <article className={cn('overflow-clip shadow-md h-full flex flex-col cursor-pointer', className)}>
@@ -31,7 +31,7 @@ function CardComponentZero({ className, imgSrcUrl, altTextForImg, cardTitle, sta
 
         <section className='flex-1 flex flex-col justify-between border'>
           {/* card title */}
-          <Link href=''><h3 className="px-3 pt-4 font-bold text-md mb-2 hover:text-red-500 hover:underline">{cardTitle}</h3></Link>
+          <h3 className="px-3 pt-4 font-bold text-md mb-2 hover:text-red-500 hover:underline">{cardTitle}</h3>
 
           {/* card content */}
           <div className="px-3 py-4 flex justify-between items-center gap-2">

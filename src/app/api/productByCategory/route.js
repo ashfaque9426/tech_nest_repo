@@ -44,7 +44,7 @@ export async function GET(req) {
                     }
                 ]
                 
-            }).select('brand imgUrls productTitle productCategory productStatus points price offer createdAt')
+            }).select('_id brand imgUrls productTitle productCategory productStatus points price offer createdAt')
 
             // if database doesnot return an empty array then returning the results
             if(result.length > 0) {

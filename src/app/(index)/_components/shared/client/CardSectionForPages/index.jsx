@@ -9,7 +9,7 @@ function CardSectionForPages({ title, fetchData }) {
     useEffect(() => {
         fetchData.then(data => {
             setDataArr(data.data);
-            // console.log(data.data);
+            console.log(data.data);
         })
     }, [fetchData]);
 
@@ -20,7 +20,7 @@ function CardSectionForPages({ title, fetchData }) {
                 {
                     dataArr.length > 0 && dataArr.map(dataObj => (
 
-                        <CardComponentZero key={`uniqueKeyForCardCompZero${uuidv4()}`} imgSrcUrl={dataObj?.imgUrls.length > 0 ? dataObj?.imgUrls[0] : ""} altTextForImg={`${dataObj?.brand} ${dataObj?.productCategory} image`} cardTitle={dataObj?.productTitle} status={dataObj?.productStatus} price={dataObj?.price} points={dataObj?.points} offer={dataObj?.offer} date={dataObj?.createdAt} />
+                        <CardComponentZero key={`uniqueKeyForCardCompZero${uuidv4()}`} id={dataObj?._id} imgSrcUrl={dataObj?.imgUrls.length > 0 ? dataObj?.imgUrls[0] : ""} altTextForImg={`${dataObj?.brand} ${dataObj?.productCategory} image`} cardTitle={dataObj?.productTitle} status={dataObj?.productStatus} price={dataObj?.price} points={dataObj?.points} offer={dataObj?.offer} date={dataObj?.createdAt} />
 
                     ))
                 }
