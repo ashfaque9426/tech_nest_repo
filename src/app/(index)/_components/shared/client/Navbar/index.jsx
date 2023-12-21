@@ -9,10 +9,8 @@ function Navbar() {
   useEffect(() => {
     if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setTheme('dark');
-      localStorage.setItem('theme', 'dark');
     }else {
       setTheme('light');
-      localStorage.setItem('theme', 'light');
     }
   }, []);
 
@@ -21,11 +19,9 @@ function Navbar() {
     if(theme === 'dark') {
       document.body.classList.remove('light');
       document.body.classList.add('dark', 'bg-[#121212]', 'text-white');
-      localStorage.setItem('theme', 'dark');
     } else {
       document.body.classList.remove('dark', 'bg-[#121212]', 'text-white');
       document.body.classList.add('light');
-      localStorage.setItem('theme', 'light');
     }
   }, [theme]);
 
@@ -37,9 +33,9 @@ function Navbar() {
   return (
     <nav className='mb-5 flex justify-center items-center border dark:border-none py-3'>
       <h1 className='text-xl text-center font-bold'>Tech Nest Navbar</h1>
-      <button className='px-1 rounded-full mx-5' onClick={handleThemeSwitch}>
+      <button className='mx-3' onClick={handleThemeSwitch}>
         {
-          theme === 'dark' ? <Image src='/svgs/sun-light-theme-svgrepo-com.svg' alt='svg sun image to switch dark theme' width={30} height={30} /> : <Image src='/svgs/moon-dark-theme-svgrepo-com.svg' alt='svg moon image to swich light theme' width={30} height={30} />
+          theme === 'dark' ? <Image src='/svgs/sun-light-theme-svgrepo-com.svg' alt='svg sun image to switch dark theme' width={30} height={30} /> : <Image src='/svgs/dark-mode-6682.svg' alt='svg moon image to swich light theme' width={25} height={25} />
         }
       </button>
     </nav>

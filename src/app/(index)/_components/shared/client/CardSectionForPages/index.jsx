@@ -4,21 +4,11 @@ import CardComponentZero from '../../server/CardComponentZero';
 import { v4 as uuidv4 } from 'uuid';
 import cn from '@/lib/clsx/cn';
 import Image from 'next/image';
-import { document } from 'postcss';
 
 function CardSectionForPages({ title, fetchData, className, classNameForHeading }) {
     const [dataArr, setDataArr] = useState([]);
-    const [theme, setTheme] = useState(null);
 
     useEffect(() => {
-        if(localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark') {
-            setTheme('dark')
-        }
-
-        if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'light') {
-            setTheme('light');
-        }
-
         fetchData.then(data => {
             setDataArr(data.data);
             // console.log(data.data);
@@ -43,14 +33,9 @@ function CardSectionForPages({ title, fetchData, className, classNameForHeading 
             
             {/* loading gif here */}
             {
-                dataArr?.length === 0 ? theme === 'dark' ? <div className='flex justify-center items-center py-28'>
-                    <Image src="/gifs/Spinner-1s-200pxRed.gif" alt='Loading Gif' height={150} width={150} priority />
-                </div> 
-                : 
-                <div className='flex justify-center items-center py-28'>
-                    <Image src="/gifs/Double Ring-1s-200px.gif" alt='Loading Gif' height={150} width={150} priority />
+                dataArr?.length === 0 && <div className='flex justify-center items-center py-28'>
+                    <Image src="/gifs/DoubleRing-1s-200px.gif" alt='Loading Gif' height={150} width={150} priority />
                 </div>
-                : ''
             }
         </section>
     )
