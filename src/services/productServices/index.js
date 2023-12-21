@@ -20,9 +20,9 @@ export const getAllProducts = async () => {
 }
 
 // for getting products by its category from the server
-export const productByCategory = async category => {
+export const productByCategory = async (category, limit = 0) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByCategory?category=${category}`, {
+        const res = await fetch(`http://localhost:3000/api/productByCategory?category=${category}&limit=${limit}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -40,9 +40,9 @@ export const productByCategory = async category => {
 }
 
 // for retrieving stored products from the database
-export const getProductsByBrandName = async brandName => {
+export const getProductsByBrandName = async (brandName, limit = 0) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByBrand?brand=${brandName}`, {
+        const res = await fetch(`http://localhost:3000/api/productByBrand?brand=${brandName}&limit=${limit}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -60,9 +60,9 @@ export const getProductsByBrandName = async brandName => {
 }
 
 // for retrieving stored products from the database
-export const getProductsByModelName = async modelName => {
+export const getProductsByModelName = async (modelName, limit = 0) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByModel?model=${modelName}`, {
+        const res = await fetch(`http://localhost:3000/api/productByModel?model=${modelName}&limit=${limit}`, {
             method: 'GET',
             cache: 'no-store'
         });

@@ -7,7 +7,7 @@ import Link from 'next/link';
 function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle, status, price, offer, date, points }) {
   return (
     <Link href="">
-      <article className={cn('overflow-clip shadow-md hover:shadow-lg transition-all duration-150 h-full flex flex-col cursor-pointer group', className)}>
+      <article className={cn('overflow-clip shadow-md hover:shadow-lg dark:shadow-none transition-all duration-150 h-full flex flex-col cursor-pointer group bg-white dark:bg-[#3a3a3a]', className)}>
         <figure className='relative overflow-clip'>
           {/* offers section */}
           {
@@ -21,7 +21,7 @@ function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle,
 
           {/* Image section */}
           {
-            imgSrcUrl.length > 0 ? <Image className='w-full object-cover group-hover:scale-110 transition-all duration-500' src={imgSrcUrl} alt={altTextForImg} width={300}
+            imgSrcUrl.length > 0 ? <Image className='w-full object-cover group-hover:scale-110 transition-all duration-500 ease-in-out' src={imgSrcUrl} alt={altTextForImg} width={300}
               height={300} priority /> : <Image className='w-full object-cover' src='/images/noImageFoundPotrait.jpg' alt='No image found Thumbnail Image' width={300} height={300} priority />
           }
 
@@ -29,7 +29,7 @@ function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle,
           <span className={`absolute z-10 bottom-2 left-2 font-bold text-xl ${!imgSrcUrl.length > 0 ? 'text-black' : 'px-1 text-white bg-gray-700 bg-opacity-50'}`}>{status}</span>
         </figure>
 
-        <section className='flex-1 flex flex-col justify-between border'>
+        <section className='flex-1 flex flex-col justify-between border dark:border-none'>
           {/* card title */}
           <h3 className="px-3 pt-4 font-bold text-md mb-2 hover:text-red-500 hover:underline">{cardTitle}</h3>
 

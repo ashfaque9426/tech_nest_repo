@@ -10,8 +10,18 @@ export const metadata = {
 function Page() {
   return (
     <main className='w-full xl:w-2/3 mx-auto' role='main'>
-      <h1 className='text-2xl underline underline-offset-4 font-bold text-center'>Available Products By Category</h1>
-      <CardSectionForPages title='Desktop Processors' fetchData={productByCategory('desktop processor')} />
+
+      {/* Product by Category section */}
+      <section className='bg-[#fbfbfb] dark:bg-[#171414]'>
+        <h1 className='text-2xl font-bold text-center'>Available Products By Category</h1>
+        <CardSectionForPages title='Desktop Processors' fetchData={productByCategory('desktop processor', 11)} classNameForHeading='text-xl text-center font-semibold mt-1 mb-8' />
+      </section>
+
+      {/* Product by Brand section */}
+      <section className='py-96'></section>
+
+      {/* Product by Model section */}
+      <section className='py-96 bg-[#fbfbfb] dark:bg-transparent'></section>
     </main>
   )
 }
