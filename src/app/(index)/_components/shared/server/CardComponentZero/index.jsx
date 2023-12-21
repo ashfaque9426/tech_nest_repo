@@ -7,7 +7,7 @@ import Link from 'next/link';
 function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle, status, price, offer, date, points }) {
   return (
     <Link href="">
-      <article className={cn('overflow-clip shadow-md hover:shadow-lg dark:shadow-none transition-all duration-150 h-full flex flex-col cursor-pointer group bg-white dark:bg-[#3a3a3a]', className)}>
+      <article className={cn('overflow-clip shadow-md hover:shadow-lg dark:shadow-none transition-all duration-150 h-full flex flex-col cursor-pointer group bg-white dark:card-bg-dark', className)}>
         <figure className='relative overflow-clip'>
           {/* offers section */}
           {
