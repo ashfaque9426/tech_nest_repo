@@ -37,7 +37,7 @@ function Navbar() {
   return (
     <nav className='mb-5 flex justify-center items-center border dark:border-none py-3'>
       <h1 className='text-xl text-center font-bold'>Tech Nest Navbar</h1>
-      <button className='bg-[#fbfbfb] p-1 rounded-full mx-5' onClick={handleThemeSwitch}>
+      <button className='px-1 rounded-full mx-5' onClick={handleThemeSwitch}>
         {
           theme === 'dark' ? <Image src='/svgs/sun-light-theme-svgrepo-com.svg' alt='svg sun image to switch dark theme' width={30} height={30} /> : <Image src='/svgs/moon-dark-theme-svgrepo-com.svg' alt='svg moon image to swich light theme' width={30} height={30} />
         }
