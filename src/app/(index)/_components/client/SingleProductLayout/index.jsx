@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { productById } from '@/services/productServices';
 import SingleProductImgCarousel from '../SingleProductImgCarousel';
 import { calculateDiscountPercentage, formatNumberWithCommas, fromCamelCase } from '@/utils';
+import KeyFeaturesComponent from '../../server/KeyFeaturesComponent';
 
 function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
@@ -17,14 +18,14 @@ function SingleProductLayout({ id }) {
         });
     }, [id]);
     return (
-        <main className='w-auto 2xl:w-2/3 mx-auto' role='main'>
+        <main className='w-auto md:mx-5 xl:w-2/3 xl:mx-auto' role='main'>
             {
                 serverResMsg && <h5 className='my-5 text-lg text-center font-bold'>{serverResMsg}</h5>
             }
             {
-                !serverResMsg && productData && <section className='flex flex-wrap'>
+                !serverResMsg && productData && <section className='flex flex-col lg:flex-row gap-5'>
                     {/* image section component */}
-                    <SingleProductImgCarousel className='h-[550px]' imgSrcArr={productData?.imgUrls} />
+                    <SingleProductImgCarousel className='lg:w-1/2 2xl:w-auto' imgSrcArr={productData?.imgUrls} />
 
                     {/* product details section */}
                     <section className='flex-1 px-5 xl:px-20'>
@@ -37,34 +38,14 @@ function SingleProductLayout({ id }) {
 
                         {/* key features of the product display section */}
                         {
-                            Object.keys(productData?.keyFeatures).length > 0 && <div>
-                                <h2 className='text-lg font-semibold mb-5 underline'>Key Features:</h2>
-
-                                {/* key features lists by iterating keyFeatures object */}
-                                <ul className='flex flex-col gap-3'>
-                                    {
-                                        Object.keys(productData.keyFeatures).map(key => <li key={key}>
-                                            <span className='capitalize font-semibold'>{fromCamelCase(key)}</span>: <span>{productData.keyFeatures[key]}</span>
-                                        </li>)
-                                    }
-                                </ul>
-
-                                {/* price and discount section */}
-                                <section className='my-5 flex flex-col gap-3'>
-                                    <div className='flex flex-wrap gap-3'>
-                                        <p><span className='font-semibold'>Price:</span> {formatNumberWithCommas(productData?.price)} BDT Only</p>
-                                        <p><span className='font-semibold'>Regular Price:</span> <span className='line-through'>{formatNumberWithCommas(productData?.regularPrice)}  BDT Only</span></p>
-                                    </div>
-                                    <p className='text-2xl font-bold'>{calculateDiscountPercentage(productData?.regularPrice, productData.price ).toFixed(2)}% Off</p>
-                                </section>
-
-                                {/* Buttons section for several actions */}
-                                <section className='flex flex-wrap gap-5'>
-                                    <button className='text-lg font-semibold bg-red-500 px-3 py-1 rounded-lg cursor-pointer'>Buy Now</button>
-                                    <button className='text-lg font-semibold bg-red-500 px-3 py-1 rounded-lg cursor-pointer'>Add to Cart</button>
-                                </section>
-                            </div>
+                            Object.keys(productData?.keyFeatures).length > 0 && <KeyFeaturesComponent productData={productData} />
                         }
+
+                        {/* Buttons section for several actions */}
+                        <section className='flex flex-wrap gap-5'>
+                            <button className='text-lg font-semibold bg-red-500 px-3 py-1 rounded-lg cursor-pointer'>Buy Now</button>
+                            <button className='text-lg font-semibold bg-red-500 px-3 py-1 rounded-lg cursor-pointer'>Add to Cart</button>
+                        </section>
                     </section>
                 </section>
             }
