@@ -3,8 +3,12 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
+                protocol: 'http',
+                hostname: 'localhost'
+            },
+            {
                 protocol: 'https',
-                hostname: 'assetsio.reedpopcdn.com'
+                hostname: 'i.ibb.co'
             }
         ]
     }

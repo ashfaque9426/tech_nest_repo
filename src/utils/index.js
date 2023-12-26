@@ -72,3 +72,21 @@ export function formatNumberWithCommas(inputNumber) {
     const formattedNumber = inputNumber.toLocaleString('en-US');
     return formattedNumber;
 }
+
+export function calculateDiscountPercentage(originalPrice, discountedPrice) {
+    // Ensure that the inputs are valid numbers
+    if (typeof originalPrice !== 'number' || typeof discountedPrice !== 'number') {
+        throw new Error('Both inputs must be numbers');
+    }
+
+    // Ensure that the discounted price is not greater than the original price
+    if (discountedPrice > originalPrice) {
+        throw new Error('Discounted price cannot be greater than the original price');
+    }
+
+    // Calculate the discount percentage
+    const discountAmount = originalPrice - discountedPrice;
+    const discountPercentage = (discountAmount / originalPrice) * 100;
+
+    return discountPercentage;
+}

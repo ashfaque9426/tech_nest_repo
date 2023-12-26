@@ -68,7 +68,7 @@ export const getProductsByModelName = async (modelName, limit = 0) => {
         });
 
         if (!res.ok) {
-            throw new Error(`Http error! Status code: ${res.status}`)
+            throw new Error(`Http error! Status code: ${res.status}`);
         }
 
         const data = await res.json();
@@ -91,5 +91,20 @@ export const deleteProduct = async id => {
 
 // for getting product by it's id
 export const productById = async id => {
+    try{
+        const res = await fetch(`http://localhost:3000/api/singleProductDetails?id=${id}`, {
+            method: 'GET',
+            cache: 'no-store'
+        });
 
+        if(!res.ok) {
+            throw new Error(`Http error! Status code: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return data;
+        
+    } catch (err) {
+        console.log(`Error while fetching data. Error: ${error.message}`);
+    }
 }
