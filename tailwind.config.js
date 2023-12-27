@@ -13,6 +13,15 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        translateBackAndFourth: {
+          '0%, 100%': { transform: 'translateX(75%)' },
+          '50%': { transform: 'translateX(0%)' },
+        }
+      },
+      animation: {
+        translateBackAndFourth: 'translateBackAndFourth 2s linear infinite',
+      }
     },
   },
   plugins: [],

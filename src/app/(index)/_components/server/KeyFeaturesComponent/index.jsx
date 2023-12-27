@@ -1,5 +1,6 @@
 import React from 'react';
 import { calculateDiscountPercentage, formatNumberWithCommas, fromCamelCase } from '@/utils';
+import { FaHandPointLeft } from "react-icons/fa";
 
 function KeyFeaturesComponent({ keyFeaturesObj, price, regularPrice }) {
   return (
@@ -24,7 +25,7 @@ function KeyFeaturesComponent({ keyFeaturesObj, price, regularPrice }) {
 
               {/* to show offers that are above zero percent. */}
               {
-                  calculateDiscountPercentage(regularPrice, price) > 0 && <p className='text-2xl font-bold'>{calculateDiscountPercentage(regularPrice, price).toFixed(2)}% Off</p>
+                  calculateDiscountPercentage(regularPrice, price) > 0 && <p className='text-2xl font-bold flex items-center gap-3'>{calculateDiscountPercentage(regularPrice, price).toFixed(2)}% Off <span className='animate-translateBackAndFourth'><FaHandPointLeft /></span></p>
               }
           </section>
       </section>
