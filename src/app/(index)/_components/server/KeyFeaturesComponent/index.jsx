@@ -21,7 +21,11 @@ function KeyFeaturesComponent({productData}) {
                   <p className='text-lg'><span className='font-semibold'>Price:</span> {formatNumberWithCommas(productData?.price)} BDT Only</p>
                   <p className='text-lg'><span className='font-semibold'>Regular Price:</span> <span className='line-through'>{formatNumberWithCommas(productData?.regularPrice)}  BDT Only</span></p>
               </div>
-              <p className='text-2xl font-bold'>{calculateDiscountPercentage(productData?.regularPrice, productData.price).toFixed(2)}% Off</p>
+              
+              {/* to show offers that are above zero percent. */}
+              {
+                  calculateDiscountPercentage(productData?.regularPrice, productData.price) > 0 && <p className='text-2xl font-bold'>{calculateDiscountPercentage(productData?.regularPrice, productData.price).toFixed(2)}% Off</p>
+              }
           </section>
       </section>
   )

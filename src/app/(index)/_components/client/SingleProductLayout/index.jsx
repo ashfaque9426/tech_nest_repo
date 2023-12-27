@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { productById } from '@/services/productServices';
 import SingleProductImgCarousel from '../SingleProductImgCarousel';
-import { calculateDiscountPercentage, formatNumberWithCommas, fromCamelCase } from '@/utils';
+import { IoIosCart } from "react-icons/io";
+import { FaCartPlus } from "react-icons/fa";
 import KeyFeaturesComponent from '../../server/KeyFeaturesComponent';
+import BtnComponentOne from '../../server/BtnComponentOne';
 
 function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
@@ -43,8 +45,8 @@ function SingleProductLayout({ id }) {
 
                         {/* Buttons section for several actions */}
                         <section className='flex flex-wrap gap-5'>
-                            <button className='text-lg font-semibold bg-red-500 px-3 py-1 rounded-lg cursor-pointer'>Buy Now</button>
-                            <button className='text-lg font-semibold bg-red-500 px-3 py-1 rounded-lg cursor-pointer'>Add to Cart</button>
+                            <BtnComponentOne iconFirst={<IoIosCart />} className='pe-8'>Buy Now</BtnComponentOne>
+                            <BtnComponentOne iconFirst={<FaCartPlus />} className='bg-[#ef4444] pe-8' >Add To Cart</BtnComponentOne>
                         </section>
                     </section>
                 </section>
