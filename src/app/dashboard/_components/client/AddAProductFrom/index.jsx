@@ -151,7 +151,7 @@ function AddAProductForm() {
                 // iterating through the child elements from the dom as all the elements of dom are objects and so do processing and organising the data.
                 for (const secondChild of productDescriptionsRef.current.children[key].children) {
                     if (i % 2 === 0) {
-                        firstValueTitle = toCamelCase(secondChild.value);
+                        firstValueTitle = secondChild.value;
                     }
                     secondValueDescription = secondChild.value;
                     i++;

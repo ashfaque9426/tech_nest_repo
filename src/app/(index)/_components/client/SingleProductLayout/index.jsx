@@ -7,6 +7,7 @@ import { FaCartPlus } from "react-icons/fa";
 import KeyFeaturesComponent from '../../server/KeyFeaturesComponent';
 import BtnComponentOne from '../../server/BtnComponentOne';
 import ProductSpecificationComponent from '../../server/ProductSpecificationComponent';
+import ProductDescriptionComponent from '../../server/ProductDescriptionComponent';
 
 function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
@@ -63,6 +64,16 @@ function SingleProductLayout({ id }) {
 
                     {/* product's specificaiton component */}
                     <ProductSpecificationComponent ProductSpecificationsArr={productData.productSpecifications} />
+                </section>
+            }
+
+            {/* product description section */}
+            {
+                !serverResMsg && productData?.productDescriptions.length > 0 && <section>
+                    <h2 className='font-semibold text-2xl mb-5 text-center'>Product&apos;s Descriptions down bellow</h2>
+
+                    {/* product description component */}
+                    <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
                 </section>
             }
         </main>

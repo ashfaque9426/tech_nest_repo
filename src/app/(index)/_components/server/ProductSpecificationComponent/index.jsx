@@ -1,5 +1,5 @@
-import { fromCamelCase } from '@/utils';
 import React from 'react';
+import { fromCamelCase } from '@/utils';
 import { v4 as uuidv4 } from 'uuid';
 
 function ProductSpecificationComponent({ ProductSpecificationsArr }) {
