@@ -25,12 +25,12 @@ function SingleProductLayout({ id }) {
             {
                 !serverResMsg && productData && <section className='flex flex-col lg:flex-row gap-5'>
                     {/* image section component */}
-                    <SingleProductImgCarousel className='lg:w-1/2 2xl:w-auto' imgSrcArr={productData?.imgUrls} />
+                    <SingleProductImgCarousel className='lg:w-1/2' imgSrcArr={productData?.imgUrls} />
 
                     {/* product details section */}
-                    <section className='flex-1 px-5 xl:px-20'>
+                    <section className='flex-1 px-5 xl:px-12'>
                         {/* product heading */}
-                        <h2 className='font-semibold text-2xl my-5'>Product detail section</h2>
+                        <h2 className='font-semibold text-2xl my-5'>{productData?.productTitle}</h2>
 
                         {
                             productData.points && <p className='my-5 text-xl'><span className='font-semibold'>Earn:</span> {productData.points} points</p>
