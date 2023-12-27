@@ -40,7 +40,7 @@ function SingleProductLayout({ id }) {
 
                         {/* key features of the product display section */}
                         {
-                            Object.keys(productData?.keyFeatures).length > 0 && <KeyFeaturesComponent productData={productData} />
+                            Object.keys(productData?.keyFeatures).length > 0 && <KeyFeaturesComponent keyFeaturesObj={productData?.keyFeatures} price={productData.price} regularPrice={productData.regularPrice} />
                         }
 
                         {/* Buttons section for several actions */}
