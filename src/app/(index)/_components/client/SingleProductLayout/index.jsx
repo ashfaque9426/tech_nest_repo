@@ -31,7 +31,7 @@ function SingleProductLayout({ id }) {
             {/* key features section */}
             {
                 !serverResMsg && productData?.keyFeatures && <section className='flex flex-col lg:flex-row gap-5'>
-                    {/* image section component */}
+                    {/* product's image viewer section component */}
                     <SingleProductImgCarousel className='lg:w-1/2' imgSrcArr={productData?.imgUrls} />
 
                     {/* product details section */}
@@ -60,7 +60,7 @@ function SingleProductLayout({ id }) {
             {/* product specification details section */}
             {
                 !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24'>
-                    <h2 className='font-semibold text-2xl mb-5 text-center'>Product&apos;s Specification details down bellow</h2>
+                    <h2 className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
 
                     {/* product's specificaiton component */}
                     <ProductSpecificationComponent ProductSpecificationsArr={productData.productSpecifications} />
@@ -69,8 +69,8 @@ function SingleProductLayout({ id }) {
 
             {/* product description section */}
             {
-                !serverResMsg && productData?.productDescriptions.length > 0 && <section>
-                    <h2 className='font-semibold text-2xl mb-5 text-center'>Product&apos;s Descriptions down bellow</h2>
+                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24'>
+                    <h2 className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
