@@ -12,6 +12,25 @@ import ProductDescriptionComponent from '../../server/ProductDescriptionComponen
 function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
     const [serverResMsg, setServerResMsg] = useState(null);
+    const [viewQuestionFrom, setViewQuestionForm] = useState(false);
+
+    const handleQuestionSubmit = e => {
+        e.preventDefault();
+        const form = e.target;
+        const userName = form.userName.value;
+        const userEmail = form.userEmail.value;
+        const usersQuestion = form.usersQuestion.value;
+
+        const questionObj = {
+            userName: userName.length > 0 ? userName : 'Unknown User',
+            userEmail: userEmail,
+            usersQuestions: [{ question: usersQuestion, ansswer: '' }]
+        }
+
+        console.log(questionObj);
+        form.reset();
+        setViewQuestionForm(false);
+    }
 
     useEffect(() => {
         // setting up the retrived data from server to setProduct data route.
@@ -76,6 +95,43 @@ function SingleProductLayout({ id }) {
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
                 </section>
             }
+
+            {/* product questions section */}
+            <section className='mt-24'>
+                {
+                    !serverResMsg && productData?.questions.length > 0 && <div>
+                        <h2 className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Questions related to {productData?.productTitle}.</h2>
+                    </div>
+                }
+
+                {/* User's Question Field */}
+                <div className='mx-5 md:mx-auto'>
+                    <form className={viewQuestionFrom ? 'block':'hidden'} onSubmit={handleQuestionSubmit}>
+                        <fieldset className='border border-black dark:border-white shadow-lg dark:shadow-none rounded-sm px-3 py-5 flex flex-col gap-3 w-auto md:w-2/3'>
+                            <legend className='font-bold'>User Question From</legend>
+                            <section className='flex flex-col gap-1'>
+                                <label className='font-semibold' htmlFor="userName">Provide User Name</label>
+                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="text" name="userName" id="userName" placeholder="Your Name(Optional)" />
+                            </section>
+
+                            <section className='flex flex-col gap-1'>
+                                <label className='font-semibold' htmlFor="userEmail">Your Email*</label>
+                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="text" name="userEmail" id="userEmail" placeholder="Your Email" required />
+                            </section>
+
+                            <section className='flex flex-col gap-1'>
+                                <label className='font-semibold' htmlFor="usersQuestion">Your Question*</label>
+                                <textarea className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' name="usersQuestion" id="usersQuestion" cols="10" rows="5" placeholder="Provide Your Question" required ></textarea>
+                            </section>
+                        </fieldset>
+
+                        <input className='px-3 py-1 text-white bg-[#585657] rounded-lg my-3' type="submit" value="Submit" />
+                    </form>
+                    <div className={!viewQuestionFrom ? 'flex justify-center' : 'hidden'}>
+                        <BtnComponentOne onClickFunc={() => setViewQuestionForm(true)}>Add a Question?</BtnComponentOne>
+                    </div>
+                </div>
+            </section>
         </main>
     )
 }
