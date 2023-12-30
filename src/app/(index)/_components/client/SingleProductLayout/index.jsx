@@ -33,6 +33,12 @@ function SingleProductLayout({ id }) {
 
         addQuestionForProduct(id, questionObj, userEmail).then(data => {
             if(data.success) {
+                // refetching the data again on successfull question added to the server.
+                productById(id).then(result => {
+                    setProductData(result.data);
+                    setServerResMsg(result?.message);
+                });
+
                 toast(data.message, {
                     position: "top-right",
                     autoClose: 5000,
@@ -58,6 +64,7 @@ function SingleProductLayout({ id }) {
         }).catch(err => console.log(err.message));
 
         // console.log(questionObj);
+        // resetting form data
         form.reset();
         setViewQuestionForm(false);
     }
@@ -149,7 +156,7 @@ function SingleProductLayout({ id }) {
 
                             <section className='flex flex-col gap-1'>
                                 <label className='font-semibold' htmlFor="userEmail">Your Email*</label>
-                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="text" name="userEmail" id="userEmail" placeholder="Your Email" required />
+                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="email" name="userEmail" id="userEmail" placeholder="Your Email" required />
                             </section>
 
                             <section className='flex flex-col gap-1'>
