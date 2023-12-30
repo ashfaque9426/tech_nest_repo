@@ -34,10 +34,7 @@ function SingleProductLayout({ id }) {
         addQuestionForProduct(id, questionObj, userEmail).then(data => {
             if(data.success) {
                 // refetching the data again on successfull question added to the server.
-                productById(id).then(result => {
-                    setProductData(result.data);
-                    setServerResMsg(result?.message);
-                });
+                setProductData(data.updatedData);
 
                 toast(data.message, {
                     position: "top-right",

@@ -25,7 +25,8 @@ export async function PATCH(req) {
                 if (documentWithExistedEmail) {
                     return NextResponse.json({
                         success: true,
-                        message: 'Question added successfully.'
+                        message: 'Question added successfully.',
+                        updatedData: documentWithExistedEmail
                     })
                 }
             }
@@ -36,7 +37,8 @@ export async function PATCH(req) {
             if (addQuestionToProductArr) {
                 return NextResponse.json({
                     success: true,
-                    message: 'Question added successfully.'
+                    message: 'Question added successfully.',
+                    updatedData: addQuestionToProductArr
                 });
             }
 
