@@ -8,6 +8,7 @@ import KeyFeaturesComponent from '../../server/KeyFeaturesComponent';
 import BtnComponentOne from '../../server/BtnComponentOne';
 import ProductSpecificationComponent from '../../server/ProductSpecificationComponent';
 import ProductDescriptionComponent from '../../server/ProductDescriptionComponent';
+import { v4 as uuidv4 } from 'uuid';
 
 function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
@@ -22,6 +23,7 @@ function SingleProductLayout({ id }) {
         const usersQuestion = form.usersQuestion.value;
 
         const questionObj = {
+            qid: `questionID${uuidv4()}`,
             userName: userName.length > 0 ? userName : 'Unknown User',
             userEmail: userEmail,
             usersQuestions: [{ question: usersQuestion, ansswer: '' }]
