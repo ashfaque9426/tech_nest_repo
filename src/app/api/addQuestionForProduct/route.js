@@ -26,7 +26,7 @@ export async function PATCH(req) {
                     return NextResponse.json({
                         success: true,
                         message: 'Question added successfully.',
-                        updatedData: documentWithExistedEmail
+                        updatedDataArr: documentWithExistedEmail.questions
                     })
                 }
             }
@@ -38,7 +38,7 @@ export async function PATCH(req) {
                 return NextResponse.json({
                     success: true,
                     message: 'Question added successfully.',
-                    updatedData: addQuestionToProductArr
+                    updatedDataArr: addQuestionToProductArr.questions
                 });
             }
 

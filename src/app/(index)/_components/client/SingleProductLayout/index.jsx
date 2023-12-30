@@ -16,6 +16,7 @@ function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
     const [serverResMsg, setServerResMsg] = useState(null);
     const [viewQuestionFrom, setViewQuestionForm] = useState(false);
+    const [questionsArr, setQuestionsArr] = useState([]);
 
     const handleQuestionSubmit = e => {
         e.preventDefault();
@@ -34,7 +35,7 @@ function SingleProductLayout({ id }) {
         addQuestionForProduct(id, questionObj, userEmail).then(data => {
             if(data.success) {
                 // refetching the data again on successfull question added to the server.
-                setProductData(data.updatedData);
+                setQuestionsArr(data.updatedDataArr);
 
                 toast(data.message, {
                     position: "top-right",
@@ -137,7 +138,7 @@ function SingleProductLayout({ id }) {
                         <h2 className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
 
                         {/* users questions component to view questions lists */}
-                        <UsersQuestionsComponent usersQuestionsArr={productData.questions} />
+                        <UsersQuestionsComponent usersQuestionsArr={questionsArr.length > 0 ? questionsArr : productData.questions} />
                     </div>
                 }
 
