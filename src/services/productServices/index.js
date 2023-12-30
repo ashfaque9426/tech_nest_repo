@@ -108,3 +108,26 @@ export const productById = async id => {
         console.log(`Error while fetching data. Error: ${error.message}`);
     }
 }
+
+// add a question for specific product api
+export const addQuestionForProduct = async (id, questionObj, userEmail="") => {
+    try {
+        const res = await fetch(`http://localhost:3000/api/addQuestionForProduct?productId=${id}&userEmail=${userEmail}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(questionObj),
+        })
+
+        if(!res.ok) {
+            throw new Error(`Http error! Status code: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return data;
+
+    } catch (err) {
+        console.log(`Error while adding Question for Product. Error: ${err.message}`);
+    }
+}

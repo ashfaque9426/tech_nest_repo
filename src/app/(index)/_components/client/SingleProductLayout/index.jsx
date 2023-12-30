@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { productById } from '@/services/productServices';
+import { addQuestionForProduct, productById } from '@/services/productServices';
 import SingleProductImgCarousel from '../SingleProductImgCarousel';
 import { IoIosCart } from "react-icons/io";
 import { FaCartPlus } from "react-icons/fa";
@@ -9,6 +9,8 @@ import BtnComponentOne from '../../server/BtnComponentOne';
 import ProductSpecificationComponent from '../../server/ProductSpecificationComponent';
 import ProductDescriptionComponent from '../../server/ProductDescriptionComponent';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
+import UsersQuestionsComponent from '../UsersQuestionsComponent';
 
 function SingleProductLayout({ id }) {
     const [productData, setProductData] = useState(null);
@@ -29,7 +31,33 @@ function SingleProductLayout({ id }) {
             usersQuestions: [{ question: usersQuestion, ansswer: '' }]
         }
 
-        console.log(questionObj);
+        addQuestionForProduct(id, questionObj, userEmail).then(data => {
+            if(data.success) {
+                toast(data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } else {
+                toast(data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+        }).catch(err => console.log(err.message));
+
+        // console.log(questionObj);
         form.reset();
         setViewQuestionForm(false);
     }
@@ -99,15 +127,18 @@ function SingleProductLayout({ id }) {
             }
 
             {/* product questions section */}
-            <section className='mt-24'>
+            <section className='mt-24 mx-5 md:mx-auto'>
                 {
                     !serverResMsg && productData?.questions.length > 0 && <div>
-                        <h2 className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Questions related to {productData?.productTitle}.</h2>
+                        <h2 className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
+
+                        {/* users questions component to view questions lists */}
+                        <UsersQuestionsComponent usersQuestionsArr={productData.questions} />
                     </div>
                 }
 
                 {/* User's Question Field */}
-                <div className='mx-5 md:mx-auto'>
+                <div className='mx-5 mt-12 md:mx-auto'>
                     <form className={viewQuestionFrom ? 'block':'hidden'} onSubmit={handleQuestionSubmit}>
                         <fieldset className='border border-black dark:border-white shadow-lg dark:shadow-none rounded-sm px-3 py-5 flex flex-col gap-3 w-auto md:w-2/3'>
                             <legend className='font-bold'>User Question From</legend>
