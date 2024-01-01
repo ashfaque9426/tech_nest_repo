@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import cn from '@/lib/clsx/cn';
 import Image from 'next/image';
 
-function CardSectionForPages({ title, fetchData, className, classNameForHeading }) {
+function CardSectionComponentForSections({ title, fetchData, className, classNameForHeading }) {
     const [dataArr, setDataArr] = useState([]);
 
     useEffect(() => {
@@ -41,4 +41,4 @@ function CardSectionForPages({ title, fetchData, className, classNameForHeading 
     )
 }
 
-export default CardSectionForPages;
+export default CardSectionComponentForSections;
