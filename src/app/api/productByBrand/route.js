@@ -47,7 +47,7 @@ export async function GET(req) {
                         }
                     ]
 
-                }).select('_id brand imgUrls productCategory productStatus points price offer createdAt').limit(limit).sort({ price: 1 });
+                }).select('_id brand imgUrls productTitle productCategory productStatus points price offer createdAt').limit(limit).sort({ price: 1 });
             } else {
                 result = await Product.find({
                     $and: [
