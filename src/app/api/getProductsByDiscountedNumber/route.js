@@ -12,29 +12,54 @@ export async function GET(req) {
         // getting the targeted discounted percentage number.
         const searchParams = req.nextUrl.searchParams;
         const discountPercentageNumber = searchParams.get('discountPercentageNumber');
+        const parsedDiscountedPercentageNumber = parseFloat(discountPercentageNumber);
 
         // product pipeline calculation for getting the the products only with the discounted amount is less than or equal to the targeted discount percentage.
-        if (discountPercentageNumber) {
+        if (parsedDiscountedPercentageNumber > 0) {
             const result = await Product.find({
-                $expr: {
-                    $lte: [
-                        {
-                            $multiply: [
+                $or: [
+                    {
+                        $expr: {
+                            $eq: [
                                 {
-                                    $divide: [
+                                    $multiply: [
                                         {
-                                            $subtract: ['$regularPrice', '$price']
+                                            $divide: [
+                                                {
+                                                    $subtract: ['$regularPrice', '$price'],
+                                                },
+                                                '$regularPrice',
+                                            ],
                                         },
-                                        '$regularPrice'
+                                        100,
                                     ],
                                 },
-                                100,
+                                parsedDiscountedPercentageNumber,
                             ],
                         },
-                        discountPercentageNumber,
-                    ],
-                },
-            });
+                    },
+                    {
+                        $expr: {
+                            $lt: [
+                                {
+                                    $multiply: [
+                                        {
+                                            $divide: [
+                                                {
+                                                    $subtract: ['$regularPrice', '$price'],
+                                                },
+                                                '$regularPrice',
+                                            ],
+                                        },
+                                        100,
+                                    ],
+                                },
+                                parsedDiscountedPercentageNumber,
+                            ],
+                        },
+                    }
+                ]
+            }).select('_id brand imgUrls productTitle productCategory productStatus points price offer keyFeatures').sort({ price: 1 });
 
             // if able to retrieve the products by discount amount than return the products.
             if(result.length > 0) {

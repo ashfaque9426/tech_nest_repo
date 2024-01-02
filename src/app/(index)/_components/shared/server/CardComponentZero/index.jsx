@@ -11,7 +11,7 @@ function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle,
         <figure className='relative overflow-clip'>
           {/* offers section */}
           {
-            offer.length > 0 && <span className='absolute z-10 top-2 right-2 bg-red-500 text-white font-bold border border-red-500 rounded-xl px-3'>{offer.length > 0 && offer}</span>
+            offer.length > 0 && <span className='absolute z-10 top-2 right-2 bg-red-500 text-white font-bold border border-red-500 rounded-xl px-3 capitalize'>{offer.length > 0 && offer}</span>
           }
 
           {/* points section */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import CardSectionComponentForSections from './_components/shared/server/CardSectionComponentForSections';
+import ExclusiveOfferComponent from './_components/shared/client/AdvertisingComponents/ExclusiveOfferComponent';
 
 export const metadata = {
   title: 'TechNest/Home Page',
@@ -15,9 +16,9 @@ function Page() {
 
       </section>
 
-      {/* add section one(for exclusive 33% off offers) */}
+      {/* add section one(for exclusive offers) */}
       <aside>
-        
+        <ExclusiveOfferComponent discountValue={10} />
       </aside>
 
       {/* Product by Category section */}
@@ -40,15 +41,6 @@ function Page() {
         <CardSectionComponentForSections title="Intel Pentium Series" model='Pentium' limit2={11} classNameForHeading='text-xl font-semibold mt-1 mb-8' />
       </section>
 
-      {/* add section two(for usual 20% off offers) */}
-      <aside>
-
-      </aside>
-
-      {/* add section three(for usual 10% off offers) */}
-      <aside>
-
-      </aside>
     </main>
   )
 }
