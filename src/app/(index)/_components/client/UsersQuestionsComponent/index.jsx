@@ -20,8 +20,6 @@ function UsersQuestionsComponent({ usersQuestionsArr }) {
                                 <p ref={ansRef} className='bg-white dark:bg-[#3a3b3c] text-lg md:ms-14 border border-black dark:border-white rounded-lg p-3 shadow-lg dark:shadow-none'>{userQuestionObj.ansswer}</p>
                             </>
                         }
-                        <div style={{ top: `calc(${questionRef.current && questionRef.current.clientHeight}px + 75px)`, height: `calc(${ansRef.current && ansRef.current.clientHeight}px + 45px)` }} className='absolute left-[-15px] md:left-3 z-[-1] border border-black dark:border-white border-r-0 rounded-lg w-1/2'></div>
-                        <p ref={ansRef} className='bg-white dark:bg-[#3a3b3c] text-lg md:ms-14 border border-black dark:border-white rounded-lg p-3 shadow-lg dark:shadow-none'>My Answer</p>
                     </div>
                 ))
             ))}

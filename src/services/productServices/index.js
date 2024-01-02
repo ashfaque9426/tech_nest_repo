@@ -131,3 +131,24 @@ export const addQuestionForProduct = async (id, questionObj, userEmail="") => {
         console.log(`Error while adding Question for Product. Error: ${err.message}`);
     }
 }
+
+// getting products by discounted value
+export const getProductsByDiscountedValue = async (discountValue = 0) => {
+    try {
+        if (discountValue > 0) {
+            const res = await fetch(`http://localhost:3000/api/getProductsByDiscountedNumber?discountPercentageNumber=${discountValue}`, {
+                method: 'GET',
+                cache: 'no-store'
+            });
+
+            if(!res.ok) {
+                throw new Error(`Http error! Status code: ${res.status}`);
+            }
+
+            const data = await res.json();
+            return data;
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
+}
