@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import cn from '@/lib/clsx/cn';
 
-function ExclusiveOfferComponent({ className, discountValue }) {
+function ExclusiveOfferComponent({ className, discountValue, exact }) {
   return (
-    <Link className='group' href={`/discountedProducts/${discountValue}`}>
+    <Link className='group' href={`/discountedProducts/${discountValue}/${exact}`}>
       <section className={cn('py-12 flex justify-center bg-[url("/background-Images/techProductDiscountAdBG1.jpg")] bg-cover bg-center relative z-[-2]', className)}>
         <div className='absolute top-0 left-0 right-0 bottom-0 bg-black z-[-1] bg-opacity-5'></div>
 

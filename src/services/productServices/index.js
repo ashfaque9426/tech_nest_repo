@@ -133,10 +133,10 @@ export const addQuestionForProduct = async (id, questionObj, userEmail="") => {
 }
 
 // getting products by discounted value
-export const getProductsByDiscountedValue = async (discountValue = 0) => {
+export const getProductsByDiscountedValue = async (discountValue = 0, exact = false) => {
     try {
         if (discountValue > 0) {
-            const res = await fetch(`http://localhost:3000/api/getProductsByDiscountedNumber?discountPercentageNumber=${discountValue}`, {
+            const res = await fetch(`http://localhost:3000/api/getProductsByDiscountedNumber?discountPercentageNumber=${discountValue}&exact=${exact}`, {
                 method: 'GET',
                 cache: 'no-store'
             });

@@ -18,7 +18,7 @@ function Page() {
 
       {/* add section one(for exclusive offers) */}
       <aside>
-        <ExclusiveOfferComponent discountValue={10} />
+        <ExclusiveOfferComponent discountValue={10} exact={false} />
       </aside>
 
       {/* Product by Category section */}
