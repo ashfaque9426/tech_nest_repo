@@ -3,7 +3,7 @@ import { calculateDiscountPercentage, formatNumberWithCommas, fromCamelCase } fr
 import { FaHandPointLeft } from "react-icons/fa";
 import cn from '@/lib/clsx/cn';
 
-function KeyFeaturesComponent({classNameForTitle, classNameForFeatures, classNameForListItem, keyFeaturesObj, price, regularPrice }) {
+function KeyFeaturesComponent({classNameForTitle, classNameForFeatures, classNameForListItem, classNameForLiSpan, keyFeaturesObj, price, regularPrice }) {
   return (
       <section>
           <h2 className={cn('text-lg font-semibold mb-5 underline', classNameForTitle)}>Key Features:</h2>
@@ -12,7 +12,7 @@ function KeyFeaturesComponent({classNameForTitle, classNameForFeatures, classNam
           <ul className={cn('flex flex-col gap-3', classNameForFeatures)}>
               {
                   Object.keys(keyFeaturesObj).map(key => <li key={key} className={cn('text-lg', classNameForListItem)}>
-                      <span className='capitalize font-semibold'>{fromCamelCase(key)}</span>: <span>{keyFeaturesObj[key]}</span>
+                      <span className={cn('capitalize font-semibold', classNameForLiSpan)}>{fromCamelCase(key)}</span>: <span>{keyFeaturesObj[key]}</span>
                   </li>)
               }
           </ul>

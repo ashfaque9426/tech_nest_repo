@@ -8,7 +8,7 @@ import { formatNumberWithCommas } from '@/utils';
 function CardComponentOne({id, className, imgSrcUrl, imgAltText, cardTitle, keyFeatures, regularPrice, price, status, offer }) {
     return (
         <Link href={`/singleProduct/${id}`}>
-            <article className={cn('overflow-clip shadow-md hover:shadow-lg dark:shadow-none transition-all duration-150 h-full flex flex-col cursor-pointer group bg-white dark:card-bg-dark rounded-lg', className)}>
+            <article className={cn('overflow-clip shadow-md hover:shadow-lg dark:shadow-none transition-all duration-150 h-full flex flex-col cursor-pointer group bg-[#f8f5f5] dark:card-bg-dark rounded-lg group', className)}>
                 <figure className='overflow-clip'>
                     {
                         imgSrcUrl.length > 0 ? <Image className='w-full object-cover group-hover:scale-110 transition-all duration-500 ease-in-out' src={imgSrcUrl} alt={imgAltText} width={300}
@@ -18,7 +18,7 @@ function CardComponentOne({id, className, imgSrcUrl, imgAltText, cardTitle, keyF
                 <section className='flex-1 p-3 flex flex-col justify-between'>
                     {/* heading and key features sectin */}
                     <div className='flex flex-1 flex-col gap-8'>
-                        <h2 className='font-bold text-lg'>{cardTitle}</h2>
+                        <h2 className='font-bold text-lg group-hover:underline group-hover:text-red-500'>{cardTitle}</h2>
                         <section className='flex flex-1 flex-col justify-center'>
                             {
                                 Object.keys(keyFeatures).length > 0 && <KeyFeaturesComponent keyFeaturesObj={keyFeatures} classNameForTitle="mb-2 text-lg" classNameForFeatures="gap-1 mb-5" classNameForListItem="text-md" />

@@ -8,7 +8,7 @@ async function DiscountedProductsComponent({ discountValue, exact }) {
 
     return (
         <section className='flex flex-col gap-12 mt-5'>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5'>
                 {
                     dataArr?.length > 0 && dataArr.map(dataObj => <CardComponentOne key={`cardCompOne${uuidv4()}`} id={dataObj?._id} imgSrcUrl={dataObj?.imgUrls.length > 0 ? dataObj?.imgUrls[0] : ""} imgAltText={`${dataObj?.brand} ${dataObj?.productCategory} image`} cardTitle={dataObj?.productTitle} keyFeatures={dataObj?.keyFeatures} status={dataObj?.productStatus} price={dataObj?.price} regularPrice={dataObj?.regularPrice} offer={dataObj?.offer} />)
                 }

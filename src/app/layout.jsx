@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className)}>
+      <body style={{maxWidth: '1920px', marginInline: 'auto'}} className={cn(inter.className)}>
         {children}
         <ToastContainer />
       </body>
