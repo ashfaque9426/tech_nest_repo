@@ -6,9 +6,9 @@ import cn from '@/lib/clsx/cn';
 
 function SingleProductImgCarousel({ imgSrcArr, className }) {
     const [imgSrc, setImgSrc] = useState(imgSrcArr[0]);
-    const handleSrcChange = e => {
+    const handleSrcChange =  i => {
         // console.log(e.target.src);
-        setImgSrc(e.target.src);
+        setImgSrc(imgSrcArr[i]);
     }
     return (
         <>
@@ -28,7 +28,7 @@ function SingleProductImgCarousel({ imgSrcArr, className }) {
                     {
                         <div className='flex flex-wrap justify-center gap-2'>
                             {
-                                imgSrcArr.map(imgSrc => <Image className='w-[50px] h-auto md:w-[75px] 2xl:w-[95px] object-cover cursor-pointer' key={`ImageComponent${uuidv4()}`} src={imgSrc} alt='thumbnail image' width={150} height={150} onClick={handleSrcChange} />)
+                                imgSrcArr.map((imgSrc, i) => <Image className='w-[50px] h-auto md:w-[75px] 2xl:w-[95px] object-cover cursor-pointer' key={`ImageComponent${uuidv4()}`} src={imgSrc} alt='thumbnail image' width={150} height={150} onClick={() => handleSrcChange(i)} />)
                             }
                         </div>
                     }
