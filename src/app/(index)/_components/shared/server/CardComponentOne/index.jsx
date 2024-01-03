@@ -37,8 +37,7 @@ function CardComponentOne({id, className, imgSrcUrl, imgAltText, cardTitle, keyF
                     {/* price and discount section */}
                     <div className='flex flex-col md:flex-row md:gap-2 mt-5'>
                         <p><span className='font-semibold text-lg'>Price:</span> <span className='text-md'>{formatNumberWithCommas(price)} BDT Only</span></p>
-                        <span className='hidden lg:block text-lg font-semibold'>/</span>
-                        <p><span className='lg:hidden text-lg font-semibold'>Not</span> <span className='line-through text-md'>{formatNumberWithCommas(regularPrice)} BDT Only</span></p>
+                        <p><span className='text-lg font-semibold'>Not</span> <span className='line-through text-md'>{formatNumberWithCommas(regularPrice)} BDT Only</span></p>
                     </div>
                 </section>
             </article>
