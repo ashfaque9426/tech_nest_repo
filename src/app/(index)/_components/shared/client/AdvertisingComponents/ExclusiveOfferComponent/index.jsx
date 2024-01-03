@@ -10,7 +10,7 @@ function ExclusiveOfferComponent({ className, discountSlogan, discountValue, exa
 
         <div className='relative z-10 px-5 text-center 2xl:text-start'>
           <h1 className='bg-black bg-opacity-50 md:bg-opacity-0 text-lg lg:text-xl font-semibold text-white'>Exclusive offer. Get {discountValue}% off on purchase.</h1>
-          <p className='bg-black bg-opacity-50 2xl:bg-opacity-0 my-2 text-lg text-white group-hover:text-red-500 group-hover:underline'>{discountSlogan}</p>
+          <p className='bg-black bg-opacity-50 2xl:bg-opacity-0 my-2 text-lg text-white group-hover:text-red-500 group-hover:underline'>{discountSlogan.length > 0 ? discountSlogan : `You can get ${discountValue}% off on Electronic Products. Click here and have a look at our Products around ${discountValue}% off.`}</p>
         </div>
       </section>
     </Link>

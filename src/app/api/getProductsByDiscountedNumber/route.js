@@ -61,7 +61,7 @@ export async function GET(req) {
                         parsedDiscountedPercentageNumber,
                     ],
                 },
-            }).select('_id brand imgUrls productTitle productCategory productStatus points price offer keyFeatures').sort({ price: 1 });
+            }).select('_id brand imgUrls productTitle productCategory productStatus points price regularPrice offer keyFeatures').sort({ price: 1 });
         }
 
         // if able to retrieve the products by discount amount than return the products.

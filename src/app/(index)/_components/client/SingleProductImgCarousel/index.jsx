@@ -23,7 +23,7 @@ function SingleProductImgCarousel({ imgSrcArr, className }) {
             {
                 imgSrcArr.length > 0 && <section className={cn('flex flex-col gap-5', className)}>
                     <figure className='overflow-clip md:h-[555px] lg:h-[475px] flex justify-center'>
-                        <Image className='object-contain w-full' src={imgSrc} alt='Product Image Preview' width={500} height={0} priority />
+                        <Image className='object-contain w-full' src={imgSrc} alt='Product Image Preview' width={500} height={500} priority />
                     </figure>
                     {
                         <div className='flex flex-wrap justify-center gap-2'>

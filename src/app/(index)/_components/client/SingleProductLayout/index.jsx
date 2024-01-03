@@ -4,7 +4,7 @@ import { addQuestionForProduct, productById } from '@/services/productServices';
 import SingleProductImgCarousel from '../SingleProductImgCarousel';
 import { IoIosCart } from "react-icons/io";
 import { FaCartPlus } from "react-icons/fa";
-import KeyFeaturesComponent from '../../server/KeyFeaturesComponent';
+import KeyFeaturesComponent from '../../shared/server/KeyFeaturesComponent';
 import BtnComponentOne from '../../server/BtnComponentOne';
 import ProductSpecificationComponent from '../../server/ProductSpecificationComponent';
 import ProductDescriptionComponent from '../../server/ProductDescriptionComponent';
