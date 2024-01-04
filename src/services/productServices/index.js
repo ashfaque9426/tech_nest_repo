@@ -7,7 +7,7 @@ export const addNewProduct = async formData => {
     const [axiosSecure] = axiosSecureConfig();
     // console.log(axiosSecure, formData);
     try {
-        const response = await axiosSecure.post('/admin/addAProduct', formData)
+        const response = await axiosSecure.post('/admin/addAProduct', formData);
         return response.data;
     } catch (error) {
         console.log(error.message);

@@ -1,6 +1,5 @@
 import connectToDB from "@/database";
 import Banner from "@/models/banner";
-import Product from "@/models/product";
 import Joi from "joi";
 import { NextResponse } from "next/server";
 
