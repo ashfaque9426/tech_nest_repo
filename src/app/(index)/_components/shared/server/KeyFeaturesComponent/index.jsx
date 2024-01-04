@@ -3,9 +3,9 @@ import { calculateDiscountPercentage, formatNumberWithCommas, fromCamelCase } fr
 import { FaHandPointLeft } from "react-icons/fa";
 import cn from '@/lib/clsx/cn';
 
-function KeyFeaturesComponent({classNameForTitle, classNameForFeatures, classNameForListItem, classNameForLiSpan, keyFeaturesObj, price, regularPrice }) {
+function KeyFeaturesComponent({className, classNameForTitle, classNameForFeatures, classNameForListItem, classNameForLiSpan, keyFeaturesObj, price, regularPrice }) {
   return (
-      <section>
+      <section className={cn(className)}>
           <h2 className={cn('text-lg font-semibold mb-5 underline', classNameForTitle)}>Key Features:</h2>
 
           {/* key features lists by iterating keyFeatures object */}

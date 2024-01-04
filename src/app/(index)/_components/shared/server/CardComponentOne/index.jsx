@@ -15,29 +15,29 @@ function CardComponentOne({id, className, imgSrcUrl, imgAltText, cardTitle, keyF
                             height={300} priority /> : <Image className='w-full object-cover' src='/images/noImageFoundPotrait.jpg' alt='No image found Thumbnail Image' width={300} height={300} priority />
                     }
                 </figure>
-                <section className='flex-1 p-3 flex flex-col justify-between'>
-                    {/* heading and key features sectin */}
-                    <div className='flex flex-1 flex-col gap-8'>
-                        <h2 className='font-bold text-lg group-hover:underline group-hover:text-red-500'>{cardTitle}</h2>
-                        <section className='flex flex-1 flex-col justify-center'>
-                            {
-                                Object.keys(keyFeatures).length > 0 && <KeyFeaturesComponent keyFeaturesObj={keyFeatures} classNameForTitle="mb-2 text-lg" classNameForFeatures="gap-1 mb-5" classNameForListItem="text-md" />
-                            }
-                        </section>
-                    </div>
+                <section className='flex-1 px-3 py-5 flex flex-col justify-between gap-5'>
+                    {/* card heading */}
+                    <h2 className='font-bold text-lg group-hover:underline group-hover:text-red-500'>{cardTitle}</h2>
+
+                    {/* key features section */}
+                    <section className='flex flex-col justify-center'>
+                        {
+                            Object.keys(keyFeatures).length > 0 && <KeyFeaturesComponent keyFeaturesObj={keyFeatures} classNameForTitle="mb-2 text-base" classNameForFeatures="gap-1" classNameForListItem="text-sm" />
+                        }
+                    </section>
 
                     {/* status and offer section */}
-                    <div className='flex flex-1 flex-col justify-center'>
-                        <p><span className='font-semibold text-lg'>Status:</span> <span className='text-md'>{status}</span></p>
+                    <div className='flex flex-col justify-center'>
+                        <p className='text-base'><span className='font-semibold'>Status:</span> <span className='text-sm'>{status}</span></p>
                         {
-                            offer?.length > 0 && <p><span className='font-semibold text-lg'>Offer:</span> <span className='text-md'>{offer}</span></p>
+                            offer?.length > 0 && <p className='text-base'><span className='font-semibold'>Offer:</span> <span className='text-yellow-700 dark:text-yellow-500 text-sm'>{offer}</span></p>
                         }
                     </div>
 
                     {/* price and discount section */}
-                    <div className='flex flex-col md:flex-row md:gap-2 mt-5'>
-                        <p><span className='font-semibold text-lg'>Price:</span> <span className='text-md'>{formatNumberWithCommas(price)} BDT Only</span></p>
-                        <p><span className='text-lg font-semibold'>Not</span> <span className='line-through text-md'>{formatNumberWithCommas(regularPrice)} BDT Only</span></p>
+                    <div className='flex flex-col md:flex-row md:gap-2'>
+                        <p><span className='font-semibold text-base'>Price:</span> <span className='text-red-500 text-sm'>{formatNumberWithCommas(price)} BDT Only</span></p>
+                        <p><span className='text-base font-semibold'>Not</span> <span className='line-through text-sm'>{formatNumberWithCommas(regularPrice)} BDT Only</span></p>
                     </div>
                 </section>
             </article>
