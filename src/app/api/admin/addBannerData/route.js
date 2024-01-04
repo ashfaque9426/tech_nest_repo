@@ -6,8 +6,7 @@ import { NextResponse } from "next/server";
 const BannerSchema = Joi.object({
     bannerTitle: Joi.string().required(),
     bannerSubtitle: Joi.string().required(),
-    bgImgUrl: Joi.string().required(),
-    productImgUrl: Joi.string()
+    bgImgUrl: Joi.string().required()
 });
 
 export const dynamic = "force-dynamic";
@@ -24,16 +23,13 @@ export async function POST(req) {
         const {
             bannerTitle,
             bannerSubtitle,
-            bgImgUrl,
-            productImgUrl
-
+            bgImgUrl
         } = requestedData;
 
         const {error} = BannerSchema.validate({
             bannerTitle,
             bannerSubtitle,
-            bgImgUrl,
-            productImgUrl
+            bgImgUrl
         });
 
         // if validation is failed then sending error message from error object destructured from validate method.
