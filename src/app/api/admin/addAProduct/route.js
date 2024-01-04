@@ -83,10 +83,10 @@ export async function POST(req) {
             return NextResponse.json({
                 success: false,
                 message: error.details[0].message
-            })
+            });
         }
 
-        // trying to create product to mongodb using the defined product model in mongoose.
+        // try to create Product Document to MongoDb using the defined Product model using mongoose.
         const addedProductByAdmin = await Product.create(requestedData);
 
         // if addded successfully to the database sending success message string within responsed object.
@@ -94,20 +94,20 @@ export async function POST(req) {
             return NextResponse.json({
                 success: true,
                 message: "Product is successfully added to Database."
-            })
+            });
         }
 
         // otherwise returng an error message.
         return NextResponse.json({
             success: false,
             message: "Failed to add the product to the Database ! Please try again."
-        })
+        });
 
     } catch (err) {
         // for any unexpected errors or if failed to connect to the database then showing the error message
         return NextResponse.json({
             success: false,
             message: `Something went wrong. Please try again later. msg: ${err.message}.`
-        })
+        });
     }
 }
