@@ -1,19 +1,23 @@
 import React from 'react';
 import CardSectionComponentForSections from './_components/shared/server/CardSectionComponentForSections';
 import ExclusiveOfferComponent from './_components/shared/client/AdvertisingComponents/ExclusiveOfferComponent';
+import HomePageBannerSlider from './_components/server/HomePageBannerSlider';
+import { getAllBannerData } from '@/services/bannerServices';
 
 export const metadata = {
   title: 'TechNest/Home Page',
   description: 'If you want to buy a Laptop or Pre-build Destop computers or Customize the configuaration for your Desktop computer of your choice then you will get Processors form Intel or Amd and Rams from different vendors, Brands such as G-Skill, Corsair or Brand of your choice, Power supply, PC Case, Keyboards, Mouse, Headphones, Phones from Apple or Androids, Pendrives, Usb Chargers, Phone cover and much more.',
 }
 
-function Page() {
+async function Page() {
+  const { bannerData } = await getAllBannerData();
+  
   return (
     <main className='relative w-full xl:w-2/3 mx-auto bg-[#fbfbfb] dark:bg-[#141414]' role='main'>
 
       {/* Banner section */}
-      <section>
-
+      <section className='my-8'>
+        <HomePageBannerSlider dataArr={bannerData.data} />
       </section>
 
       {/* add section one(for exclusive offers) */}

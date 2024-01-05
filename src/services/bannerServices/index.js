@@ -12,9 +12,9 @@ export async function getAllBannerData () {
             throw new Error(`Http error! Status code: ${res.status}`)
         }
 
-        const bannerArr = await res.json();
+        const bannerData = await res.json();
 
-        return {bannerArr: bannerArr};
+        return {bannerData: bannerData};
         
     } catch (err) {
         console.log(err.message);
