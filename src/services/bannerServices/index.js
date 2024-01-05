@@ -14,7 +14,7 @@ export async function getAllBannerData () {
 
         const bannerData = await res.json();
 
-        return {bannerData: bannerData};
+        return bannerData;
         
     } catch (err) {
         console.log(err.message);

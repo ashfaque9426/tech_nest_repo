@@ -6,7 +6,7 @@ import { GrLinkPrevious, GrLinkNext } from "react-icons/gr";
 import { v4 as uuidv4 } from 'uuid';
 import Image from 'next/image';
 
-function HomePageBannerSlider({ dataArr }) {
+function HomePageBannerSlider({ success, dataArr, message }) {
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
     const [sliderHeight, setSliderHeight] = useState(0);
 
@@ -23,13 +23,23 @@ function HomePageBannerSlider({ dataArr }) {
         <CarouselProvider
             naturalSlideWidth={100}
             naturalSlideHeight={sliderHeight}
-            totalSlides={dataArr?.length}
+            totalSlides={dataArr?.length || 1}
             interval={5000}
             isPlaying={true}
             className='relative'
         >
+            {/* in case for server error while fetching data */}
             {
-                dataArr?.length > 0 && <Slider>
+                !success && <Slide index={0}>
+                    <div className='relative z-20 h-full flex justify-center items-center px-5 md:px-16'>
+                        <h1 className='text-2xl md:text-3xl'>Unable to retrieve the product from server. Response Message: {message && message}</h1>
+                    </div>
+                </Slide>
+            }
+
+            {/* if data fetching is successfull. */}
+            {
+                success && dataArr?.length > 0 && <Slider>
                     {
                         dataArr.map((dataObj, i) => (
                             <Slide key={`homePageSlider${uuidv4()}`} index={i}>
@@ -41,17 +51,22 @@ function HomePageBannerSlider({ dataArr }) {
 
                                 {/* actual slider component with data */}
                                 <div className='relative text-white h-full flex flex-col md:flex-row justify-center items-center gap-5 px-5 z-20 md:px-16'>
+                                    <small className='absolute top-5 right-5 text-red-500 font-semibold'>Slide Number {i + 1} of {dataArr.length}</small>
+
+                                    {/* if no product image is available to show. */}
                                     {
                                         dataObj.productImgUrl.length === 0 && <header className='w-full flex flex-col justify-center items-center gap-3'>
                                             <h1 className='text-2xl md:text-3xl'>{dataObj.bannerTitle}</h1>
-                                            <h2 className='text-lg'>{dataObj.bannerSubtitle}</h2>
+                                            <h2 className='text-lg text-yellow-500'>{dataObj.bannerSubtitle}</h2>
                                         </header>
                                     }
+
+                                    {/* if product image url is available to show. did't check for background image because background image and product title and so do product subtitle are mandatory. */}
                                     {
                                         dataObj.productImgUrl.length > 0 && <>
                                             <header className='md:w-1/2 flex flex-col gap-3'>
                                                 <h1 className='text-2xl md:text-3xl'>{dataObj.bannerTitle}</h1>
-                                                <h2 className='text-lg'>{dataObj.bannerSubtitle}</h2>
+                                                <h2 className='text-lg text-yellow-500'>{dataObj.bannerSubtitle}</h2>
                                             </header>
                                             <figure className='md:flex-1 flex justify-center items-center'>
                                                 <Image className='object-contain w-full h-full' src={dataObj.productImgUrl} alt={`Banner image ${i + 1} of ${dataObj.bannerTitle}`} width={500} height={500} priority />
@@ -64,8 +79,12 @@ function HomePageBannerSlider({ dataArr }) {
                     }
                 </Slider>
             }
-            <ButtonBack className='absolute top-1/2 left-2 bg-black bg-opacity-15 hover:bg-opacity-100 text-white dark:bg-yellow-600 dark:bg-opacity-15 dark:hover:bg-opacity-100 px-3 py-1 rounded-full text-lg cursor-pointer'><GrLinkPrevious /></ButtonBack>
-            <ButtonNext className='absolute top-1/2 right-2 bg-black bg-opacity-15 hover:bg-opacity-100 text-white dark:bg-yellow-600 dark:bg-opacity-15 dark:hover:bg-opacity-100 px-3 py-1 rounded-full text-lg cursor-pointer'><GrLinkNext /></ButtonNext>
+            {
+                success && dataArr.length > 0 && <>
+                    <ButtonBack className='absolute top-1/2 left-2 bg-black bg-opacity-15 hover:bg-opacity-100 text-white dark:bg-yellow-600 dark:bg-opacity-15 dark:hover:bg-opacity-100 px-3 py-1 rounded-full text-lg cursor-pointer'><GrLinkPrevious /></ButtonBack>
+                    <ButtonNext className='absolute top-1/2 right-2 bg-black bg-opacity-15 hover:bg-opacity-100 text-white dark:bg-yellow-600 dark:bg-opacity-15 dark:hover:bg-opacity-100 px-3 py-1 rounded-full text-lg cursor-pointer'><GrLinkNext /></ButtonNext>
+                </>
+            }
         </CarouselProvider>
     )
 }

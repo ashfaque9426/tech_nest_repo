@@ -10,14 +10,14 @@ export const metadata = {
 }
 
 async function Page() {
-  const { bannerData } = await getAllBannerData();
+  const { success, data=[], message=false } = await getAllBannerData();
   
   return (
     <main className='relative w-full xl:w-2/3 mx-auto bg-[#fbfbfb] dark:bg-[#141414]' role='main'>
 
       {/* Banner section */}
       <section className='my-8'>
-        <HomePageBannerSlider dataArr={bannerData.data} />
+        <HomePageBannerSlider success={success} dataArr={data} message={message} />
       </section>
 
       {/* add section one(for exclusive offers) */}
