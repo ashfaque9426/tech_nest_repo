@@ -10,7 +10,7 @@ import DashboardBtn from '../../shared/server/DashboardBtn';
 import { toast } from 'react-toastify';
 import { addNewProduct } from '@/services/productServices';
 
-function AddAProductForm() {
+function AddAProductForm({ apiKey }) {
     // declaring states
     const [childElems0, setChildElems0] = useState([]);
     const [childElems1, setChildElems1] = useState([]);
