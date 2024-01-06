@@ -29,12 +29,20 @@ function AddAProductForm({ apiKey }) {
     const productDescriptionsRef = useRef(null);
 
     // for adding img urls to the imgUrls state
-    const addImgUrls = (e, imgUrlsArr) => {
+    const addImgUrls = async (e, imgUrlsArr) => {
         e.preventDefault();
         if (!imgUrlFieldAdded) return;
 
+        const imgbbUrl = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+
         for (let key in imgUrlInputFieldValues) {
-            imgUrlsArr.push(imgUrlInputFieldValues[key]);
+            const formData = new FormData();
+            formData.append('image', imgUrlInputFieldValues[key]);
+            await fetch(imgbbUrl, {
+                method: "POST",
+                body: formData
+            }).then(res => res.json()).then(imgbbData => imgUrlsArr.push(imgbbData.data.display_url))
+            .catch(err => console.log(err.message));
         }
     }
 
@@ -192,7 +200,7 @@ function AddAProductForm({ apiKey }) {
     }
 
     // for handling submitting action
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setResponseMsg("");
 
@@ -203,7 +211,7 @@ function AddAProductForm({ apiKey }) {
         const keyFeatursObj = {};
 
         // this function is for addding image urls to the imgUrlsArr(Array) after iterations.
-        addImgUrls(e, imgUrlsArr);
+        await addImgUrls(e, imgUrlsArr);
 
         // this function is responsible for organising data in an object format after iterations then pushing data to specObjArr array.
         handleAddSpecs(e, specObjArr);
@@ -216,35 +224,62 @@ function AddAProductForm({ apiKey }) {
         
         // targeting the form jsx element.
         const form = e.target;
+        let formData;
 
-        // collecting form data
-        const formData = {
-            status: "approved",
-            brand: form.brand.value,
-            model: form.model.value,
-            productTitle: form.productTitle.value,
-            productCategory: form.productCategory.value,
-            productStatus: form.productStatus.value,
-            offer: form.offer.value,
-            points: parseInt(form.points.value),
-            quantity: parseInt(form.quantity.value),
-            userRating: 0,
-            questions: [],
-            imgUrls: imgUrlsArr,
-            keyFeatures: keyFeatursObj,
-            regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
-            price: parseFloat(parseFloat(form.price.value).toFixed(2)),
-            productSpecifications: specObjArr,
-            productDescriptions: productDescriptionsArr
+        setResponseMsg('Data is processing. Please wait.');
 
+        // collecting form data with img url returned for imgbb
+        if(imgUrlsArr.length > 0) {
+            formData = {
+                status: "approved",
+                brand: form.brand.value,
+                model: form.model.value,
+                productTitle: form.productTitle.value,
+                productCategory: form.productCategory.value,
+                productStatus: form.productStatus.value,
+                offer: form.offer.value,
+                points: parseInt(form.points.value),
+                quantity: parseInt(form.quantity.value),
+                userRating: 0,
+                questions: [],
+                imgUrls: imgUrlsArr,
+                keyFeatures: keyFeatursObj,
+                regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
+                price: parseFloat(parseFloat(form.price.value).toFixed(2)),
+                productSpecifications: specObjArr,
+                productDescriptions: productDescriptionsArr
+
+            }
+        }
+
+        // collecting form data with without any img url
+        if(imgUrlsArr.length === 0) {
+            formData = {
+                status: "approved",
+                brand: form.brand.value,
+                model: form.model.value,
+                productTitle: form.productTitle.value,
+                productCategory: form.productCategory.value,
+                productStatus: form.productStatus.value,
+                offer: form.offer.value,
+                points: parseInt(form.points.value),
+                quantity: parseInt(form.quantity.value),
+                userRating: 0,
+                questions: [],
+                imgUrls: imgUrlsArr,
+                keyFeatures: keyFeatursObj,
+                regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
+                price: parseFloat(parseFloat(form.price.value).toFixed(2)),
+                productSpecifications: specObjArr,
+                productDescriptions: productDescriptionsArr
+
+            }
         }
 
         // console.log(formData);
 
-        setResponseMsg('Data is processing. Please wait.');
-
         // passing collected formData to addNewProduct function. this function bellow returns a promise and from there I am extracting the data
-        addNewProduct(formData).then(data => {
+        await addNewProduct(formData).then(data => {
             // if the formData/Product successfully added to the database then reseting form input fields and showing success message.
             if(data.message.includes('success' || 'Success')) {
                 setChildElems0([]);
