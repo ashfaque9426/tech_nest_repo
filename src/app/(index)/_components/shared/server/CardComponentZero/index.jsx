@@ -21,8 +21,8 @@ function CardComponentZero({ id, className, imgSrcUrl, altTextForImg, cardTitle,
 
           {/* Image section */}
           {
-            imgSrcUrl.length > 0 ? <Image className='w-full object-cover group-hover:scale-110 transition-all duration-500 ease-in-out' src={imgSrcUrl} alt={altTextForImg} width={300}
-              height={300} priority /> : <Image className='w-full object-cover' src='/images/noImageFoundPotrait.jpg' alt='No image found Thumbnail Image' width={300} height={300} priority />
+            imgSrcUrl.length > 0 ? <Image className='object-cover w-full group-hover:scale-110 transition-all duration-500 ease-in-out' src={imgSrcUrl} alt={altTextForImg} width={300}
+              height={300} priority /> : <Image className='object-cover w-full' src='/images/noImageFoundPotrait.jpg' alt='No image found Thumbnail Image' width={300} height={300} priority />
           }
 
           {/* status section */}

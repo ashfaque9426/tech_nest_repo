@@ -27,22 +27,20 @@ async function Page() {
 
       {/* Product by Category section */}
       <section className='py-8'>
-        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Available Products By Category</h1>
-        <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={11} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
+        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Desktop Processors.</h1>
+        <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
       </section>
 
       {/* Product by Brand section */}
       <section className='py-8'>
-        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Products by Brand Name</h1>
-        <CardSectionComponentForSections title="Products by Intel" brand='intel' limit1={11} classNameForHeading='text-2xl lg:text-xl  font-semibold mt-1 mb-8' />
+        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Intel Processors</h1>
+        <CardSectionComponentForSections title="Products by Intel" brand='intel' limit1={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
       </section>
 
       {/* Product by Model section */}
       <section className='py-8'>
-        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Products by Model</h1>
-        <CardSectionComponentForSections title="Intel i5 Series" model='i5' limit2={11} classNameForHeading='text-2xl lg:text-xl  font-semibold mt-1 mb-8' />
-        <CardSectionComponentForSections title="Intel i3 Series" model='i3' limit2={11} classNameForHeading='text-2xl lg:text-xl  font-semibold mt-1 mb-8' />
-        <CardSectionComponentForSections title="Intel Pentium Series" model='Pentium' limit2={11} classNameForHeading='text-2xl lg:text-xl  font-semibold mt-1 mb-8' />
+        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Smart Phones</h1>
+        <CardSectionComponentForSections title="Available Phones" category='smart phone' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
       </section>
 
     </main>

@@ -21,12 +21,12 @@ function SingleProductImgCarousel({ imgSrcArr, className }) {
 
             {/* if image array prop with image urls */}
             {
-                imgSrcArr.length > 0 && <section className={cn('flex flex-col gap-5', className)}>
+                imgSrcArr.length > 0 && <section className={cn('flex flex-col justify-center gap-5', className)}>
                     <figure className='overflow-clip md:h-[555px] lg:h-[475px] flex justify-center'>
                         <Image className='object-contain w-full' src={imgSrc} alt='Product Image Preview' width={500} height={500} priority />
                     </figure>
                     {
-                        <div className='flex flex-wrap justify-center gap-2'>
+                        imgSrcArr.length > 1 && <div className='flex flex-wrap justify-center gap-2'>
                             {
                                 imgSrcArr.map((imgSrc, i) => <Image className='w-[50px] h-auto md:w-[75px] 2xl:w-[95px] object-cover cursor-pointer' key={`ImageComponent${uuidv4()}`} src={imgSrc} alt='thumbnail image' width={150} height={150} onClick={() => handleSrcChange(i)} />)
                             }

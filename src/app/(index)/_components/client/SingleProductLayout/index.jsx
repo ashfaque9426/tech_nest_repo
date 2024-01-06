@@ -94,7 +94,7 @@ function SingleProductLayout({ id }) {
                         <h2 className='font-semibold text-2xl my-5'>{productData?.productTitle}</h2>
 
                         {
-                            productData?.points && <p className='my-5 text-xl'><span className='font-semibold'>Earn:</span> {productData.points} points</p>
+                            productData?.points > 0 && <p className='my-5 text-xl'><span className='font-semibold'>Earn:</span> {productData.points} points</p>
                         }
 
                         {/* key features of the product display section */}
