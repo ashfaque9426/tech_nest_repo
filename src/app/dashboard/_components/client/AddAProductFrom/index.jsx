@@ -210,6 +210,9 @@ function AddAProductForm({ apiKey }) {
         const productDescriptionsArr = [];
         const keyFeatursObj = {};
 
+        // response msg when all the processing started.
+        setResponseMsg('Data is processing. Please wait.');
+
         // this function is for addding image urls to the imgUrlsArr(Array) after iterations.
         await addImgUrls(e, imgUrlsArr);
 
@@ -225,8 +228,6 @@ function AddAProductForm({ apiKey }) {
         // targeting the form jsx element.
         const form = e.target;
         let formData;
-
-        setResponseMsg('Data is processing. Please wait.');
 
         // collecting form data with img url returned for imgbb
         if(imgUrlsArr.length > 0) {
