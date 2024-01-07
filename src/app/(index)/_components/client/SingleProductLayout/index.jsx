@@ -92,7 +92,7 @@ function SingleProductLayout({ id }) {
                     {/* product details section */}
                     <section className='flex-1 px-5 xl:px-12' aria-labelledby="subsection1Label">
                         {/* product heading */}
-                        <h2 id='subsection1Label' className='font-semibold text-2xl my-5'>{productData?.productTitle}</h2>
+                        <h2 id='subsection1LabelHeading' className='font-semibold text-2xl my-5'>{productData?.productTitle}</h2>
 
                         {
                             productData?.points > 0 && <p className='my-5 text-xl'><span className='font-semibold'>Earn:</span> {productData.points} points</p>
@@ -115,7 +115,7 @@ function SingleProductLayout({ id }) {
             {/* product specification details section */}
             {
                 !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section2Label">
-                    <h2 id='section2Label' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
+                    <h2 id='section2LabelHeading' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
 
                     {/* product's specificaiton component */}
                     <ProductSpecificationComponent ProductSpecificationsArr={productData.productSpecifications} />
@@ -125,7 +125,7 @@ function SingleProductLayout({ id }) {
             {/* product description section */}
             {
                 !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section3Label">
-                    <h2 id='section3Label' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
+                    <h2 id='section3LabelHeading' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
@@ -136,7 +136,7 @@ function SingleProductLayout({ id }) {
             <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section4Label">
                 {
                     !serverResMsg && productData?.questions.length > 0 && <div>
-                        <h2 id='section4Label' className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
+                        <h2 id='section4LabelHeading' className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
 
                         {/* users questions component to view questions lists */}
                         <UsersQuestionsComponent usersQuestionsArr={questionsArr.length > 0 ? questionsArr : productData.questions} />
@@ -150,12 +150,12 @@ function SingleProductLayout({ id }) {
                             <legend className='font-bold'>User Question From</legend>
                             <section className='flex flex-col gap-1'>
                                 <label className='font-semibold' htmlFor="userName">Provide User Name</label>
-                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="text" name="userName" id="userName" placeholder="Your Name(Optional)" />
+                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="text" name="userName" id="userName" placeholder="Your Name(Optional)" autoComplete="username" />
                             </section>
 
                             <section className='flex flex-col gap-1'>
                                 <label className='font-semibold' htmlFor="userEmail">Your Email*</label>
-                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="email" name="userEmail" id="userEmail" placeholder="Your Email" required />
+                                <input className='border border-black dark:text-black dark:border-white px-3 py-1 rounded-md' type="email" name="userEmail" id="userEmail" placeholder="Your Email" required autoComplete="email" />
                             </section>
 
                             <section className='flex flex-col gap-1'>

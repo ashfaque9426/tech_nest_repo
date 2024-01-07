@@ -12,8 +12,8 @@ function Page({ params }) {
 
   return (
     <>
-      <header id='mainContentLabel'>
-        <h1 className='text-2xl text-center mt-5 mb-12 font-bold' >Product Specifications</h1>
+      <header>
+        <h1 id='mainContentLabelHeading' className='text-2xl text-center mt-5 mb-12 font-bold' >Product Specifications</h1>
       </header>
       <SingleProductLayout id={id} />
     </>

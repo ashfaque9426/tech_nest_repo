@@ -77,14 +77,14 @@ function HomePageBannerSlider({ success, dataArr, message }) {
                                 <div className='absolute top-0 right-0 bottom-0 left-0 z-10 bg-black bg-opacity-55 dark:bg-opacity-75'></div>
 
                                 {/* actual slider component with data */}
-                                <div className={`relative text-white h-full flex flex-col md:flex-row justify-center items-center gap-5 px-5 z-20 md:px-16 ${sliderHeight === 40 && 'w-[80%] mx-auto'}`}>
+                                <div id="banner" className={`relative text-white h-full flex flex-col md:flex-row justify-center items-center gap-5 px-5 z-20 md:px-16 ${sliderHeight === 40 && 'w-[80%] mx-auto'}`}>
                                     <small className='absolute top-5 right-5 text-red-500 font-semibold'>Slide Number {i + 1} of {dataArr.length}</small>
 
                                     {/* if no product image is available to show. */}
                                     {
                                         dataObj.productImgUrl.length === 0 && <header className='w-full flex flex-col justify-center items-center gap-3'>
-                                            <h1 className='text-2xl md:text-3xl'>{dataObj.bannerTitle}</h1>
-                                            <h2 className='text-lg text-yellow-500'>{dataObj.bannerSubtitle}</h2>
+                                            <h1 id="bannerTitle" className='text-2xl md:text-3xl'>{dataObj.bannerTitle}</h1>
+                                            <h2 id="bannerSubtitle" className='text-lg text-yellow-500'>{dataObj.bannerSubtitle}</h2>
                                         </header>
                                     }
 
@@ -92,8 +92,8 @@ function HomePageBannerSlider({ success, dataArr, message }) {
                                     {
                                         dataObj.productImgUrl.length > 0 && <>
                                             <header className='md:w-1/2 flex flex-col gap-3'>
-                                                <h1 className='text-2xl md:text-3xl'>{dataObj.bannerTitle}</h1>
-                                                <h2 className='text-lg text-yellow-500'>{dataObj.bannerSubtitle}</h2>
+                                                <h1 id="bannerTitle" className='text-2xl md:text-3xl'>{dataObj.bannerTitle}</h1>
+                                                <h2 id="bannerSubtitle" className='text-lg text-yellow-500'>{dataObj.bannerSubtitle}</h2>
                                             </header>
                                             <figure className='md:flex-1 flex justify-center items-center'>
                                                 <Image className='object-contain w-full h-full' src={dataObj.productImgUrl} alt={`Banner image ${i + 1} of ${dataObj.bannerTitle}`} width={500} height={500} priority />
