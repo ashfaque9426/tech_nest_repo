@@ -15,31 +15,31 @@ async function Page() {
   return (
     <>
       {/* Banner section */}
-      <header className='my-8' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
+      <header className='mt-8 mb-16' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
         <HomePageBannerSlider success={success} dataArr={data} message={message} />
       </header>
 
       <main role="main" aria-labelledby="subMainContentLabel">
         {/* add section one(for exclusive offers) */}
         <aside role="complementary">
-          <ExclusiveOfferComponent discountSlogan="You can get 10% off on Electronic Products. Click here and have a look at our Products around 10% off." discountValue={10} exact={false} />
+          <ExclusiveOfferComponent className='mt-12' discountSlogan="You can get 10% off on Electronic Products. Click here and have a look at our Products around 10% off." discountValue={10} exact={false} />
         </aside>
 
         {/* Product by Category section */}
-        <section className='py-8' role="region" aria-labelledby="section1Label">
-          <h1 id='section1Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Available Processors</h1>
+        <section className='pt-24' role="region" aria-labelledby="section1Label">
+          <h1 id='section1Label' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline px-5 mb-5'>Available Processors</h1>
           <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
         {/* Product by Brand section */}
-        <section className='py-8' role="region" aria-labelledby="section2Label">
-          <h1 id='section2Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Intel Processors</h1>
+        <section className='pt-12' role="region" aria-labelledby="section2Label">
+          <h1 id='section2Label' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline px-5 mb-5'>Intel Processors</h1>
           <CardSectionComponentForSections title="Products by Intel" brand='intel' limit1={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
         {/* Product by Model section */}
-        <section className='py-8' role="region" aria-labelledby="section3Label">
-          <h1 id='section3Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Smart Phones</h1>
+        <section className='pt-12' role="region" aria-labelledby="section3Label">
+          <h1 id='section3Label' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline px-5 mb-5'>Smart Phones</h1>
           <CardSectionComponentForSections title="Available Phones" category='smart phone' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
       </main>
