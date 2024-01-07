@@ -114,7 +114,7 @@ function SingleProductLayout({ id }) {
 
             {/* product specification details section */}
             {
-                !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24 mx-5 2xl:mx-auto' role="region" aria-labelledby="section2Label">
+                !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section2Label">
                     <h2 id='section2Label' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
 
                     {/* product's specificaiton component */}
@@ -124,7 +124,7 @@ function SingleProductLayout({ id }) {
 
             {/* product description section */}
             {
-                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 2xl:mx-auto' role="region" aria-labelledby="section3Label">
+                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section3Label">
                     <h2 id='section3Label' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
@@ -133,7 +133,7 @@ function SingleProductLayout({ id }) {
             }
 
             {/* product questions section */}
-            <section className='mt-24 mx-5 2xl:mx-auto' role="region" aria-labelledby="section4Label">
+            <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section4Label">
                 {
                     !serverResMsg && productData?.questions.length > 0 && <div>
                         <h2 id='section4Label' className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
@@ -145,8 +145,8 @@ function SingleProductLayout({ id }) {
 
                 {/* User's Question Field */}
                 <div className='mt-12'>
-                    <form className={viewQuestionFrom ? 'block':'hidden'} onSubmit={handleQuestionSubmit}>
-                        <fieldset className='border border-black dark:border-white shadow-lg dark:shadow-none rounded-sm px-3 py-5 flex flex-col gap-3 w-auto md:w-2/3'>
+                    <form className={viewQuestionFrom ? 'block w-auto md:w-2/3 md:mx-auto':'hidden'} onSubmit={handleQuestionSubmit}>
+                        <fieldset className='border border-black dark:border-white shadow-lg dark:shadow-none rounded-md p-5 flex flex-col gap-3'>
                             <legend className='font-bold'>User Question From</legend>
                             <section className='flex flex-col gap-1'>
                                 <label className='font-semibold' htmlFor="userName">Provide User Name</label>

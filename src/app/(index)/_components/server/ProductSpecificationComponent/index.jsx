@@ -23,7 +23,7 @@ function ProductSpecificationComponent({ ProductSpecificationsArr }) {
                                     <tbody className='flex flex-col gap-1'>
                                         {
                                             Object.keys(productSpecsObj[keyObjTitle]).map((key, index) => <tr className={`text-md py-2 ${index % 2 === 0 ? 'bg-[#f0f6fb] dark:bg-[#585657]' : 'bg-[#fbfbfb] dark:bg-[#2c2b2b]'}`} key={`individualSpecListItem${uuidv4()}`}>
-                                                <td className='capitalize font-semibold leading-5 ps-2 xl:ps-16'>{fromCamelCase(key)}:</td><td className='px-2'>{productSpecsObj[keyObjTitle][key]}</td>
+                                                <td className='capitalize font-semibold leading-5 ps-2 xl:ps-14'>{fromCamelCase(key)}:</td><td className='px-2'>{productSpecsObj[keyObjTitle][key]}</td>
                                             </tr>)
                                         }
                                     </tbody>
