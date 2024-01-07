@@ -9,10 +9,10 @@ export const metadata = {
 function Page() {
     const apiKey = process.env.imgBB_ApiKey;
     return (
-        <section className='border lg:w-2/3 px-5 py-5'>
-            <h1 className='text-2xl font-bold'>Please fill up the product specification form bellow.</h1>
+        <main className='border lg:w-2/3 px-5 py-5' role="main" aria-labelledby="subMainContentLabel">
+            <h1 id='subMainContentLabel' className='text-2xl font-bold'>Please fill up the product specification form bellow.</h1>
             <AddAProductForm apiKey={apiKey} />
-        </section>
+        </main>
     )
 }
 

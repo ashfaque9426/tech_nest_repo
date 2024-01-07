@@ -21,7 +21,8 @@ function SingleProductImgCarousel({ imgSrcArr, className }) {
 
             {/* if image array prop with image urls */}
             {
-                imgSrcArr.length > 0 && <section className={cn('flex flex-col justify-center gap-5', className)}>
+                imgSrcArr.length > 0 && <section className={cn('flex flex-col justify-center gap-5', className)} role="region"
+                    aria-labelledby="carouselLabel">
                     <figure className='overflow-clip md:h-[555px] lg:h-[475px] flex justify-center'>
                         <Image className='object-contain w-full' src={imgSrc} alt='Product Image Preview' width={500} height={500} priority />
                     </figure>

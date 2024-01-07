@@ -76,7 +76,7 @@ function SingleProductLayout({ id }) {
         });
     }, [id]);
     return (
-        <main className='w-auto md:mx-5 xl:w-2/3 xl:mx-auto' role='main'>
+        <main style={{ maxWidth: '1920px', marginInline: 'auto' }} className='w-auto md:mx-5 xl:w-2/3 xl:mx-auto' role='main' aria-labelledby='subMainContentLabel'>
             {/* product title */}
             {
                 serverResMsg && <h5 className='my-5 text-lg text-center font-bold'>{serverResMsg}</h5>
@@ -84,14 +84,14 @@ function SingleProductLayout({ id }) {
 
             {/* key features section */}
             {
-                !serverResMsg && productData?.keyFeatures && <section className='flex flex-col lg:flex-row gap-5'>
+                !serverResMsg && productData?.keyFeatures && <section className='flex flex-col lg:flex-row gap-5' role="region" aria-labelledby="section1Label">
                     {/* product's image viewer section component */}
                     <SingleProductImgCarousel className='lg:w-1/2' imgSrcArr={productData?.imgUrls} />
 
                     {/* product details section */}
-                    <section className='flex-1 px-5 xl:px-12'>
+                    <section className='flex-1 px-5 xl:px-12' aria-labelledby="subsection1Label">
                         {/* product heading */}
-                        <h2 className='font-semibold text-2xl my-5'>{productData?.productTitle}</h2>
+                        <h2 id='subsection1Label' className='font-semibold text-2xl my-5'>{productData?.productTitle}</h2>
 
                         {
                             productData?.points > 0 && <p className='my-5 text-xl'><span className='font-semibold'>Earn:</span> {productData.points} points</p>
@@ -103,7 +103,7 @@ function SingleProductLayout({ id }) {
                         }
 
                         {/* Buttons section for several actions */}
-                        <section className='flex flex-wrap gap-5'>
+                        <section className='flex flex-wrap gap-5' aria-labelledby="subsection2Label">
                             <BtnComponentOne iconFirst={<IoIosCart />} className='pe-8'>Buy Now</BtnComponentOne>
                             <BtnComponentOne iconFirst={<FaCartPlus />} className='bg-[#ef4444] pe-8' >Add To Cart</BtnComponentOne>
                         </section>
@@ -113,8 +113,8 @@ function SingleProductLayout({ id }) {
 
             {/* product specification details section */}
             {
-                !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24'>
-                    <h2 className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
+                !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24' role="region" aria-labelledby="section2Label">
+                    <h2 id='section2Label' className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
 
                     {/* product's specificaiton component */}
                     <ProductSpecificationComponent ProductSpecificationsArr={productData.productSpecifications} />
@@ -123,8 +123,8 @@ function SingleProductLayout({ id }) {
 
             {/* product description section */}
             {
-                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24'>
-                    <h2 className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
+                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24' role="region" aria-labelledby="section3Label">
+                    <h2 id='section3Label' className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
@@ -132,10 +132,10 @@ function SingleProductLayout({ id }) {
             }
 
             {/* product questions section */}
-            <section className='mt-24 mx-5 md:mx-auto'>
+            <section className='mt-24 mx-5 md:mx-auto' role="region" aria-labelledby="section4Label">
                 {
                     !serverResMsg && productData?.questions.length > 0 && <div>
-                        <h2 className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
+                        <h2 id='section4Label' className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
 
                         {/* users questions component to view questions lists */}
                         <UsersQuestionsComponent usersQuestionsArr={questionsArr.length > 0 ? questionsArr : productData.questions} />

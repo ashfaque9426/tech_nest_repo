@@ -7,9 +7,9 @@ export const metadata = {
 
 function Page() {
   return (
-    <section className='border w-2/3'>
-        <h1 className='text-2xl font-bold text-center'>This is Dashboard Main page</h1>
-    </section>
+    <main className='border w-2/3' role="main" aria-labelledby="subMainContentLabel">
+      <h1 id='subMainContentLabel' className='text-2xl font-bold text-center'>This is Dashboard Main page</h1>
+    </main>
   )
 }
 

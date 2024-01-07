@@ -43,13 +43,19 @@ function Navbar() {
   }
 
   return (
-    <nav className='mb-5 flex justify-center items-center border dark:border-none py-3'>
-      <h1 className='text-xl text-center font-bold'>Tech Nest Navbar</h1>
-      <section></section>
-      <section></section>
-      <section>
-        <ThemeSwitchBTN theme={theme} handleThemeSwitch={handleThemeSwitch}/>
-      </section>
+    <nav role="navigation" aria-label="Main Navigation">
+      <div style={{ maxWidth: '1920px', marginInline: 'auto' }} className='mb-5 flex justify-center items-center border dark:border-none py-3'>
+        <header>
+          <h1 className='text-xl text-center font-bold'>Tech Nest Navbar</h1>
+        </header>
+        <main role='main'>
+          <section></section>
+          <section></section>
+          <section>
+            <ThemeSwitchBTN theme={theme} handleThemeSwitch={handleThemeSwitch} />
+          </section>
+        </main>
+      </div>
     </nav>
   )
 }

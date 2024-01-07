@@ -13,35 +13,37 @@ async function Page() {
   const { success, data=[], message=false } = await getAllBannerData();
   
   return (
-    <main className='relative w-full xl:w-2/3 mx-auto bg-[#fbfbfb] dark:bg-[#141414]' role='main'>
+    <main style={{ maxWidth: '1920px', marginInline: 'auto' }} className='relative w-full xl:w-2/3 mx-auto bg-[#fbfbfb] dark:bg-[#141414]' role='main' aria-labelledby='mainContentLabel'>
 
       {/* Banner section */}
-      <section className='my-8'>
+      <header className='my-8' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
         <HomePageBannerSlider success={success} dataArr={data} message={message} />
-      </section>
+      </header>
 
-      {/* add section one(for exclusive offers) */}
-      <aside>
-        <ExclusiveOfferComponent discountSlogan="You can get 10% off on Electronic Products. Click here and have a look at our Products around 10% off." discountValue={10} exact={false} />
-      </aside>
+      <main role="main" aria-labelledby="subMainContentLabel">
+        {/* add section one(for exclusive offers) */}
+        <aside role="complementary">
+          <ExclusiveOfferComponent discountSlogan="You can get 10% off on Electronic Products. Click here and have a look at our Products around 10% off." discountValue={10} exact={false} />
+        </aside>
 
-      {/* Product by Category section */}
-      <section className='py-8'>
-        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Desktop Processors.</h1>
-        <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
-      </section>
+        {/* Product by Category section */}
+        <section className='py-8' role="region" aria-labelledby="section1Label">
+          <h1 id='section1Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Desktop Processors.</h1>
+          <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
+        </section>
 
-      {/* Product by Brand section */}
-      <section className='py-8'>
-        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Intel Processors</h1>
-        <CardSectionComponentForSections title="Products by Intel" brand='intel' limit1={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
-      </section>
+        {/* Product by Brand section */}
+        <section className='py-8' role="region" aria-labelledby="section2Label">
+          <h1 id='section2Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Intel Processors</h1>
+          <CardSectionComponentForSections title="Products by Intel" brand='intel' limit1={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
+        </section>
 
-      {/* Product by Model section */}
-      <section className='py-8'>
-        <h1 className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Smart Phones</h1>
-        <CardSectionComponentForSections title="Available Phones" category='smart phone' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
-      </section>
+        {/* Product by Model section */}
+        <section className='py-8' role="region" aria-labelledby="section3Label">
+          <h1 id='section3Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Smart Phones</h1>
+          <CardSectionComponentForSections title="Available Phones" category='smart phone' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
+        </section>
+      </main>
 
     </main>
   )
