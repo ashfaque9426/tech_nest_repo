@@ -77,7 +77,7 @@ function SingleProductLayout({ id }) {
     }, [id]);
     
     return (
-        <main style={{ maxWidth: '1920px', marginInline: 'auto' }} className='w-auto xl:w-2/3' role='main' aria-labelledby='subMainContentLabel'>
+        <main className='md:mx-5 xl:mx-auto' role='main' aria-labelledby='subMainContentLabel'>
             {/* product title */}
             {
                 serverResMsg && <h5 className='my-5 text-lg text-center font-bold'>{serverResMsg}</h5>

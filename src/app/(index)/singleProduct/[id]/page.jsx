@@ -12,12 +12,10 @@ function Page({ params }) {
 
   return (
     <>
-      <header>
+      <header id='mainContentLabel'>
         <h1 className='text-2xl text-center mt-5 mb-12 font-bold' >Product Specifications</h1>
       </header>
-      <main className='md:mx-5 xl:mx-auto' role="main" aria-labelledby="mainContentLabel">
-        <SingleProductLayout id={id} />
-      </main>
+      <SingleProductLayout id={id} />
     </>
   )
 }

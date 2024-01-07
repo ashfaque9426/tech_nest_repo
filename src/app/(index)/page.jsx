@@ -13,8 +13,7 @@ async function Page() {
   const { success, data=[], message=false } = await getAllBannerData();
   
   return (
-    <main style={{ maxWidth: '1920px', marginInline: 'auto' }} className='relative w-full xl:w-2/3 mx-auto bg-[#fbfbfb] dark:bg-[#141414]' role='main' aria-labelledby='mainContentLabel'>
-
+    <>
       {/* Banner section */}
       <header className='my-8' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
         <HomePageBannerSlider success={success} dataArr={data} message={message} />
@@ -28,7 +27,7 @@ async function Page() {
 
         {/* Product by Category section */}
         <section className='py-8' role="region" aria-labelledby="section1Label">
-          <h1 id='section1Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Desktop Processors.</h1>
+          <h1 id='section1Label' className='text-2xl font-bold text-left lg:text-center px-5 mb-5'>Available Processors</h1>
           <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
@@ -45,7 +44,7 @@ async function Page() {
         </section>
       </main>
 
-    </main>
+    </>
   )
 }
 

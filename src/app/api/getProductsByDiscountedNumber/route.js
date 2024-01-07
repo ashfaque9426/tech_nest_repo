@@ -44,21 +44,43 @@ export async function GET(req) {
         if (parsedDiscountedPercentageNumber > 0 && !boolExact) {
             result = await Product.find({
                 $expr: {
-                    $lte: [
+                    $and: [
                         {
-                            $multiply: [
+                            $gt: [
                                 {
-                                    $divide: [
+                                    $multiply: [
                                         {
-                                            $subtract: ['$regularPrice', '$price'],
+                                            $divide: [
+                                                {
+                                                    $subtract: ['$regularPrice', '$price'],
+                                                },
+                                                '$regularPrice',
+                                            ],
                                         },
-                                        '$regularPrice',
+                                        100,
                                     ],
                                 },
-                                100,
+                                0,
                             ],
                         },
-                        parsedDiscountedPercentageNumber,
+                        {
+                            $lte: [
+                                {
+                                    $multiply: [
+                                        {
+                                            $divide: [
+                                                {
+                                                    $subtract: ['$regularPrice', '$price'],
+                                                },
+                                                '$regularPrice',
+                                            ],
+                                        },
+                                        100,
+                                    ],
+                                },
+                                parsedDiscountedPercentageNumber,
+                            ],
+                        },
                     ],
                 },
             }).select('_id brand imgUrls productTitle productCategory productStatus points price regularPrice offer keyFeatures').sort({ price: 1 });
