@@ -10,8 +10,31 @@ function HomePageBannerSlider({ success, dataArr, message }) {
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
     const [sliderHeight, setSliderHeight] = useState(0);
 
-    useEffect(()=> {
+    const updateWindowWidth = () => {
         setWindowWidth(window.innerWidth);
+    };
+
+
+    // updating the window width change while monitoring client resizing.
+    useEffect(() => {
+        // handling the not properly not ready while accessing issue.
+        const handleResize = () => {
+            setTimeout(updateWindowWidth, 0);
+        }
+
+        // Add event listener on component mount
+        if (typeof window !== 'undefined') {
+            window.addEventListener('resize', handleResize);
+        }
+
+        // Remove event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [])
+
+    useEffect(()=> {
+        // setting dynamic height to carousel slider component based on different window width
         if (windowWidth < 768) {
             setSliderHeight(125);
         }
