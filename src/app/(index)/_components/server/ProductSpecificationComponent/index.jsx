@@ -8,7 +8,7 @@ function ProductSpecificationComponent({ ProductSpecificationsArr }) {
         <div>
             {
                 // iterating through props array
-                ProductSpecificationsArr.map(productSpecsObj => <section className='mx-5 mb-12 md:my-12 md:mx-auto' key={uuidv4()}>
+                ProductSpecificationsArr.map(productSpecsObj => <section className='mb-12 md:my-12' key={uuidv4()}>
                     {
                         // iterating through objects of that array
                         Object.keys(productSpecsObj).map(keyObjTitle => <table className='table-auto flex flex-col gap-3 dark:gap-2' key={`individualSpecs${uuidv4()}`}>

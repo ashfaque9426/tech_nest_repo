@@ -77,7 +77,7 @@ function SingleProductLayout({ id }) {
     }, [id]);
     
     return (
-        <main className='md:mx-5 xl:mx-auto' role='main' aria-labelledby='subMainContentLabel'>
+        <main role='main' aria-labelledby='subMainContentLabel'>
             {/* product title */}
             {
                 serverResMsg && <h5 className='my-5 text-lg text-center font-bold'>{serverResMsg}</h5>
@@ -114,8 +114,8 @@ function SingleProductLayout({ id }) {
 
             {/* product specification details section */}
             {
-                !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24' role="region" aria-labelledby="section2Label">
-                    <h2 id='section2Label' className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
+                !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24 mx-5 2xl:mx-auto' role="region" aria-labelledby="section2Label">
+                    <h2 id='section2Label' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
 
                     {/* product's specificaiton component */}
                     <ProductSpecificationComponent ProductSpecificationsArr={productData.productSpecifications} />
@@ -124,8 +124,8 @@ function SingleProductLayout({ id }) {
 
             {/* product description section */}
             {
-                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24' role="region" aria-labelledby="section3Label">
-                    <h2 id='section3Label' className='mx-5 md:mx-auto font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
+                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 2xl:mx-auto' role="region" aria-labelledby="section3Label">
+                    <h2 id='section3Label' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
@@ -133,7 +133,7 @@ function SingleProductLayout({ id }) {
             }
 
             {/* product questions section */}
-            <section className='mt-24 mx-5 md:mx-auto' role="region" aria-labelledby="section4Label">
+            <section className='mt-24 mx-5 2xl:mx-auto' role="region" aria-labelledby="section4Label">
                 {
                     !serverResMsg && productData?.questions.length > 0 && <div>
                         <h2 id='section4Label' className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
@@ -144,7 +144,7 @@ function SingleProductLayout({ id }) {
                 }
 
                 {/* User's Question Field */}
-                <div className='mx-5 mt-12 md:mx-auto'>
+                <div className='mt-12'>
                     <form className={viewQuestionFrom ? 'block':'hidden'} onSubmit={handleQuestionSubmit}>
                         <fieldset className='border border-black dark:border-white shadow-lg dark:shadow-none rounded-sm px-3 py-5 flex flex-col gap-3 w-auto md:w-2/3'>
                             <legend className='font-bold'>User Question From</legend>

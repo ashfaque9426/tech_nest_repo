@@ -12,10 +12,10 @@ async function CardSectionComponentForSections({ title, category, brand, model, 
 
     return (
         <section className={cn('pb-12', className)}>
-            <h2 className={cn('mx-5', classNameForHeading)}>{title}:</h2>
+            <h2 className={cn(classNameForHeading)}>{title}:</h2>
             {/* product data here */}
             {
-                dataArr?.length > 0 && <div className='mx-5 2xl:mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-3'>
+                dataArr?.length > 0 && <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-3'>
                     {
                         dataArr.map(dataObj => (
 
@@ -26,7 +26,7 @@ async function CardSectionComponentForSections({ title, category, brand, model, 
                 </div>
             }
             {
-                dataArr1?.length > 0 && <div className='mx-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-3'>
+                dataArr1?.length > 0 && <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-3'>
                     {
                         dataArr1.map(dataObj => (
 
@@ -37,7 +37,7 @@ async function CardSectionComponentForSections({ title, category, brand, model, 
                 </div>
             }
             {
-                dataArr2?.length > 0 && <div className='mx-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-3'>
+                dataArr2?.length > 0 && <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-3'>
                     {
                         dataArr2.map(dataObj => (
 
