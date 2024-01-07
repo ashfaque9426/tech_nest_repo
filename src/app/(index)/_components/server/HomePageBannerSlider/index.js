@@ -12,9 +12,13 @@ function HomePageBannerSlider({ success, dataArr, message }) {
 
     useEffect(()=> {
         setWindowWidth(window.innerWidth);
-        if(windowWidth < 768) {
+        if (windowWidth < 768) {
             setSliderHeight(125);
-        }else {
+        }
+        else if (windowWidth > 1901) {
+            setSliderHeight(40);
+        }
+        else {
             setSliderHeight(55);
         }
     }, [windowWidth, dataArr]);
@@ -50,7 +54,7 @@ function HomePageBannerSlider({ success, dataArr, message }) {
                                 <div className='absolute top-0 right-0 bottom-0 left-0 z-10 bg-black bg-opacity-55 dark:bg-opacity-75'></div>
 
                                 {/* actual slider component with data */}
-                                <div className='relative text-white h-full flex flex-col md:flex-row justify-center items-center gap-5 px-5 z-20 md:px-16'>
+                                <div className={`relative text-white h-full flex flex-col md:flex-row justify-center items-center gap-5 px-5 z-20 md:px-16 ${sliderHeight === 40 && 'w-[80%] mx-auto'}`}>
                                     <small className='absolute top-5 right-5 text-red-500 font-semibold'>Slide Number {i + 1} of {dataArr.length}</small>
 
                                     {/* if no product image is available to show. */}
