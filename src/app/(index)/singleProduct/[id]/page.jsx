@@ -15,7 +15,7 @@ function Page({ params }) {
       <header>
         <h1 className='text-2xl text-center mt-5 mb-12 font-bold' >Product Specifications</h1>
       </header>
-      <main className='mx-5 2xl:mx-auto' role="main" aria-labelledby="mainContentLabel">
+      <main className='md:mx-5 xl:mx-auto' role="main" aria-labelledby="mainContentLabel">
         <SingleProductLayout id={id} />
       </main>
     </>
