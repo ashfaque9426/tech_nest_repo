@@ -43,8 +43,8 @@ function Navbar() {
   }
 
   return (
-    <nav role="navigation" aria-label="Main Navigation">
-      <div style={{ maxWidth: '1920px', marginInline: 'auto' }} className='mb-5 flex justify-center items-center border dark:border-none py-3'>
+    <nav className='border dark:border-none py-3' role="navigation" aria-label="Main Navigation">
+      <div style={{ maxWidth: '1920px', marginInline: 'auto' }} className='mb-5 flex justify-center items-center'>
         <header>
           <h1 className='text-xl text-center font-bold'>Tech Nest Navbar</h1>
         </header>
