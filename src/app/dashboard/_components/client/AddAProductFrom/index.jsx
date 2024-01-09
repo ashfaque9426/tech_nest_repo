@@ -287,6 +287,7 @@ function AddAProductForm({ apiKey }) {
                 setChildElems1([]);
                 setChildElems2([]);
                 setChildElems3([]);
+                setImgUrlInputFieldValues({});
                 setImgUrlFieldAdded(false);
                 setSpecsFieldAdded(false);
                 setKeyFeaturesFieldAdded(false);
