@@ -36,7 +36,7 @@ function ProductSpecificationComponent({ ProductSpecificationsArr }) {
                                                                 }
                                                             </ul>
                                                         :
-                                                            productSpecsObj[keyObjTitle][key]
+                                                            <span className='flex h-full items-center'>{productSpecsObj[keyObjTitle][key]}</span>
                                                     }
                                                 </td>
                                             </tr>)

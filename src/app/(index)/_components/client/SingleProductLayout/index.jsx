@@ -124,7 +124,7 @@ function SingleProductLayout({ id }) {
 
             {/* product description section */}
             {
-                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section3Label">
+                !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 dark:mx-0 2xl:mx-0' role="region" aria-labelledby="section3Label">
                     <h2 id='section3LabelHeading' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 function ProductDescriptionComponent({productDescriptionArr}) {
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='dark:text-[#E0E0E0] dark:bg-[#333333] dark:p-5 flex flex-col gap-8'>
         {
               productDescriptionArr.map(descriptionObj => <div className='flex flex-col gap-2' key={`descParentUL${uuidv4()}`}>
                 {
