@@ -6,10 +6,12 @@ import cn from '@/lib/clsx/cn';
 
 function SingleProductImgCarousel({ imgSrcArr, className }) {
     const [imgSrc, setImgSrc] = useState(imgSrcArr[0]);
+
     const handleSrcChange =  i => {
         // console.log(e.target.src);
         setImgSrc(imgSrcArr[i]);
     }
+    
     return (
         <>
             {/* if image array prop is empty */}
@@ -24,7 +26,7 @@ function SingleProductImgCarousel({ imgSrcArr, className }) {
                 imgSrcArr.length > 0 && <section className={cn('flex flex-col justify-center gap-5', className)} role="region"
                     aria-labelledby="carouselLabel">
                     <figure className='overflow-clip md:h-[555px] lg:h-[475px] flex justify-center'>
-                        <Image className='object-contain w-full' src={imgSrc} alt='Product Image Preview' width={500} height={500} priority />
+                        <Image className='object-contain w-full' src={imgSrc} alt='Product Image Preview' width={500} height={500} loading="eager" priority />
                     </figure>
                     {
                         imgSrcArr.length > 1 && <div className='flex flex-wrap justify-center gap-2'>

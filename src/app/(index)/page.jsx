@@ -32,21 +32,21 @@ async function Page() {
           <CardSectionComponentForSections title='Desktop Processors' category='desktop processor' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
-        {/* Desktop Processors by Brand section */}
+        {/* Motherboards by Category section */}
         <section className='pt-12' role="region" aria-labelledby="section2Label">
-          <h1 id='section2LabelHeading' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline mb-5'>Intel Processors</h1>
-          <CardSectionComponentForSections title="Products by Intel" brand='intel' limit1={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
+          <h1 id='section2LabelHeading' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline mb-5'>Available Motherboards</h1>
+          <CardSectionComponentForSections title="Motherboards" category='motherboard' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
         {/* Laptop by Category section */}
-        <section className='pt-12' role="region" aria-labelledby="section1Label">
-          <h1 id='section1LabelHeading' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline mb-5'>Available Laptops</h1>
+        <section className='pt-12' role="region" aria-labelledby="section3Label">
+          <h1 id='section3LabelHeading' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline mb-5'>Available Laptops</h1>
           <CardSectionComponentForSections title='Laptops' category='laptop' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
         {/* Smart Phone by Category section */}
-        <section className='pt-12' role="region" aria-labelledby="section3Label">
-          <h1 id='section3LabelHeading' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline mb-5'>Smart Phones</h1>
+        <section className='pt-12' role="region" aria-labelledby="section4Label">
+          <h1 id='section4LabelHeading' className='text-2xl font-bold text-left lg:text-center underline lg:no-underline mb-5'>Smart Phones</h1>
           <CardSectionComponentForSections title="Available Phones" category='smart phone' limit={10} classNameForHeading='text-2xl lg:text-xl font-semibold mt-1 mb-8' />
         </section>
 
