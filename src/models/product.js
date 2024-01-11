@@ -19,6 +19,7 @@ const ProductSchema = new mongoose.Schema(
         price: Number,
         productSpecifications: Array,
         productDescriptions: Array,
+        youtubeEmbedUrl: String
     },
     { timestamps: true }
 )

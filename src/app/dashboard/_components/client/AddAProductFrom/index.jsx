@@ -248,8 +248,8 @@ function AddAProductForm({ apiKey }) {
                 regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
                 price: parseFloat(parseFloat(form.price.value).toFixed(2)),
                 productSpecifications: specObjArr,
-                productDescriptions: productDescriptionsArr
-
+                productDescriptions: productDescriptionsArr,
+                youtubeEmbedUrl: form.youtubeEmbedUrl.value || ""
             }
         }
 
@@ -272,8 +272,8 @@ function AddAProductForm({ apiKey }) {
                 regularPrice: parseFloat(parseFloat(form.regularPrice.value).toFixed(2)),
                 price: parseFloat(parseFloat(form.price.value).toFixed(2)),
                 productSpecifications: specObjArr,
-                productDescriptions: productDescriptionsArr
-
+                productDescriptions: productDescriptionsArr,
+                youtubeEmbedUrl: form.youtubeEmbedUrl.value || ""
             }
         }
 
@@ -476,6 +476,14 @@ function AddAProductForm({ apiKey }) {
                         childElems3.length > 0 && <DashboardBtn id='removeDescInput' onClick={removeChildInput}>Remove Field</DashboardBtn>
                     }
                 </div>
+            </fieldset>
+
+            <fieldset className='lg:w-[85%] 2xl:w-2/3 border rounded-lg p-5'>
+                <legend className='my-3 text-lg font-semibold'>Youtube Embed Url</legend>
+                <section className='flex flex-col gap-1'>
+                    <label htmlFor="youtubeEmbedUrl">Youtube Embed Url</label>
+                    <DashboardCustomFormInput type='text' name='youtubeEmbedUrl' id='youtubeEmbedUrl' className="" placeholder='Youtube Embed Url' />
+                </section>
             </fieldset>
 
             {/* submit button input field of type submit */}

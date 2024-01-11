@@ -132,6 +132,13 @@ function SingleProductLayout({ id }) {
                 </section>
             }
 
+            {/* Youtube Iframe section */}
+            {
+                !serverResMsg && productData?.youtubeEmbedUrl.length > 0 && <section className='mt-12'>
+                    <iframe width="100%" height="315" src={productData.youtubeEmbedUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                </section>
+            }
+
             {/* product questions section */}
             <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section4Label">
                 {
