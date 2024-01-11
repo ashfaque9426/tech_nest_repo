@@ -29,7 +29,7 @@ function ProductSpecificationComponent({ ProductSpecificationsArr }) {
                                                             <ul>
                                                                 {
                                                                     productSpecsObj[keyObjTitle][key].split("; ").map((str, i) => (
-                                                                        <li className={`${i !== productSpecsObj[keyObjTitle][key].split("; ").length - 1 ? 'mb-2' : 'mb-0'}`} key={`strOfArr${uuidv4()}`}>
+                                                                        <li className={`${i !== productSpecsObj[keyObjTitle][key].split("; ").length - 1 ? 'mb-2 break-words' : 'mb-0 break-words'}`} key={`strOfArr${uuidv4()}`}>
                                                                             {str}
                                                                         </li>
                                                                     ))
