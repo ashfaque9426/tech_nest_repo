@@ -134,7 +134,7 @@ function SingleProductLayout({ id }) {
 
             {/* Youtube Iframe section */}
             {
-                !serverResMsg && productData?.youtubeEmbedUrl.length > 0 && <section className='mt-12'>
+                !serverResMsg && productData?.youtubeEmbedUrl?.length > 0 && <section className='mt-12'>
                     <iframe width="100%" height="315" src={`${productData.youtubeEmbedUrl} + "&origin=http://localhost:3000&showinfo=0&video-id=youtube_video_id&enablejsapi=1&widgetid=1&color=white&modestbranding=1&rel=0"`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" sandbox='allow-same-origin allow-scripts allow-presentation' allowFullScreen={true}></iframe>
                 </section>
             }
