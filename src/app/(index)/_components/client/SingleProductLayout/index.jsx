@@ -125,7 +125,7 @@ function SingleProductLayout({ id }) {
             {/* product description section */}
             {
                 !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 dark:mx-0 2xl:mx-0' role="region" aria-labelledby="section3Label">
-                    <h2 id='section3LabelHeading' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Descriptions down bellow</h2>
+                    <h2 id='section3LabelHeading' className='font-semibold text-2xl mb-5 md:text-center dark:mx-5'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
@@ -135,7 +135,7 @@ function SingleProductLayout({ id }) {
             {/* Youtube Iframe section */}
             {
                 !serverResMsg && productData?.youtubeEmbedUrl.length > 0 && <section className='mt-12'>
-                    <iframe width="100%" height="315" src={productData.youtubeEmbedUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                    <iframe width="100%" height="315" src={productData.youtubeEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                 </section>
             }
 
