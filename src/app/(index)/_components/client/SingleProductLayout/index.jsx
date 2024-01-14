@@ -115,7 +115,7 @@ function SingleProductLayout({ id }) {
             {/* product specification details section */}
             {
                 !serverResMsg && productData?.productSpecifications.length > 0 && <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section2Label">
-                    <h2 id='section2LabelHeading' className='font-semibold text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
+                    <h2 id='section2LabelHeading' className='font-semibold text-[22px] md:text-2xl mb-5 md:text-center'>Product&apos;s Specification details down bellow</h2>
 
                     {/* product's specificaiton component */}
                     <ProductSpecificationComponent ProductSpecificationsArr={productData.productSpecifications} />
@@ -125,7 +125,7 @@ function SingleProductLayout({ id }) {
             {/* product description section */}
             {
                 !serverResMsg && productData?.productDescriptions.length > 0 && <section className='mt-24 mx-5 dark:mx-0 2xl:mx-0' role="region" aria-labelledby="section3Label">
-                    <h2 id='section3LabelHeading' className='font-semibold text-2xl mb-5 md:text-center dark:mx-5'>Product&apos;s Descriptions down bellow</h2>
+                    <h2 id='section3LabelHeading' className='font-semibold text-[22px] md:text-2xl mb-5 md:text-center dark:mx-5'>Product&apos;s Descriptions down bellow</h2>
 
                     {/* product description component */}
                     <ProductDescriptionComponent productDescriptionArr={productData.productDescriptions} />
@@ -135,7 +135,7 @@ function SingleProductLayout({ id }) {
             {/* Youtube Iframe section */}
             {
                 !serverResMsg && productData?.youtubeEmbedUrl.length > 0 && <section className='mt-12'>
-                    <iframe width="100%" height="315" src={productData.youtubeEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                    <iframe width="100%" height="315" src={productData.youtubeEmbedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" sandbox='allow-same-origin allow-scripts allow-presentation' allowFullScreen={true}></iframe>
                 </section>
             }
 
@@ -143,7 +143,7 @@ function SingleProductLayout({ id }) {
             <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section4Label">
                 {
                     !serverResMsg && productData?.questions.length > 0 && <div>
-                        <h2 id='section4LabelHeading' className='font-semibold text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
+                        <h2 id='section4LabelHeading' className='font-semibold text-[22px] md:text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
 
                         {/* users questions component to view questions lists */}
                         <UsersQuestionsComponent usersQuestionsArr={questionsArr.length > 0 ? questionsArr : productData.questions} />

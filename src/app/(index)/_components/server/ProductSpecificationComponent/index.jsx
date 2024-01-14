@@ -16,13 +16,13 @@ function ProductSpecificationComponent({ ProductSpecificationsArr }) {
                             {
                                 <>
                                     <thead className='bg-gray-800 text-white dark:bg-[#2a2424] ps-3 py-2 xl:ps-8'>
-                                        <tr className='text-lg font-semibold capitalize mt-8'><td colSpan="2">{fromCamelCase(keyObjTitle)}:</td></tr>
+                                        <tr className='text-base md:text-lg font-semibold capitalize mt-8'><td colSpan="2">{fromCamelCase(keyObjTitle)}:</td></tr>
                                     </thead>
 
                                     {/* iterating through nested object of those retrieved objects for each object */}
                                     <tbody className='flex flex-col gap-1'>
                                         {
-                                            Object.keys(productSpecsObj[keyObjTitle]).map((key, index) => <tr className={`text-md py-2 flex ${index % 2 === 0 ? 'bg-[#f0f6fb] dark:bg-[#585657]' : 'bg-[#fbfbfb] dark:bg-[#2c2b2b]'}`} key={`individualSpecListItem${uuidv4()}`}>
+                                            Object.keys(productSpecsObj[keyObjTitle]).map((key, index) => <tr className={`text-sm md:text-base py-2 flex gap-1 md:gap-0 ${index % 2 === 0 ? 'bg-[#f0f6fb] dark:bg-[#585657]' : 'bg-[#fbfbfb] dark:bg-[#2c2b2b]'}`} key={`individualSpecListItem${uuidv4()}`}>
                                                 <td className='capitalize font-semibold leading-5 ps-3 xl:ps-8 w-1/3 flex items-center'>{fromCamelCase(key)}:</td><td className='px-3 w-2/3'>
                                                     {
                                                         productSpecsObj[keyObjTitle][key].includes(";") ? 
