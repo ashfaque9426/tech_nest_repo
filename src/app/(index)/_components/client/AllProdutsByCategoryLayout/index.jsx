@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 
-function AllProductsByCategory() {
+function AllProductsByCategoryLayout() {
     const [productArr, setProductArr] = useState([]);
     useEffect(() => { }, []);
     return (
@@ -17,4 +17,4 @@ function AllProductsByCategory() {
     )
 }
 
-export default AllProductsByCategory;
+export default AllProductsByCategoryLayout;
