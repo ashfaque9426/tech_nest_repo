@@ -10,7 +10,6 @@ function AllProductsByCategoryLayout({ category }) {
     useEffect(() => {
         productByCategory(category).then(result => {
             if (result.success) {
-                console.log(result.data)
                 setProductArr(result.data);
             }else {
                 toast.error(result.message, {
