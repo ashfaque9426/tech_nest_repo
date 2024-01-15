@@ -106,7 +106,7 @@ function SingleProductLayout({ id }) {
                         {/* Buttons section for several actions */}
                         <section className='flex flex-wrap gap-5' aria-labelledby="subsection2Label">
                             <BtnComponentOne iconFirst={<IoIosCart />} className='pe-8'>Buy Now</BtnComponentOne>
-                            <BtnComponentOne iconFirst={<FaCartPlus />} className='bg-[#ef4444] pe-8' >Add To Cart</BtnComponentOne>
+                            <BtnComponentOne iconFirst={<FaCartPlus />} className='bg-[#a43434] pe-8' >Add To Cart</BtnComponentOne>
                         </section>
                     </section>
                 </section>

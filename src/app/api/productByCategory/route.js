@@ -47,7 +47,7 @@ export async function GET(req) {
                         }
                     ]
 
-                }).select('_id brand imgUrls productTitle productCategory productStatus points price offer createdAt').limit(limit).sort({ price: 1 });
+                }).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(limit).sort({ price: 1 });
             } else {
                 result = await Product.find({
                     $and: [
@@ -76,7 +76,7 @@ export async function GET(req) {
                         }
                     ]
 
-                }).select('_id brand imgUrls productTitle productCategory productStatus points price offer createdAt').sort({ price: 1 });
+                }).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').sort({ price: 1 });
             }
 
             // if database doesnot return an empty array then returning the results
