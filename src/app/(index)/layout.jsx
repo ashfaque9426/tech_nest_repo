@@ -8,7 +8,7 @@ function Layout1({ children }) {
       <header>
         <Navbar />
       </header>
-      <main style={{ maxWidth: '1920px', marginInline: 'auto' }} className='relative w-full 2xl:w-2/3 mx-auto dark:bg-[#121212]' role='main' aria-labelledby='mainContentLabel'>
+      <main className='relative w-full 2xl:w-2/3 mx-auto dark:bg-[#121212]' role='main' aria-labelledby='mainContentLabel'>
         {children}
       </main>
       <Footer />

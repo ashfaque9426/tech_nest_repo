@@ -11,9 +11,9 @@ function Page({ params }) {
   return (
     <>
       <header>
-        <h1 id='mainContentLabelHeading' className='text-2xl text-center mt-5 mb-12 font-bold'>Products by same category: {category}</h1>
+        <h1 id='mainContentLabelHeading' className='text-2xl text-center mt-5 mb-12 font-bold capitalize'>Products by same category: {category.split('%20').length > 0 ? category.split('%20')[0] + " " + category.split('%20')[1] : category}</h1>
       </header>
-      <main className='flex flex-col md:flex-row gap-5' role='main' aria-labelledby='subMainContentLabel'>
+      <main className='flex flex-col px-5 2xl:px-0 md:flex-row gap-5' role='main' aria-labelledby='subMainContentLabel'>
         <AllProductsByCategoryLayout category={category} />
       </main>
     </>

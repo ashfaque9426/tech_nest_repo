@@ -31,7 +31,7 @@ function HomePageBannerSlider({ success, dataArr, message }) {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [])
+    }, []);
 
     useEffect(()=> {
         // setting dynamic height to carousel slider component based on different window width
