@@ -15,7 +15,7 @@ function CardComponentTwo({ productObj, className, classNameForProductTitle, cla
                 <small className={cn('absolute px-3 py-1 bottom-5 bg-[#3d393f]  text-white font-bold rounded-e-lg', classNameForBrandSection)}>{formatNumberWithCommas(regularPrice)} BDT</small>
                 <Image className='object-cover w-full h-full' src={imgUrls[0]} alt={`${productTitle} card image`} width={550} height={550} priority />
             </figure>
-            <section className='p-2 flex flex-col flex-1 justify-between gap-3'>
+            <section className='p-2 flex-1 flex flex-col justify-between gap-3'>
                 <h3 className={cn('font-semibold', classNameForProductTitle)}>{productTitle}</h3>
                 <ul className={cn('text-sm flex flex-col gap-1')}>
                     {
