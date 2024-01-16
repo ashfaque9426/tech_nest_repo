@@ -13,13 +13,14 @@ export async function GET(req) {
         const searchParams = req.nextUrl.searchParams;
         const model = searchParams.get('model');
         const limit = searchParams.get('limit');
+        const limitValue = parseInt(limit);
         const capitalizedModel = capitalizeFirstLetter(model);
         const lowerCasedModel = model.toLowerCase();
         let result;
 
         // if search params is truthy then the database seach option will be performed
         if (searchParams) {
-            if(limit > 0) {
+            if (limitValue > 0) {
                 result = await Product.find({
                     $and: [
                         {
@@ -47,7 +48,7 @@ export async function GET(req) {
                         }
                     ]
 
-                }).select('_id brand model imgUrls productTitle productCategory productStatus points price offer createdAt').limit(limit).sort({ price: 1 });
+                }).select('_id brand model imgUrls productTitle productCategory productStatus points price offer createdAt').limit(limitValue).sort({ price: 1 });
             } else {
                 result = await Product.find({
                     $and: [
