@@ -24,7 +24,7 @@ function AsideComponentForSameCategoryFiltering({ category, handleParamsForUrl }
                                             {
                                                 sidebarComponentObj[keyObj].models.map((strItem, i) => (
                                                     <li onClick={() => handleParamsForUrl(strItem)} className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringByModels${uuidv4()}`}>
-                                                        <label>
+                                                        <label onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>
                                                             <input className='mr-2' type="checkbox" name={`checkbox-${uuidv4()}`} checked={indexArr.includes(i + strItem)} onChange={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])} />
                                                             <span onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>{strItem}</span>
                                                         </label>
@@ -38,7 +38,7 @@ function AsideComponentForSameCategoryFiltering({ category, handleParamsForUrl }
                                             {
                                                 sidebarComponentObj[keyObj].socketList.map((strItem, i) => (
                                                     <li onClick={() => handleParamsForUrl(strItem)} className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringBySocketList${uuidv4()}`}>
-                                                        <label>
+                                                        <label onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>
                                                             <input className='mr-2' type="checkbox" name={`checkbox-${uuidv4()}`} checked={indexArr.includes(i + strItem)} onChange={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])} />
                                                             <span onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>{strItem}</span>
                                                         </label>

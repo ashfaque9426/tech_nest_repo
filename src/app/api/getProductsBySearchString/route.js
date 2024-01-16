@@ -35,7 +35,7 @@ export async function GET(req) {
 
         if (Object.keys(pipeline).length > 0) {
             const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(limitValue > 0 ? limitValue : 0).sort({ price: 1 });
-            if(result) {
+            if(result.length > 0) {
                 return NextResponse.json({
                     success: true,
                     data: result
@@ -45,7 +45,7 @@ export async function GET(req) {
         
         return NextResponse.json({
             success: false,
-            message: 'Unable to retrive the products from database. Please try again.'
+            message: 'No Match Found. Please try another product.'
         });
     }
     catch(err) {
