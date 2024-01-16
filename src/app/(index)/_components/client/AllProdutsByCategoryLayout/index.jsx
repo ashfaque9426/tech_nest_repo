@@ -1,5 +1,5 @@
 "use client"
-import { productByCategory } from '@/services/productServices';
+import { productByCategory, productsBySearchStrings } from '@/services/productServices';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import CardComponentTwo from '../../shared/server/CardComponentTwo';
@@ -21,35 +21,65 @@ function AllProductsByCategoryLayout({ category }) {
     }
 
     useEffect(() => {
+        let url = `http://localhost:3000/api/getProductsBySearchString?category=${category}&searchStr=`;
         if (paramStrArr.length > 0) {
-            console.log(paramStrArr)
+            for (let i = 0; i < paramStrArr.length; i++) {
+                if (paramStrArr[i].includes(" ")) {
+                    const newStr = paramStrArr[i].replace(/ +/g, '%20');
+                    if(i !== 0) {
+                        url += ";" + newStr + "+";
+                    }else {
+                        url += newStr + "+";
+                    }
+                    
+                } else {
+                    if(i !== 0) {
+                        url += ";" + paramStrArr[i] + "+";
+                    } else {
+                        url += paramStrArr[i] + "+";
+                    }
+                    
+                }
+            }
+            url = url.slice(0, -1);
+            
+            productsBySearchStrings(url, 10).then(resData => {
+                if (resData.success) {
+                    setProductArr(sortOrder === 'lowToHigh' && resData.data || sortOrder === 'highToLow' && resData.data.sort(function (a, b) {
+                        return b.regularPrice - a.regularPrice;
+                    }))
+                }
+            });
         }
-    }, [paramStrArr]);
+    }, [category, paramStrArr, sortOrder]);
 
     useEffect(() => {
-        productByCategory(category).then(result => {
-            if (result.success) {
-                // sorting data according to sort product and loading data on page load.
-                setProductArr(sortOrder === 'lowToHigh' && result.data || sortOrder === 'highToLow' && result.data.sort(function (a, b) {
-                    return b.regularPrice - a.regularPrice;
-                }));
-            }else {
-                // show error if unable to get products for some reason.
-                toast.error(result.message, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
-            }
-        }).catch(err => console.log(err.message));
+        if (paramStrArr.length > 0) return;
+        if(paramStrArr.length === 0) {
+            productByCategory(category).then(result => {
+                if (result.success) {
+                    // sorting data according to sort product and loading data on page load.
+                    setProductArr(sortOrder === 'lowToHigh' && result.data || sortOrder === 'highToLow' && result.data.sort(function (a, b) {
+                        return b.regularPrice - a.regularPrice;
+                    }));
+                } else {
+                    // show error if unable to get products for some reason.
+                    toast.error(result.message, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                }
+            }).catch(err => console.log(err.message));
+        }
         
-    }, [category, sortOrder]);
+    }, [paramStrArr, category, sortOrder]);
     return (
         <>
             <AsideComponentForSameCategoryFiltering category={category} handleParamsForUrl={handleParamsForUrl} />

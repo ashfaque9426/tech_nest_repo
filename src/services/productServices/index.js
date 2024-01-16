@@ -89,6 +89,25 @@ export const deleteProduct = async id => {
 
 }
 
+// get products by search strings.
+export const productsBySearchStrings = async (url, limit = 0) => {
+    try {
+        const response = await fetch(`${url}&limit=${limit}`, {
+            method: 'GET',
+            cache: 'no-store'
+        })
+
+        if (!response.ok) {
+            throw new Error(`Http error! Status code: ${res.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(`Error while fetching data. Error: ${error.message}`);
+    }
+}
+
 // for getting product by it's id
 export const productById = async id => {
     try{
@@ -105,7 +124,7 @@ export const productById = async id => {
         return data;
         
     } catch (err) {
-        console.log(`Error while fetching data. Error: ${error.message}`);
+        console.log(`Error while fetching data. Error: ${err.message}`);
     }
 }
 
