@@ -4,16 +4,27 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import CardComponentTwo from '../../shared/server/CardComponentTwo';
 import { v4 as uuidv4 } from 'uuid';
+import AsideComponentForSameCategoryFiltering from '../AsideComponentForSameCategoryFiltering';
 
 function AllProductsByCategoryLayout({ category }) {
     const [productArr, setProductArr] = useState([]);
     const [sortOrder, setSortOrder] = useState('lowToHigh');
-    const [processorSidebar, setProcessorSidebar] = useState([{ brandOne: { brand: "Intel", models: ['Intel Pentium', 'Core i3', 'Core i5', 'Core i7', 'Core i9'], socketList: ['LGA1700', 'FCLGA1200', 'LGA2011'] } }, { brandTwo: { brand: "AMD", models: ['Ryzen 3', 'Ryzen 5', 'Ryzen 7', 'Ryzen Threadripper'], socketList: ['AM5', 'sWRX8'] } }]);
+    const [paramStrArr, setParamStrArr] = useState([]);
 
     // for changing sort order state
     const handleSortOrderChange = e => {
         setSortOrder(e.target.value);
     }
+
+    const handleParamsForUrl = (str) => {
+        setParamStrArr(prevStr => paramStrArr.includes(str) ? paramStrArr.filter(arrStr => str !== arrStr) : [...prevStr, str]);
+    }
+
+    useEffect(() => {
+        if (paramStrArr.length > 0) {
+            console.log(paramStrArr)
+        }
+    }, [paramStrArr]);
 
     useEffect(() => {
         productByCategory(category).then(result => {
@@ -41,57 +52,7 @@ function AllProductsByCategoryLayout({ category }) {
     }, [category, sortOrder]);
     return (
         <>
-            <aside className='md:w-[25%] md:sticky md:top-0' role="complementary" aria-labelledby="sidebar-heading">
-                <h2 className='text-xl font-semibold text-center' id="sidebar-heading">Filtering Options</h2>
-
-                {/* for destop processors side menubar filtering options */}
-                {
-                    category === "desktop processor" || category === "desktop%20processor" && <div className='flex flex-col gap-5 items-center my-5'>
-                        {
-                            processorSidebar.map(sidebarComponentObj => (
-                                Object.keys(sidebarComponentObj).map(keyObj => (<section className='w-full  rounded-lg shadow-md bg-[#efeded] dark:bg-[#1e1e1e] dark:shadow-none py-5' key={`processorFilteringItems${uuidv4()}`}>
-                                    {   
-                                        <div className='w-2/3 mx-auto'>
-                                            <h3 className='text-lg capitalize font-semibold mb-3'>{sidebarComponentObj[keyObj].brand}</h3>
-                                            <ul className='my-2'>
-                                                <h4 className='mb-1 font-semibold'>Models:</h4>
-                                                {
-                                                    sidebarComponentObj[keyObj].models.map(strItem => (
-                                                        <li className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringByModels${uuidv4()}`}>
-                                                            <span>
-                                                                <form>
-                                                                    <input type="checkbox" name="checkbox" />
-                                                                </form>
-                                                            </span>
-                                                            <span>{strItem}</span>
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-
-                                            <ul className='my-2'>
-                                                <h4 className='mb-1 font-semibold'>Sockets:</h4>
-                                                {
-                                                    sidebarComponentObj[keyObj].socketList.map(strItem => (
-                                                        <li className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringBySocketList${uuidv4()}`}>
-                                                            <span>
-                                                                <form>
-                                                                    <input type="checkbox" name="checkbox" />
-                                                                </form>
-                                                            </span>
-                                                            <span>{strItem}</span>
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    }
-                                </section>))
-                            ))
-                        }
-                    </div>
-                }
-            </aside>
+            <AsideComponentForSameCategoryFiltering category={category} handleParamsForUrl={handleParamsForUrl} />
 
             {/* Product display section */}
             <section className='md:w-[75%]' role='region' aria-labelledby="section-heading">
