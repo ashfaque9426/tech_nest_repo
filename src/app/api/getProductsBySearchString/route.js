@@ -13,42 +13,47 @@ export async function GET(req) {
         const limitValue = searchParams.get("limit");
         const typeConvertedLimValue = parseInt(limitValue);
         const searchedStrArr = searchedStrings.split(" ;");
+        let result;
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
-            $or: []
-        };
-
-        for(let i = 0; i < searchedStrArr.length; i++) {
-            const regexPattern = new RegExp(`${searchedStrArr[i]}`, 'i');
-
-            pipeline.$or.push(
-                {
-                    "productTitle": { $regex: regexPattern }
-                },
-                {
-                    "keyFeatures.model": { $regex: regexPattern }
-                },
-                {
-                    "keyFeatures.socket": { $regex: regexPattern }
-                }
-            );
+            $and: [
+                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+            ]
         }
 
+        const pipelineOne = {
+            productCategory: { $regex: category, $options: 'i' },
+            $or: [
+                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+            ]
+        }
 
-        if (pipeline.$or.length > 0) {
-            const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
-            if(result.length > 0) {
+        if (searchedStrArr.length > 0) {
+            result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+            if (result.length > 0) {
                 return NextResponse.json({
                     success: true,
                     data: result
                 });
+            } else {
+                result = await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+                if(result.length > 0) {
+                    return NextResponse.json({
+                        success: true,
+                        data: result
+                    });
+                } else {
+                    return NextResponse.json({
+                        success: false,
+                        message: 'No Match Found. Please try another product.'
+                    });
+                }
             }
         }
-        
-        return NextResponse.json({
-            success: false,
-            message: 'No Match Found. Please try another product.'
-        });
+
     }
     catch(err) {
         console.log(err);
