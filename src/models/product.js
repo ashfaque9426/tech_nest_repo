@@ -24,6 +24,8 @@ const ProductSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
+ProductSchema.index({ status: 1, brand: 1, model: 1, productCategory: 1, productTitle: 1, regularPrice: 1, price: 1, keyFeatures: 1 });
+
 const Product = mongoose.models.TechProducts || mongoose.model("TechProducts", ProductSchema, "TechProducts");
 
 export default Product;

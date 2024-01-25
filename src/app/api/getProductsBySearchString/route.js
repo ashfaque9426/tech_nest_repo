@@ -13,46 +13,50 @@ export async function GET(req) {
         const limitValue = searchParams.get("limit");
         const typeConvertedLimValue = parseInt(limitValue);
         const searchedStrArr = searchedStrings.split(" ;");
-        let result;
-        const pipeline = {
-            productCategory: { $regex: category, $options: 'i' },
-            $and: [
-                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-            ]
-        }
 
-        const pipelineOne = {
-            productCategory: { $regex: category, $options: 'i' },
-            $or: [
-                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-            ]
-        }
+        // for desktop processors.
+        if (category === 'Desktop Processor' || category === 'Desktop Processor'.toLowerCase()) {
+            const pipeline = {
+                productCategory: { $regex: category, $options: 'i' },
+                $and: [
+                    { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                    { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                ]
+            }
 
-        if (searchedStrArr.length > 0) {
-            result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+            const pipelineOne = {
+                productCategory: { $regex: category, $options: 'i' },
+                $or: [
+                    { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                    { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                    { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                ]
+            }
+
+            const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+
+            const result1 = await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+
             if (result.length > 0) {
                 return NextResponse.json({
                     success: true,
                     data: result
                 });
-            } else {
-                result = await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
-                if(result.length > 0) {
-                    return NextResponse.json({
-                        success: true,
-                        data: result
-                    });
-                } else {
-                    return NextResponse.json({
-                        success: false,
-                        message: 'No Match Found. Please try another product.'
-                    });
-                }
             }
+
+            if (result1.length > 0) {
+                return NextResponse.json({
+                    success: true,
+                    data: result1
+                });
+            }
+
+            return NextResponse.json({
+                success: false,
+                message: 'No Match Found. Please try another product.'
+            });
         }
+        
 
     }
     catch(err) {

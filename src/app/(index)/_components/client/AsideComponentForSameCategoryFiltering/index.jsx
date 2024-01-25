@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 function AsideComponentForSameCategoryFiltering({ category, handleParamsForUrl }) {
     const [indexArr, setIndexArr] = useState([]);
-    const [processorSidebar, setProcessorSidebar] = useState([{ brandOne: { brand: "Intel", models: ['Intel Pentium', 'Core i3', 'Core i5', 'Core i7', 'Core i9'], socketList: ['LGA1700', 'FCLGA1200', 'LGA2011'] } }, { brandTwo: { brand: "AMD", models: ['Ryzen 3', 'Ryzen 5', 'Ryzen 7', 'Ryzen Threadripper'], socketList: ['AM5', 'sWRX8'] } }]);
+    const [processorSidebar, setProcessorSidebar] = useState([{ brandOne: { brand: "Intel", models: ['Intel Pentium', 'Core i3', 'Core i5', 'Core i7', 'Core i9'], socketList: ['LGA1700', 'FCLGA1200', 'LGA2011'] } }, { brandTwo: { brand: "AMD", models: ['Ryzen 3', 'Ryzen 5', 'Ryzen 7', 'Ryzen 9', 'Ryzen Threadripper'], socketList: ['AM5', 'sWRX8'] } }]);
 
     return (
         <aside className='md:w-[25%] md:sticky md:top-0' role="complementary" aria-labelledby="sidebar-heading">
