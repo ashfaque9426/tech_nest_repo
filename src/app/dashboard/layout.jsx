@@ -11,7 +11,7 @@ function Layout2({children}) {
   return (
     <>
       <HeaderComponentForDashboardLayout />
-      <main style={{ maxWidth: '1920px', marginInline: 'auto' }} className="flex flex-col lg:flex-row justify-center items-center gap-5 w-full" role="main" aria-labelledby="mainContentLabel">
+      <main className="w-full 2xl:w-2/3 mx-auto flex flex-col lg:flex-row justify-center items-center gap-5" role="main" aria-labelledby="mainContentLabel">
         <Sidebar />
         {children}
       </main>
