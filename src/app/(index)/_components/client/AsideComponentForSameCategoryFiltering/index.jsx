@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import LiComponentForAsideCompFiltering from '../LiComponentForAsideCompFiltering';
 
 function AsideComponentForSameCategoryFiltering({ category, handleParamsForUrl }) {
     const [indexArr, setIndexArr] = useState([]);
@@ -23,12 +24,7 @@ function AsideComponentForSameCategoryFiltering({ category, handleParamsForUrl }
                                             <h4 className='mb-1 font-semibold'>Models:</h4>
                                             {
                                                 sidebarComponentObj[keyObj].models.map((strItem, i) => (
-                                                    <li onClick={() => handleParamsForUrl(strItem)} className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringByModels${uuidv4()}`}>
-                                                        <label onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>
-                                                            <input className='mr-2' type="checkbox" name={`checkbox-${uuidv4()}`} checked={indexArr.includes(i + strItem)} onChange={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])} />
-                                                            <span onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>{strItem}</span>
-                                                        </label>
-                                                    </li>
+                                                    <LiComponentForAsideCompFiltering key={`processorFilteringByModels${uuidv4()}`} strItem={strItem} i={i} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} />
                                                 ))
                                             }
                                         </ul>
@@ -37,12 +33,7 @@ function AsideComponentForSameCategoryFiltering({ category, handleParamsForUrl }
                                             <h4 className='mb-1 font-semibold'>Sockets:</h4>
                                             {
                                                 sidebarComponentObj[keyObj].socketList.map((strItem, i) => (
-                                                    <li onClick={() => handleParamsForUrl(strItem)} className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringBySocketList${uuidv4()}`}>
-                                                        <label onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>
-                                                            <input className='mr-2' type="checkbox" name={`checkbox-${uuidv4()}`} checked={indexArr.includes(i + strItem)} onChange={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])} />
-                                                            <span onClick={() => setIndexArr(prevIndexs => indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem])}>{strItem}</span>
-                                                        </label>
-                                                    </li>
+                                                    <LiComponentForAsideCompFiltering key={`processorFilteringByModels${uuidv4()}`} strItem={strItem} i={i} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} />
                                                 ))
                                             }
                                         </ul>
