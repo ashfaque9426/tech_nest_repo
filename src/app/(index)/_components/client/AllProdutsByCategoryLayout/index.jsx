@@ -6,7 +6,7 @@ import CardComponentTwo from '../../shared/server/CardComponentTwo';
 import { v4 as uuidv4 } from 'uuid';
 import AsideComponentForSameCategoryFiltering from '../AsideComponentForSameCategoryFiltering';
 
-function AllProductsByCategoryLayout({ category }) {
+function AllProductsByCategoryLayout({ category, brand }) {
     const [productArr, setProductArr] = useState([]);
     const [sortOrder, setSortOrder] = useState('lowToHigh');
     const [paramStrArr, setParamStrArr] = useState([]);
@@ -95,7 +95,7 @@ function AllProductsByCategoryLayout({ category }) {
     return (
         <>
             {/* sidebar component */}
-            <AsideComponentForSameCategoryFiltering category={category} handleParamsForUrl={handleParamsForUrl} />
+            <AsideComponentForSameCategoryFiltering category={category} brand={brand} handleParamsForUrl={handleParamsForUrl} />
 
             {/* Product display section */}
             <section className='md:w-[75%]' role='region' aria-labelledby="section-heading">
