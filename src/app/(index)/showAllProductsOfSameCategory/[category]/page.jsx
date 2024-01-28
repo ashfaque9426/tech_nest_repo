@@ -8,6 +8,7 @@ export const metadata = {
 
 function Page({ params }) {
   const category = params.category;
+  // console.log(category);
   return (
     <>
       <header>
