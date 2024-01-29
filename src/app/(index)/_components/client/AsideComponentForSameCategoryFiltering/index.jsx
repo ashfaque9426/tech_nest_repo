@@ -14,7 +14,7 @@ function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsF
     const [laptopSidebar, setLaptopSidebar] = useState([{ brandList: ["MSI", "Asus", "HP", "GIGABYTE", "Lenovo", "Chuwi"], ramSizes: ["8GB", "16GB", "32GB"], ramType: ["DDR4", "DDR5"], processorType: ["Intel", "AMD"], storageLists: ["256GB", "512GB", "1TB"], displayType: ["FHD", "OLED", "WQXGA", "OLED Touch"], displaySize: ['15.6"', '14', '14.1"', '16"'], graphicsList: ["RTX 4060 8GB GDDR6", "Intel UHD Graphics 600", "GeForce RTX 3070 8GB", "RTX 4050 6GB GDDR6", "NVIDIA GeForce RTX 3050Ti 4GB GDDR6", "AMD Radeon", "Intel Iris Xe", "Intel UHD Graphics"], warrantyLists: ["1 year", "2 years", "3 years"] }]);
 
     // for smartPhone Filtering options
-    const [phoneSidebar, setPhoneSidebar] = useState([{ brandList: ["Xiaomi", "Samsung", "Apple", "Vivo", "Nokia", "Google", "One Plus", "OPPO"], displaySize: ['6.67"', '6.5"', '6.1"', '6.3"', '6.51"', '6.52"', '6.56"'], displayType: ["HD+", "FHD+", "Super Retina XDR", "Liquid Retina HD", "OLED"], cameraType: ["16", "13+2", "12", "48", "50+2", "8"], batteryType: ["5000 mAh", "4355 mAh", "5050 mAh", "4000 mAh"] }]);
+    const [phoneSidebar, setPhoneSidebar] = useState([{ brandList: ["Xiaomi", "Samsung", "Apple", "Vivo", "Nokia", "Google", "One Plus", "OPPO"], displaySize: ['6.67"', '6.5"', '6.1"', '6.3"', '6.51"', '6.52"', '6.56"'], displayType: ["HD+", "FHD+", "Super Retina XDR", "Liquid Retina HD", "OLED"], cameraType: ["16 MP", "13+2 MP", "12 MP", "48 MP", "50+2 MP", "8 MP"], batteryType: ["5000 mAh", "4355 mAh", "5050 mAh", "4000 mAh"] }]);
 
     return (
         <aside className='md:w-[25%]' role="complementary" aria-labelledby="sidebar-heading">
