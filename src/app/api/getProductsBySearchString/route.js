@@ -36,6 +36,12 @@ export async function GET(req) {
                         { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
                         { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
                     ]
+                },
+                {
+                    $or: [
+                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                    ]
                 }
             ]
         }
