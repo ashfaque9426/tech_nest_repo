@@ -13,4 +13,4 @@ function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParams
   )
 }
 
-export default LiComponentForAsideCompFiltering
+export default LiComponentForAsideCompFiltering;

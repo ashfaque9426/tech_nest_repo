@@ -14,6 +14,15 @@ export async function GET(req) {
         const typeConvertedLimValue = parseInt(limitValue);
         const searchedStrArr = searchedStrings.split(" ;");
 
+        searchedStrArr.forEach((item, index) => {
+            searchedStrArr[index] = item.replace(/"/g, '');
+            if (/\s$/.test(item)) searchedStrArr[index] = item.replace(/\s$/, '+');
+            if (/(\d+)\s+(\d+)/.test(item)) searchedStrArr[index] = item.replace(/(\d+)\s+(\d+)/, '$1+$2');
+            if (/\sMP/.test(item)) searchedStrArr.push(searchedStrArr[index].replace(/\sMP/, 'MP'));
+        });
+
+        // console.log(searchedStrArr);
+
         // Pipelines
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
@@ -21,6 +30,27 @@ export async function GET(req) {
                 {
                     $and: [
                         { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                    ]
+                },
+                {
+                    $and: [
+                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                    ]
+                },
+                {
+                    $and: [
+                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
                         { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
                     ]
                 }
@@ -40,7 +70,37 @@ export async function GET(req) {
                 {
                     $or: [
                         { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "display.size": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "battery.type": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "warrantyInformation.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    $or: [
+                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
                     ]
                 }
             ]
