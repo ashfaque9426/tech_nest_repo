@@ -17,7 +17,7 @@ export async function GET(req) {
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
             if (/\s$/.test(item)) searchedStrArr[index] = item.replace(/\s$/, '+');
-            if (/(\d+)\s+(\d+)/.test(item)) searchedStrArr[index] = item.replace(/(\d+)\s+(\d+)/, '$1+$2');
+            if (/(\d+)\s+(\d+)/.test(item)) searchedStrArr[index] = item.replace(/(\d+)\s+(\d+)/, '$1\\+$2')
             if (/\sMP/.test(item)) searchedStrArr.push(searchedStrArr[index].replace(/\sMP/, 'MP'));
         });
 
@@ -90,6 +90,20 @@ export async function GET(req) {
                             "productSpecifications": {
                                 $elemMatch: {
                                     "warrantyInformation.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "motherboard.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "warrantyInformation.manufacturingWarranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                                 }
                             }
                         }
