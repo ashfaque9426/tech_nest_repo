@@ -48,6 +48,7 @@ export async function GET(req) {
 
         // looking for results according to pipeline options.
         const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+        const result1 = await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
 
         // returning results if match found.
         if (result.length > 0) {
@@ -57,14 +58,11 @@ export async function GET(req) {
             });
         }
 
-        if (result.length === 0) {
-            const result1 = await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
-            if(result1.length > 0) {
-                return NextResponse.json({
-                    success: true,
-                    data: result1
-                });
-            }
+        if (result.length === 0 && result1.length > 0) {
+            return NextResponse.json({
+                success: true,
+                data: result1
+            });
         }
 
         // returning message if no match found.

@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import LiComponentForAsideCompFiltering from '../../client/LiComponentForAsideCompFiltering';
 import { fromCamelCase } from '@/utils';
 
-function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr, setIndexArr, multipleArrOfObjs }) {
+function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr, setIndexArr, multipleObjsOfStateArr }) {
   return (
     <>
         {
-              multipleArrOfObjs && <div className='flex flex-col gap-5 items-center my-5'>
+              multipleObjsOfStateArr && <div className='flex flex-col gap-5 items-center my-5'>
                   {
                       // given state here will be always an array.
                       sidebarArr.map(sidebarComponentObj => (
@@ -43,7 +43,7 @@ function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr
         {
               <div className='w-full flex flex-col gap-5 3xl:gap-0 my-6 3xl:my-0'>
                   {
-                      !multipleArrOfObjs && sidebarArr.map(sidebarObj => (
+                      !multipleObjsOfStateArr && sidebarArr.map(sidebarObj => (
                           Object.keys(sidebarObj).map(sidebarObjKey => (
                               <ul className='w-full  mx-auto rounded-lg shadow-md bg-[#efeded] dark:bg-[#1e1e1e] dark:shadow-none py-8 px-5 3xl:my-5' key={`sidebarUL2${uuidv4()}`}>
                                   <h4 key={`headingElem${uuidv4()}`} className='mb-1 font-semibold capitalize'>{fromCamelCase(sidebarObjKey)}</h4>
