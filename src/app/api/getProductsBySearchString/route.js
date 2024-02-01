@@ -202,6 +202,41 @@ export async function GET(req) {
                         {
                             "productSpecifications": {
                                 $elemMatch: {
+                                    "graphicsSpecifications.processorGraphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "graphics.graphicsModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "graphics.graphicsMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "features.fingerprint": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "features.sensors": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
                                     "battery.type": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                                 }
                             }
