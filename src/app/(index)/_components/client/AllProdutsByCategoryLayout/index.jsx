@@ -1,10 +1,11 @@
 "use client"
-import { productByCategory, productsBySearchStrings } from '@/services/productServices';
+import { getProductsByBrandName, productByCategory, productsBySearchStrings } from '@/services/productServices';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import CardComponentTwo from '../../shared/server/CardComponentTwo';
 import { v4 as uuidv4 } from 'uuid';
 import AsideComponentForSameCategoryFiltering from '../AsideComponentForSameCategoryFiltering';
+
 
 function AllProductsByCategoryLayout({ category, brand }) {
     const [productArr, setProductArr] = useState([]);
@@ -46,6 +47,10 @@ function AllProductsByCategoryLayout({ category, brand }) {
                 }
             }
             url = url.slice(0, -1);
+
+            if(brand !== "none") {
+                url += `&brand=${brand}`;
+            }
             
             productsBySearchStrings(url, 10).then(resData => {
                 if (resData.success) {
@@ -60,13 +65,38 @@ function AllProductsByCategoryLayout({ category, brand }) {
                 }
             }).catch(err => console.log(err.message));
         }
-    }, [category, paramStrArr, sortOrder]);
+    }, [category, paramStrArr, sortOrder, brand]);
 
     useEffect(() => {
         if (paramStrArr.length > 0) return;
         if(paramStrArr.length === 0) {
             // getting all products according to category.
-            productByCategory(category).then(result => {
+            brand === 'none' && productByCategory(category).then(result => {
+                if (result.success) {
+                    // emptying error msg state to empty string.
+                    setResMsgStr("");
+                    // sorting data according to sort product and loading data on page load.
+                    setProductArr(sortOrder === 'lowToHigh' && result.data || sortOrder === 'highToLow' && result.data.sort(function (a, b) {
+                        return b.regularPrice - a.regularPrice;
+                    }));
+                } else {
+                    // show error if unable to get products for some reason.
+                    toast.error(result.message, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                }
+            }).catch(err => console.log(err.message));
+
+            brand !== 'none' && getProductsByBrandName(brand, 0, category).then(result => {
+                console.log(result);
                 if (result.success) {
                     // emptying error msg state to empty string.
                     setResMsgStr("");
@@ -91,7 +121,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
             }).catch(err => console.log(err.message));
         }
         
-    }, [paramStrArr, category, sortOrder]);
+    }, [paramStrArr, category, sortOrder, brand]);
     return (
         <>
             {/* sidebar component */}

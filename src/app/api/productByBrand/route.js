@@ -13,71 +13,51 @@ export async function GET(req) {
         const searchParams = req.nextUrl.searchParams;
         const brand = searchParams.get('brand');
         const limit = searchParams.get('limit');
+        const category = searchParams.get('category');
         const limitValue = parseInt(limit);
         const capitalizedBrand = capitalizeFirstLetter(brand);
         const lowerCasedBrand = brand.toLowerCase();
         let result;
 
+        const pipeline = {
+            $and: [
+                {
+                    $or: [
+                        {
+                            brand: { $regex: brand, $options: 'i' }
+                        },
+                        {
+                            brand: { $regex: capitalizedBrand, $options: 'i' }
+                        },
+                        {
+                            brand: { $regex: lowerCasedBrand, $options: 'i' }
+                        }
+                    ]
+                },
+                {
+                    $or: [
+                        {
+                            productStatus: capitalizeFirstLetter('in stock'),
+                        },
+                        {
+                            productStatus: 'in stock'
+                        }
+                    ]
+                }
+            ]
+
+        }
+
+        if(category.length > 0) {
+            pipeline['productCategory'] = { $regex: category, $options: 'i' }
+        }
+
         // if search params is truthy then the database seach option will be performed
         if(searchParams) {
             if (limitValue > 0) {
-                result = await Product.find({
-                    $and: [
-                        {
-                            $or: [
-                                {
-                                    brand: { $regex: brand, $options: 'i' }
-                                },
-                                {
-                                    brand: { $regex: capitalizedBrand, $options: 'i' }
-                                },
-                                {
-                                    brand: { $regex: lowerCasedBrand, $options: 'i' }
-                                }
-                            ]
-                        },
-                        {
-                            $or: [
-                                {
-                                    productStatus: capitalizeFirstLetter('in stock'),
-                                },
-                                {
-                                    productStatus: 'in stock'
-                                }
-                            ]
-                        }
-                    ]
-
-                }).select('_id brand imgUrls productTitle productCategory productStatus points price offer createdAt').limit(limitValue).sort({ price: 1 });
+                result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus points keyFeatures price regularPrice offer createdAt').limit(limitValue).sort({ price: 1 });
             } else {
-                result = await Product.find({
-                    $and: [
-                        {
-                            $or: [
-                                {
-                                    brand: { $regex: brand, $options: 'i' }
-                                },
-                                {
-                                    brand: { $regex: capitalizedBrand, $options: 'i' }
-                                },
-                                {
-                                    brand: { $regex: lowerCasedBrand, $options: 'i' }
-                                }
-                            ]
-                        },
-                        {
-                            $or: [
-                                {
-                                    productStatus: capitalizeFirstLetter('in stock'),
-                                },
-                                {
-                                    productStatus: 'in stock'
-                                }
-                            ]
-                        }
-                    ]
-
-                }).select('_id brand imgUrls productCategory productStatus points price offer createdAt').sort({ price: 1 });
+                result = await Product.find(pipeline).select('_id brand imgUrls productCategory productStatus points keyFeatures price regularPrice offer createdAt').sort({ price: 1 });
             }
 
             // if database doesnot return an empty array then returning the results

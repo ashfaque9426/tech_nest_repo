@@ -40,15 +40,15 @@ export const productByCategory = async (category, limit = 0) => {
 }
 
 // for retrieving stored products from the database
-export const getProductsByBrandName = async (brandName, limit = 0) => {
+export const getProductsByBrandName = async (brandName, limit = 0, category="") => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByBrand?brand=${brandName}&limit=${limit}`, {
+        const res = await fetch(`http://localhost:3000/api/productByBrand?brand=${brandName}&limit=${limit}&category=${category}`, {
             method: 'GET',
             cache: 'no-store'
         });
 
         if (!res.ok) {
-            throw new Error(`Http error! Status code: ${res.status}`)
+            throw new Error(`Http error! Status code: ${res.status}`);
         }
 
         const data = await res.json();

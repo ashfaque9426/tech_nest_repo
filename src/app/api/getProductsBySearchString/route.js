@@ -13,6 +13,7 @@ export async function GET(req) {
         const limitValue = searchParams.get("limit");
         const typeConvertedLimValue = parseInt(limitValue);
         const searchedStrArr = searchedStrings.split(" ;");
+        const brandName = searchParams.get('brand');
 
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
@@ -272,6 +273,11 @@ export async function GET(req) {
                     ]
                 }
             ]
+        }
+
+        if (brandName) {
+            pipeline["brand"] = { $regex: brandName, $options: 'i' };
+            pipelineOne["brand"] = { $regex: brandName, $options: 'i' };
         }
 
         // looking for results according to pipeline options.
