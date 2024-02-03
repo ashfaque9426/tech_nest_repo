@@ -28,44 +28,9 @@ export async function GET(req) {
         // Pipelines
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
-            $or: [
-                {
-                    $and: [
-                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-                    ]
-                },
-                {
-                    $and: [
-                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-                    ]
-                },
-                {
-                    $and: [
-                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-                    ]
-                },
-                {
-                    $and: [
-                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-                    ]
-                }
+            $and: [
+                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
             ]
         }
 
@@ -278,6 +243,17 @@ export async function GET(req) {
         if (brandName) {
             pipeline["brand"] = { $regex: brandName, $options: 'i' };
             pipelineOne["brand"] = { $regex: brandName, $options: 'i' };
+        }
+
+        const checkBrandPipeline = {
+            brand: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+        }
+
+        const chkBrandResult = await Product.find(checkBrandPipeline).select('_id');
+
+        if(chkBrandResult.length > 0) {
+            pipeline["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
+            pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
 
         // looking for results according to pipeline options.

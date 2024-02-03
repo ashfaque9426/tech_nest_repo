@@ -24,7 +24,7 @@ const ProductSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-ProductSchema.index({ status: 1, brand: 1, model: 1, productTitle: 1, productCategory: 1, keyFeatures: 1 });
+ProductSchema.index({ _id: 1, status: 1, brand: 1, model: 1, productTitle: 1, productCategory: 1, keyFeatures: 1 });
 
 const Product = mongoose.models.TechProducts || mongoose.model("TechProducts", ProductSchema, "TechProducts");
 

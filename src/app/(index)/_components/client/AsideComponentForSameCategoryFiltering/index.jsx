@@ -6,7 +6,7 @@ function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsF
     // initializing states
     // for checkboxes
     const [indexArr, setIndexArr] = useState([]);
-    console.log(indexArr);
+    // console.log(indexArr);
     // for processor Filtering options
     const [processorSidebar, setProcessorSidebar] = useState([{ brandOne: { brand: "Intel", models: ['Intel Pentium', 'Core i3', 'Core i5', 'Core i7', 'Core i9'], socketList: ['LGA1700', 'FCLGA1200', 'LGA2011'] } }, { brandTwo: { brand: "AMD", models: ['Ryzen 3', 'Ryzen 5', 'Ryzen 7', 'Ryzen 9', 'Ryzen Threadripper'], socketList: ['AM5', 'sWRX8'] } }]);
 
