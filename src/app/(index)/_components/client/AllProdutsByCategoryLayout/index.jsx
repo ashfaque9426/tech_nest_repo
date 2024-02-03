@@ -12,6 +12,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
     const [sortOrder, setSortOrder] = useState('lowToHigh');
     const [paramStrArr, setParamStrArr] = useState([]);
     const [resMsgStr, setResMsgStr] = useState("");
+    const [chkBrandChecked, setChkBrandChecked] = useState(false);
 
     // for changing sort order state
     const handleSortOrderChange = e => {
@@ -48,6 +49,8 @@ function AllProductsByCategoryLayout({ category, brand }) {
             }
             url = url.slice(0, -1);
 
+            if (chkBrandChecked) url += `&brandChecked=${chkBrandChecked}`;
+
             if(brand !== "none") {
                 url += `&brand=${brand}`;
             }
@@ -65,7 +68,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
                 }
             }).catch(err => console.log(err.message));
         }
-    }, [category, paramStrArr, sortOrder, brand]);
+    }, [category, paramStrArr, chkBrandChecked, sortOrder, brand]);
 
     useEffect(() => {
         if (paramStrArr.length > 0) return;
@@ -125,7 +128,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
     return (
         <>
             {/* sidebar component */}
-            <AsideComponentForSameCategoryFiltering category={category} brand={brand} handleParamsForUrl={handleParamsForUrl} />
+            <AsideComponentForSameCategoryFiltering category={category} brand={brand} handleParamsForUrl={handleParamsForUrl} setChkBrandChecked={setChkBrandChecked} />
 
             {/* Product display section */}
             <section className='md:w-[75%]' role='region' aria-labelledby="section-heading">

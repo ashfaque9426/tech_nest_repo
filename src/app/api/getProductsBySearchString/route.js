@@ -14,6 +14,7 @@ export async function GET(req) {
         const typeConvertedLimValue = parseInt(limitValue);
         const searchedStrArr = searchedStrings.split(" ;");
         const brandName = searchParams.get('brand');
+        const brandChecked = searchParams.get('brandChecked');
 
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
@@ -245,16 +246,12 @@ export async function GET(req) {
             pipelineOne["brand"] = { $regex: brandName, $options: 'i' };
         }
 
-        const checkBrandPipeline = {
-            brand: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-        }
-
-        const chkBrandResult = await Product.find(checkBrandPipeline).select('_id');
-
-        if(chkBrandResult.length > 0) {
+        if (brandChecked) {
             pipeline["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
+
+        // console.log(brandName, pipeline, pipelineOne);
 
         // looking for results according to pipeline options.
         const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });

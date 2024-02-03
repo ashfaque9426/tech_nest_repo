@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import LiComponentForAsideCompFiltering from '../../client/LiComponentForAsideCompFiltering';
 import { fromCamelCase } from '@/utils';
 
-function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr, setIndexArr, multipleObjsOfStateArr, brand }) {
+function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr, setIndexArr, multipleObjsOfStateArr, brand, setChkBrandChecked }) {
   return (
     <>
         {
@@ -49,7 +49,7 @@ function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr
                                   <h4 key={`headingElem${uuidv4()}`} className='mb-1 font-semibold capitalize'>{fromCamelCase(sidebarObjKey)}</h4>
                                   {
                                       sidebarArr[0][sidebarObjKey].map((strItem, i) => (
-                                          <LiComponentForAsideCompFiltering key={`processorFilteringByModels${uuidv4()}`} strItem={strItem} i={i} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} />
+                                          <LiComponentForAsideCompFiltering key={`processorFilteringByModels${uuidv4()}`} strItem={strItem} i={i} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} sidebarObjKey={sidebarObjKey} setChkBrandChecked={setChkBrandChecked} />
                                       ))
                                   }
                               </ul>

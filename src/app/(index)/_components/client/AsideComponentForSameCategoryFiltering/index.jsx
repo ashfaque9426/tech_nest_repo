@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import FilterationComponentForAside from '../../server/FilterationComponentForAside';
 
-function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsForUrl }) {
+function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsForUrl, setChkBrandChecked }) {
     // initializing states
     // for checkboxes
     const [indexArr, setIndexArr] = useState([]);
-    // console.log(indexArr);
+    console.log(indexArr);
     // for processor Filtering options
     const [processorSidebar, setProcessorSidebar] = useState([{ brandOne: { brand: "Intel", models: ['Intel Pentium', 'Core i3', 'Core i5', 'Core i7', 'Core i9'], socketList: ['LGA1700', 'FCLGA1200', 'LGA2011'] } }, { brandTwo: { brand: "AMD", models: ['Ryzen 3', 'Ryzen 5', 'Ryzen 7', 'Ryzen 9', 'Ryzen Threadripper'], socketList: ['AM5', 'sWRX8'] } }]);
 
@@ -29,17 +29,17 @@ function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsF
 
             {/* for motherboard Filtering options */}
             {
-                category === "motherboard" && <FilterationComponentForAside sidebarArr={motherboardSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} />
+                category === "motherboard" && <FilterationComponentForAside sidebarArr={motherboardSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} setChkBrandChecked={setChkBrandChecked} />
             }
 
             {/* for laptop Filtering options */}
             {
-                category === "laptop" && <FilterationComponentForAside sidebarArr={laptopSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} />
+                category === "laptop" && <FilterationComponentForAside sidebarArr={laptopSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} setChkBrandChecked={setChkBrandChecked} />
             }
 
             {/* for phone Filtering options */}
             {
-                category === "smart%20phone" && <FilterationComponentForAside sidebarArr={phoneSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} />
+                category === "smart%20phone" && <FilterationComponentForAside sidebarArr={phoneSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} setChkBrandChecked={setChkBrandChecked} />
             }
 
         </aside>
