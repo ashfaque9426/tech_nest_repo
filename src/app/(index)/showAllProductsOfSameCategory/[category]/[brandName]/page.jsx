@@ -14,7 +14,7 @@ function Page({ params }) {
   return (
     <>
       <header>
-        <h1 id='mainContentLabelHeading' className='text-2xl text-center mt-5 mb-12 font-bold capitalize'>Products by same category: {category.includes('%20') && category.replace('%20', " ")}</h1>
+        <h1 id='mainContentLabelHeading' className='text-2xl text-center mt-5 mb-12 font-bold capitalize'>Products by same category: {category.includes('%20') && category.replace('%20', " ") || category}</h1>
       </header>
       <main className='flex flex-col px-5 2xl:px-0 md:flex-row gap-5' role='main' aria-labelledby='subMainContentLabel'>
         <AllProductsByCategoryLayout category={category} brand={brandName} />

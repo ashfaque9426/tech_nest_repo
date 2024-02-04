@@ -120,6 +120,13 @@ export async function GET(req) {
                         {
                             "productSpecifications": {
                                 $elemMatch: {
+                                    "memory.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
                                     "memory.busSpeed": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                                 }
                             }
@@ -163,6 +170,13 @@ export async function GET(req) {
                             "productSpecifications": {
                                 $elemMatch: {
                                     "ports&Slots.headphone&MicrophonePort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "graphics.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                                 }
                             }
                         },
@@ -249,6 +263,11 @@ export async function GET(req) {
         if (brandChecked) {
             pipeline["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
+        }
+
+        if (brandName || brandChecked && searchedStrArr.length > 1) {
+            pipelineOne['$or'][0]['$or'].shift();
+            pipelineOne['$or'][0]['$or'].shift();
         }
 
         // console.log(brandName, pipeline, pipelineOne);
