@@ -15,6 +15,7 @@ export async function GET(req) {
         const searchedStrArr = searchedStrings.split(" ;");
         const brandName = searchParams.get('brand');
         const brandChecked = searchParams.get('brandChecked');
+        let brandNameStr = false;
 
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
@@ -24,7 +25,13 @@ export async function GET(req) {
             if (/M\.\d/.test(item) || /\(/.test(item)) searchedStrArr[index] = item.replace(/\./, '\\.').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
         });
 
-        // console.log(searchedStrArr);
+        if (searchedStrArr[searchedStrArr.length - 1].indexOf('br-') !== -1) {
+            brandNameStr = true;
+            searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
+        } else {
+            brandNameStr = false;
+            searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
+        }
 
         // Pipelines
         const pipeline = {
@@ -265,7 +272,7 @@ export async function GET(req) {
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
 
-        if (brandName || brandChecked && searchedStrArr.length > 1) {
+        if (brandName || brandChecked && searchedStrArr.length > 1 && !brandNameStr) {
             pipelineOne['$or'][0]['$or'].shift();
             pipelineOne['$or'][0]['$or'].shift();
         }

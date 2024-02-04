@@ -4,9 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParamsForUrl, indexArr, setIndexArr, sidebarObjKey, setChkBrandChecked, multipleObjsOfStateArr }) {
     const onClickActions = () => {
+        if (sidebarObjKey === 'brandList') handleParamsForUrl('br-'+strItem);
+        else handleParamsForUrl(strItem);
+        
         if (!multipleObjsOfStateArr) {
             const regex = new RegExp(/brandList\d./, 'i');
-            handleParamsForUrl(strItem);
             // console.log(!indexArr.some(elemStr => regex.test(elemStr)));
             if (sidebarObjKey === 'brandList') setChkBrandChecked(true);
             if (sidebarObjKey !== 'brandList' && !indexArr.some(elemStr => regex.test(elemStr))) setChkBrandChecked(false);
