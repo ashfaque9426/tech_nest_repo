@@ -25,7 +25,9 @@ export async function GET(req) {
             if (/M\.\d/.test(item) || /\(/.test(item)) searchedStrArr[index] = item.replace(/\./, '\\.').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
         });
 
-        if (searchedStrArr[searchedStrArr.length - 1].indexOf('br-') !== -1) {
+        console.log(searchedStrArr);
+
+        if (!searchedStrArr.every(strElem => strElem.includes('br-'))) {
             brandNameStr = true;
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         } else {
@@ -63,13 +65,15 @@ export async function GET(req) {
                     $or: [
                         { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
                         { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
                     ]
                 },
                 {
                     $or: [
                         { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
                         { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
                     ]
                 },
@@ -121,13 +125,6 @@ export async function GET(req) {
                             "productSpecifications": {
                                 $elemMatch: {
                                     "memory.ramType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "memory.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                                 }
                             }
                         },
@@ -272,7 +269,7 @@ export async function GET(req) {
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
 
-        if (brandName || brandChecked && searchedStrArr.length > 1 && !brandNameStr) {
+        if (brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
             pipelineOne['$or'][0]['$or'].shift();
             pipelineOne['$or'][0]['$or'].shift();
         }
