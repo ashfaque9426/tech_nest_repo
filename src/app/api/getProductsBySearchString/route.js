@@ -25,7 +25,7 @@ export async function GET(req) {
             if (/M\.\d/.test(item) || /\(/.test(item)) searchedStrArr[index] = item.replace(/\./, '\\.').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
         });
 
-        console.log(searchedStrArr);
+        // console.log(searchedStrArr);
 
         if (!searchedStrArr.every(strElem => strElem.includes('br-'))) {
             brandNameStr = true;
