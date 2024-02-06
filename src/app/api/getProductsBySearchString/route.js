@@ -6,17 +6,25 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req) {
     try {
+        // connecting to database
         await connectToDB();
+
+        // receiving parameters and url strins from searchParams from nextUrl object of request object as req.
         const searchParams = req.nextUrl.searchParams;
         const category = searchParams.get('category');
         const searchedStrings = searchParams.get("searchStr");
         const limitValue = searchParams.get("limit");
         const typeConvertedLimValue = parseInt(limitValue);
+
+        // seperating srings from search params by ;
         const searchedStrArr = searchedStrings.split(" ;");
         const brandName = searchParams.get('brand');
         const brandChecked = searchParams.get('brandChecked');
+
+        // if brandname is selected on the front end this value will be changed to true somewhere in the next lines of code.
         let brandNameStr = false;
 
+        // replacing string from searchedStrArr and making them ready for regex in proper form.
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
             if (/\s$/.test(item)) searchedStrArr[index] = item.replace(/\s$/, '+');
@@ -35,7 +43,7 @@ export async function GET(req) {
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         }
 
-        // Pipelines
+        // Pipelines for product filteration and search.
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
             $or: [
@@ -709,11 +717,13 @@ export async function GET(req) {
             ]
         }
 
+        // if brand name is true that means product is searched for only a specifiq brand from the front end
         if (brandName) {
             pipeline["brand"] = { $regex: brandName, $options: 'i' };
             pipelineOne["brand"] = { $regex: brandName, $options: 'i' };
         }
 
+        // if brand checked is true that means in the sidebar filtering options product for any specifiq brand or multiple brands are selected
         if (brandChecked) {
             pipeline["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
@@ -728,7 +738,7 @@ export async function GET(req) {
 
         // looking for results according to pipeline options.
         const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
-        const result1 = await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+        const result1 = result.length === 0 && await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
 
         // returning results if match found.
         if (result.length > 0) {
