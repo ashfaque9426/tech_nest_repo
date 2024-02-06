@@ -38,9 +38,459 @@ export async function GET(req) {
         // Pipelines
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
-            $and: [
-                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+            $or: [
+                {
+                    $and: [
+                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                    ]
+                },
+
+                {
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                },
+
+                {
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                },
+
+                {
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                },
+
+                {
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                },
+
+                {
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                    $or: [
+                        {
+                            $and: [
+                                {
+                                    $or: [
+                                        { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                                    ]
+                                },
+                                {
+                                    $or: [
+                                        { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                        { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                },
+                
+                {
+                    $and: [
+                        {
+                            $or: [
+                                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        }
+                    ]
+                }
             ]
         }
 
