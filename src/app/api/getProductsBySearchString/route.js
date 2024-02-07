@@ -28,7 +28,7 @@ export async function GET(req) {
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
             if (/\s$/.test(item)) searchedStrArr[index] = item.replace(/\s$/, '+');
-            if (/(\d+)\s+(\d+)/.test(item)) searchedStrArr[index] = item.replace(/(\d+)\s+(\d+)/, '$1\\+$2');
+            if (category === "smart phone" && /(\d+)\s+(\d+)/.test(item)) searchedStrArr[index] = item.replace(/(\d+)\s+(\d+)/, '$1\\+$2');
             if (/\sMP/.test(item)) searchedStrArr.push(searchedStrArr[index].replace(/\sMP/, 'MP'));
             if (/M\.\d/.test(item) || /\(/.test(item)) searchedStrArr[index] = item.replace(/\./, '\\.').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
         });
@@ -58,17 +58,17 @@ export async function GET(req) {
         const orConditionsThree = [
             { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
 
         const orConditionsFour = [
             { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+            { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
 
         const orConditionsFive = [
-            { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+            { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(`\\b${str}\s(?!\\w)`, 'i')) } },
             { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
@@ -113,13 +113,6 @@ export async function GET(req) {
             {
                 "productSpecifications": {
                     $elemMatch: {
-                        "memory.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
                         "memory.ramType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                     }
                 }
@@ -135,13 +128,6 @@ export async function GET(req) {
                 "productSpecifications": {
                     $elemMatch: {
                         "memory.totalRamSlot": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "memory.maxRamCapacity": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                     }
                 }
             },
@@ -197,7 +183,7 @@ export async function GET(req) {
             {
                 "productSpecifications": {
                     $elemMatch: {
-                        "graphics.graphicsMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                        "graphics.graphicsMemory": { $in: searchedStrArr.map(str => new RegExp(`\\b${str}\s(?!\\w)`, 'i')) }
                     }
                 }
             },
@@ -251,6 +237,21 @@ export async function GET(req) {
                 }
             }
         ]
+
+        if (brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
+            orConditionsOne.shift();
+            orConditionsOne.shift();
+        }
+
+        if(category === "smart phone") {
+            orConditionsForProductSpecsPipeline.push({
+                "productSpecifications": {
+                    $elemMatch: {
+                        "memory.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            })
+        }
 
 
         // Pipelines for product filteration and search.
@@ -655,10 +656,7 @@ export async function GET(req) {
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
 
-        if (brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
-            pipelineOne['$or'][0]['$or'].shift();
-            pipelineOne['$or'][0]['$or'].shift();
-        }
+        // console.log(searchedStrArr);
 
         // console.log(brandName, pipeline, pipelineOne);
 
