@@ -68,7 +68,7 @@ export async function GET(req) {
         ]
 
         const orConditionsFive = [
-            { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(`\\b${str}\s(?!\\w)`, 'i')) } },
+            { "keyFeatures.graphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) } },
             { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
@@ -183,7 +183,7 @@ export async function GET(req) {
             {
                 "productSpecifications": {
                     $elemMatch: {
-                        "graphics.graphicsMemory": { $in: searchedStrArr.map(str => new RegExp(`\\b${str}\s(?!\\w)`, 'i')) }
+                        "graphics.graphicsMemory": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) }
                     }
                 }
             },
