@@ -43,6 +43,184 @@ export async function GET(req) {
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         }
 
+        const productSpecsPipelineArr = [
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "display.size": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "display.displaySize": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "display.displayType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "display.displayResolution": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "processor.processorModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "memory.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "memory.ramType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "memory.busSpeed": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "memory.totalRamSlot": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "memory.maxRamCapacity": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "storage.storageType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "storage.storageCapacity": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "ports&Slots.usbType-c/ThunderboltPort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "ports&Slots.headphone&MicrophonePort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "graphics.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "graphicsSpecifications.processorGraphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "graphics.graphicsModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "graphics.graphicsMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "features.fingerprint": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "features.sensors": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "battery.type": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "warrantyInformation.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "motherboard.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "warranty.warrantyDetails": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            },
+            {
+                "productSpecifications": {
+                    $elemMatch: {
+                        "warrantyInformation.manufacturingWarranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                    }
+                }
+            }
+        ]
+
         // Pipelines for product filteration and search.
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
@@ -498,6 +676,48 @@ export async function GET(req) {
                             ]
                         }
                     ]
+                },
+
+                {
+                    $and: [
+                        {
+                            $or: [
+                                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.model": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                            ]
+                        },
+                        {
+                            $or: [
+                                { "keyFeatures.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                                { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+                            ]
+                        },
+                        {
+                            $or: productSpecsPipelineArr
+                        }
+                    ]
                 }
             ]
         }
@@ -536,183 +756,7 @@ export async function GET(req) {
                     ]
                 },
                 {
-                    $or: [
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "display.size": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "display.displaySize": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "display.displayType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "display.displayResolution": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "processor.processorModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "memory.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "memory.ramType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "memory.busSpeed": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "memory.totalRamSlot": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "memory.maxRamCapacity": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "storage.storageType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "storage.storageCapacity": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "ports&Slots.usbType-c/ThunderboltPort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "ports&Slots.headphone&MicrophonePort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "graphics.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "graphicsSpecifications.processorGraphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "graphics.graphicsModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "graphics.graphicsMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "features.fingerprint": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "features.sensors": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "battery.type": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "warrantyInformation.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "motherboard.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "warranty.warrantyDetails": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "warrantyInformation.manufacturingWarranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                                }
-                            }
-                        }
-                    ]
+                    $or: productSpecsPipelineArr
                 }
             ]
         }
