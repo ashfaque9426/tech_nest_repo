@@ -46,8 +46,8 @@ export async function GET(req) {
 
         // or conditionals for $or operator for key features of the product's doucment in mongodb for product filteration.
         const orConditionsOne = [
-            { productTitle: { $in: searchedStrArr.map(str => str.length > 5 && new RegExp(str, 'i')) } },
-            { "keyFeatures.model": { $in: searchedStrArr.map(str => str.length > 5 && new RegExp(str, 'i')) } },
+            { productTitle: { $in: searchedStrArr.map(str => str.length > 5 ? new RegExp(str, 'i') : "") } },
+            { "keyFeatures.model": { $in: searchedStrArr.map(str => str.length > 5 ? new RegExp(str, 'i') : "") } },
             { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
 
@@ -243,7 +243,7 @@ export async function GET(req) {
         ]
 
         // to avoid matching issue while brand name string is true first two properties are shifted form array.
-        if (brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
+        if (category !== "graphics card" && brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
             orConditionsOne.shift();
             orConditionsOne.shift();
         }
