@@ -64,12 +64,15 @@ export async function GET(req) {
 
         const orConditionsFour = [
             { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+            { "keyFeatures.memory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+            { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+            { "keyFeatures.videoMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
 
         const orConditionsFive = [
             { "keyFeatures.graphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) } },
+            { "keyFeatures.output": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]
@@ -239,6 +242,7 @@ export async function GET(req) {
             }
         ]
 
+        // to avoid matching issue while brand name string is true first two properties are shifted form array.
         if (brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
             orConditionsOne.shift();
             orConditionsOne.shift();
