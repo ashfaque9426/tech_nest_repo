@@ -1,61 +1,54 @@
-"use client"
+import React from 'react';
+import BtnComponentOne from '../../../server/BtnComponentOne';
+import Link from 'next/link';
+import DarkThemeCompoentBtn from '../../../client/DarkThemeComponentBtn';
+import SearchBarComponentForNavbar from '../../../client/SearchBarComponentForNavbar';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import ThemeSwitchBTN from '../../server/ThemeSwitchBTN';
 
 function Navbar() {
-  // state for setting the theme
-  const [theme, setTheme] = useState(null);
-  // states for navbar items and subitems.
-  const [navItems, setNavItems] = useState(["Home", "Today&apos;s Deal", "Components", "Desktop", "Laptop", "Monitor", "Ups", "Tablet", "Phones", "Camera", "Office Equipment", "Gadget", "Gaming", "TV", "Accessories" ]);
-  const [subComponents, setSubComponents] = useState(["Processor", "CPU Cooler", "Ram (Desktop)", "Ram (Laptop)", "Graphics Cards", "Hard Disk", "Protable Hard Drives", "SSD", "PSU", "Casing", "Casing Cooler"]);
-  const [subAccessories, setSubAccessories] = useState(["Keyboard", "Mouse", "Headphone", "Bluetooth Headphone", "Mouse Pad", "Speakers and Home Theater", "Bluetooth Speaker", "Wrist Rest", "Card Reader", "Converter & Cable", "Hubs & Docs", "Microphone", "Sound Card", "Capture Card", "Pen Drive", "Memory Card"]);
-  const [subGadgets, setSubGadgets] = useState(["TV Box", "Drone", "Smart Watch", "Smart Band", "Earphone", "Earbuds", "Power Bank", "Drones", "Gimbat", "Steam Deck"]);
-  const [subGamingItems, setSubGamingItems] = useState(["Gaming Chair", "Gaming Sofa", "Gaming Headset", "Gaming Mouse", "Gaming Keyboard", "Gaming Headset", "Gaming Console", "Gaming Desk", "Games"]);
-
-  // system based theme applied on window load
-  useEffect(() => {
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-      localStorage.setItem('theme', 'dark');
-    }else {
-      setTheme('light');
-      localStorage.setItem('theme', 'light');
-    }
-  }, []);
-
-  // add class to document body based on the theme.
-  useEffect(() => {
-    if(theme === 'dark') {
-      document.body.classList.remove('light');
-      document.body.classList.add('dark', 'bg-[#121212]', 'text-white');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.remove('dark', 'bg-[#121212]', 'text-white');
-      document.body.classList.add('light');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [theme]);
-
-  // for handling theme switch
-  const handleThemeSwitch = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  }
-
   return (
-    <nav className='border dark:border-none py-3' role="navigation" aria-label="Main Navigation">
-      <div className='flex justify-center items-center'>
-        <header>
-          <h1 className='text-xl text-center font-bold'>Tech Nest Navbar</h1>
-        </header>
-        <main role='main'>
-          <section></section>
-          <section></section>
-          <section>
-            <ThemeSwitchBTN theme={theme} handleThemeSwitch={handleThemeSwitch} />
-          </section>
-        </main>
-      </div>
+    <nav className='shadow-md dark:shadow-none dark:bg-[#333333] dark:bg-opacity-50 flex flex-col gap-3 p-3' role="navigation" aria-label="Main Navigation">
+
+      <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5'>
+
+        <div className='flex-1 flex items-center gap-3'>
+          <span role="img" aria-label="Company Logo" className='text-xl text-center font-bold'>
+            <Image className='object-contain w-full h-full' src='/Logos/techNestLogo.JPG' alt='Logo Image' width={60} height={60} />
+          </span>
+          <SearchBarComponentForNavbar />
+        </div>
+
+        <div className='flex items-center'>
+          <div className='flex items-center gap-3'>
+            <Link href="#">
+              <BtnComponentOne className='bg-[#3498db] dark:bg-[#2c3e50]'>Login</BtnComponentOne>
+            </Link>
+            <Link href="#">
+              <BtnComponentOne className='bg-[#c7723a] dark:bg-[#905b37]'>Register</BtnComponentOne>
+            </Link>
+          </div>
+
+          <div>
+            <DarkThemeCompoentBtn />
+          </div>
+        </div>
+
+      </section>
+
+      <section role='region' aria-label="Main Content">
+        <ul className='flex flex-col md:flex-row justify-around items-center'>
+          <li>
+            <Link className='font-semibold hover:text-orange-400' href='/showAllProductsOfSameCategory/laptop/none'>Laptops</Link>
+          </li>
+          <li>
+            <Link className='font-semibold hover:text-orange-400' href='#'>Components</Link>
+          </li>
+          <li>
+            <Link className='font-semibold hover:text-orange-400' href='/showAllProductsOfSameCategory/smart%20phone/none'>Phones</Link>
+          </li>
+        </ul>
+      </section>
+
     </nav>
   )
 }
