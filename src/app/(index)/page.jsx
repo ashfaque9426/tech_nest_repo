@@ -16,7 +16,7 @@ async function Page() {
   return (
     <>
       {/* Banner section */}
-      <header className='mt-8 mb-16' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
+      <header className='mt-12 mb-16' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
         <HomePageBannerSlider success={success} dataArr={data} message={message} />
       </header>
 
