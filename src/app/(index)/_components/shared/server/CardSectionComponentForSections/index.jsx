@@ -7,8 +7,8 @@ import { productByCategory, getProductsByBrandName, getProductsByModelName } fro
 
 async function CardSectionComponentForSections({ title, category, brand, model, limit, limit1, limit2, className, classNameForHeading }) {
     const { data: dataArr } = await productByCategory(category, limit);
-    const { data: dataArr1 } = await getProductsByBrandName(brand, limit1);
-    const { data: dataArr2 } = await getProductsByModelName(model, limit2);
+    const { data: dataArr1 } = dataArr?.length === 0 && await getProductsByBrandName(brand, limit1);
+    const { data: dataArr2 } = dataArr?.length === 0 && dataArr1?.length === 0 && await getProductsByModelName(model, limit2);
 
     return (
         <section className={cn('pb-12', className)}>

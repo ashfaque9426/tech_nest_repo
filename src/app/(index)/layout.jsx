@@ -5,7 +5,7 @@ import Footer from './_components/shared/server/Footer';
 function Layout1({ children }) {
   return (
     <>
-      <header>
+      <header className='w-full 2xl:w-2/3 mx-auto dark:bg-[#121212]'>
         <Navbar />
       </header>
       <main className='relative w-full 2xl:w-2/3 mx-auto dark:bg-[#121212]' role='main' aria-labelledby='mainContentLabel'>
