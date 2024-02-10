@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 function Navbar() {
   return (
-    <nav className='shadow-md dark:shadow-none dark:bg-[#333333] dark:bg-opacity-50 flex flex-col gap-3 p-3' role="navigation" aria-label="Main Navigation">
+    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#333333] dark:bg-opacity-50 flex flex-col gap-3 p-3' role="navigation" aria-label="Main Navigation">
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5'>
 
