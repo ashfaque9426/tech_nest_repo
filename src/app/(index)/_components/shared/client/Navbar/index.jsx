@@ -11,7 +11,7 @@ function Navbar() {
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5'>
 
-        <div className='flex-1 flex items-center gap-3'>
+        <div className='flex-1 flex flex-col md:flex-row items-center gap-3'>
           <span role="img" aria-label="Company Logo" className='text-xl text-center font-bold'>
             <Image className='object-contain w-full h-full' src='/Logos/techNestLogo.JPG' alt='Logo Image' width={60} height={60} />
           </span>

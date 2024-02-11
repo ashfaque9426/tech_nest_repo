@@ -128,6 +128,26 @@ export const productById = async id => {
     }
 }
 
+// get product suggestion service api
+export const getProductSuggestions = async (searchStr) => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/getSearchSuggestionsBySearchStr?searchStr=${searchStr}`, {
+            method: 'GET',
+            cache: 'no-store'
+        });
+
+        if(!response.ok) {
+            throw new Error(`Http error! Status code: ${res.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+        
+    } catch (err) {
+        console.log(`Error while fetching data. Error: ${err.message}`);
+    }
+}
+
 // add a question for specific product api
 export const addQuestionForProduct = async (id, questionObj, userEmail="") => {
     try {
