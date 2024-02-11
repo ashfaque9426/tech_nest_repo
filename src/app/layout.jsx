@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 import cn from '@/lib/clsx/cn';
-import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +14,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/Logos/techNestLogo.JPG" />
-      </Head>
       <body className={cn(inter.className)}>
         {children}
         <ToastContainer />
