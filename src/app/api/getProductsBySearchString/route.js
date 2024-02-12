@@ -46,7 +46,7 @@ export async function GET(req) {
 
         // or conditionals for $or operator for key features of the product's doucment in mongodb for product filteration.
         const orConditionsOne = [
-            { productTitle: { $in: searchedStrArr.map(str => str.length > 5 ? new RegExp(str, 'i') : "") } },
+            { productTitle: { $in: searchedStrArr.map(str => category === 'graphics card' ? str.length > 5 ? new RegExp(str, 'i') : "" : new RegExp(str, 'i')) } },
             { "keyFeatures.model": { $in: searchedStrArr.map(str => str.length > 5 ? new RegExp(str, 'i') : "") } },
             { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
         ]

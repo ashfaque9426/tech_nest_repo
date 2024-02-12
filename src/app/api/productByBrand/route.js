@@ -57,7 +57,7 @@ export async function GET(req) {
             if (limitValue > 0) {
                 result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus points keyFeatures price regularPrice offer createdAt').limit(limitValue).sort({ price: 1 });
             } else {
-                result = await Product.find(pipeline).select('_id brand imgUrls productCategory productStatus points keyFeatures price regularPrice offer createdAt').sort({ price: 1 });
+                result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus points keyFeatures price regularPrice offer createdAt').sort({ price: 1 });
             }
 
             // if database doesnot return an empty array then returning the results

@@ -57,7 +57,7 @@ function SearchBarComponentForNavbar() {
     }, [searchBarStr]);
 
   return (
-      <form onSubmit={(e) => e.preventDefault()} className="w-2/3 md:w-auto relative flex-1 flex items-center">
+      <form onSubmit={(e) => e.preventDefault()} className="w-full relative flex-1 flex items-center">
           <section className={`overflow-clip w-full border dark:border-none border-[#e5e7eb] rounded-lg ${seachResultVisibility && 'rounded-br-none rounded-bl-none'}`}>
               <input
                   type="text"

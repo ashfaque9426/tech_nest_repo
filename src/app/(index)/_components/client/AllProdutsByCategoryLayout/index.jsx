@@ -23,6 +23,8 @@ function AllProductsByCategoryLayout({ category, brand }) {
         setParamStrArr(prevStr => paramStrArr.includes(str) ? paramStrArr.filter(arrStr => str !== arrStr) : [...prevStr, str]);
     }
 
+    console.log(productArr)
+
     useEffect(() => {
         let url = `http://localhost:3000/api/getProductsBySearchString?category=${category}&searchStr=`;
         

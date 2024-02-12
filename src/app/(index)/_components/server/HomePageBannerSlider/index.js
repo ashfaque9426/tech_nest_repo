@@ -78,7 +78,7 @@ function HomePageBannerSlider({ success, dataArr, message }) {
 
                                 {/* actual slider component with data */}
                                 <div id="banner" className={`relative text-white h-full flex flex-col md:flex-row justify-center items-center gap-5 px-5 z-20 md:px-16 ${sliderHeight === 40 && 'w-[80%] mx-auto'}`}>
-                                    <small className='absolute top-5 right-5 text-red-500 font-semibold'>Slide Number {i + 1} of {dataArr.length}</small>
+                                    <small className='hidden md:block md:absolute top-5 right-5 text-red-500 font-semibold'>Slide Number {i + 1} of {dataArr.length}</small>
 
                                     {/* if no product image is available to show. */}
                                     {
