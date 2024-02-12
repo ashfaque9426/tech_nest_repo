@@ -57,7 +57,7 @@ function SearchBarComponentForNavbar() {
     }, [searchBarStr]);
 
   return (
-      <form className="relative flex-1  flex items-center">
+      <form onSubmit={(e) => e.preventDefault()} className="w-2/3 md:w-auto relative flex-1 flex items-center">
           <section className={`overflow-clip w-full border dark:border-none border-[#e5e7eb] rounded-lg ${seachResultVisibility && 'rounded-br-none rounded-bl-none'}`}>
               <input
                   type="text"
@@ -66,9 +66,9 @@ function SearchBarComponentForNavbar() {
                   value={searchBarStr}
                   onChange={(e) => setSearchBarStr(e.target.value)}
               />
-              <button className="absolute top-1 right-0 dark:text-black pe-3 py-1">
+              <span className="absolute top-1 right-0 dark:text-black pe-3 py-1 cursor-default">
                   <BsSearch />
-              </button>
+              </span>
         </section>
           {
               searchBarStr.length > 0 && seachResultVisibility && <section id='suggestion' ref={sectionRef} className={`absolute top-7 z-auto w-full bg-[#ffffff] text-black border border-t-0 rounded-br-lg rounded-bl-lg p-5`}>
@@ -84,7 +84,7 @@ function SearchBarComponentForNavbar() {
                     }
 
                     {
-                          seachResultVisibility &&  responseMessage?.length > 0 && <li>{responseMessage}</li>
+                        seachResultVisibility &&  responseMessage?.length > 0 && <li>{responseMessage}</li>
                     }
                 </ul>
             </section>

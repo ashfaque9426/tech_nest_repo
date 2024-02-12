@@ -10,8 +10,15 @@ export async function GET (req) {
         const searchParams = req.nextUrl.searchParams;
         const searchStr = searchParams.get("searchStr");
 
+        const conditionalPipeline = {
+            $or: [
+                { productTitle: searchStr.length > 0 ? new RegExp(searchStr, 'i') : "" },
+                { brand: searchStr.length > 0 ? new RegExp(searchStr, 'i') : "" }
+            ]
+        }
+
         if(searchStr.length > 0) {
-            const result = await Product.find({ productTitle: searchStr.length > 0 ? new RegExp(searchStr, 'i') : "" }).select("_id productTitle");
+            const result = await Product.find(conditionalPipeline).select("_id productTitle");
 
             if(result.length > 0) {
                 return NextResponse.json({

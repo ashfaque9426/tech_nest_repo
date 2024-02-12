@@ -7,18 +7,18 @@ import Image from 'next/image';
 
 function Navbar() {
   return (
-    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#333333] dark:bg-opacity-50 flex flex-col gap-3 p-3' role="navigation" aria-label="Main Navigation">
+    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#333333] dark:bg-opacity-50 flex flex-col gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5'>
 
-        <div className='flex-1 flex flex-col md:flex-row items-center gap-3'>
+        <div className='w-full md:w-auto flex-1 flex flex-col md:flex-row items-center gap-5 md:gap-3'>
           <span role="img" aria-label="Company Logo" className='text-xl text-center font-bold'>
             <Image className='object-contain w-full h-full' src='/Logos/techNestLogo.JPG' alt='Logo Image' width={60} height={60} />
           </span>
           <SearchBarComponentForNavbar />
         </div>
 
-        <div className='flex items-center'>
+        <div className='flex flex-col md:flex-row justify-center items-center gap-5 md:gap-0'>
           <div className='flex items-center gap-3'>
             <Link href="#">
               <BtnComponentOne className='bg-[#3498db] dark:bg-[#2c3e50]'>Login</BtnComponentOne>
@@ -36,7 +36,7 @@ function Navbar() {
       </section>
 
       <section role='region' aria-label="Main Content">
-        <ul className='flex flex-col md:flex-row justify-around items-center'>
+        <ul className='flex flex-col md:flex-row justify-around items-center gap-2 md:gap-0'>
           <li>
             <Link className='font-semibold hover:text-orange-400' href='/showAllProductsOfSameCategory/laptop/none'>Laptops</Link>
           </li>
