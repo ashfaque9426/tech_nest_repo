@@ -236,7 +236,7 @@ export async function GET(req) {
         ]
 
         // to avoid matching issue while brand name string is true first two properties are shifted form array.
-        if (category !== "graphics card" && brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
+        if (category !== "graphics card" && category !== "desktop processor" && brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
             orConditionsOne.shift();
             orConditionsOne.shift();
         }
