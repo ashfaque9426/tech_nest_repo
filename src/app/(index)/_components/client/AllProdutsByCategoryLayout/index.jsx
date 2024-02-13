@@ -132,7 +132,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
 
             {/* Product display section */}
             <section className='md:w-[75%]' role='region' aria-labelledby="section-heading">
-                <h2 className='mb-5 flex justify-between items-center' id="section-heading">
+                <h2 className='mb-5 flex flex-col md:flex-row justify-center md:justify-between items-center' id="section-heading">
                     <span className='text-lg md:text-2xl font-bold'>{productArr?.length > 0 && productArr[0].productCategory + 's:'}</span> <span><label className='text-lg font-semibold mr-2' htmlFor="sortOrder">Sort By Price:</label>
                         <select onChange={handleSortOrderChange} id="sortOrder" name="sortOrder" className="p-2 border border-gray-300 rounded cursor-pointer focus:border-gray-500 dark:bg-[#1e1e1e]">
                             <option value="lowToHigh">Low to High</option>
@@ -143,8 +143,8 @@ function AllProductsByCategoryLayout({ category, brand }) {
 
                 {/* if there is any response msg display that msg. */}
                 {
-                    resMsgStr?.length > 0 && <div className='h-[85%] my-5 flex justify-center items-center'>
-                        <h3 className='text-xl text-yellow-600 font-semibold'>{resMsgStr}</h3>
+                    resMsgStr?.length > 0 && <div className='sticky top-1/3 my-5 flex justify-center'>
+                        <h3 className='text-xl text-yellow-600 font-semibold mt-36'>{resMsgStr}</h3>
                     </div>
                 }
                 

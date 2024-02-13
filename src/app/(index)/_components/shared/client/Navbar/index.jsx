@@ -24,8 +24,8 @@ function Navbar() {
     setNavbarItemTwoOpen(false);
     setNestedNavbarCompItemOneOpen(false);
     setNestedNavbarCompItemTwoOpen(false);
-
   }
+  
   return (
     <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#171717] flex flex-col gap-5 md:gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
 
@@ -59,16 +59,16 @@ function Navbar() {
       <section className={`${navbarVisibility ? 'block md:block' : 'hidden md:block'}`} role='region' aria-label="Main Content">
         {/* laptop's navgigation */}
         <ul className='flex flex-col md:flex-row justify-around items-center gap-5 md:gap-0'>
-          <li onClick={handleAllOpendNavigation}><Link className='flex gap-2 items-center' href="/"><span>Home</span> <FaHome /></Link></li>
+          <li onClick={handleAllOpendNavigation}><Link className='flex gap-2 items-center hover:text-orange-400' href="/"><span>Home</span> <FaHome /></Link></li>
           <li className='relative flex flex-col md:flex-row items-center hover:text-orange-400 group'>
             <span className='flex items-center'>
-              <Link className='font-semibold mr-2 hidden lg:block' href='/showAllProductsOfSameCategory/laptop/none'>Laptops</Link>
-              <span onClick={() => setNavbarItemOpen(!navbarItemOpen)} className='font-semibold mr-2 lg:hidden'>Laptops</span>
+              <span onClick={() => setNavbarItemOpen(!navbarItemOpen)} className='font-semibold mr-2 cursor-pointer'>Laptops</span>
               <span className='group-hover:rotate-180'><IoIosArrowUp /></span>
             </span>
 
             {/* laptops nav items */}
             <ul className={`${navbarItemOpen ? 'block' : 'hidden'} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
+              <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/none'>All Laptops</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/msi'>MSI</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/asus'>ASUS</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/hp'>HP</Link></li>
@@ -127,13 +127,13 @@ function Navbar() {
           {/* phone's navigations */}
           <li className='relative flex flex-col md:flex-row items-center hover:text-orange-400 group'>
             <span className='flex items-center'>
-              <Link className='font-semibold mr-2 hidden lg:block cursor-pointer' href='/showAllProductsOfSameCategory/smart%20phone/none'>Phones</Link>
-              <span onClick={() => setNavbarItemTwoOpen(!navbarItemTwoOpen)} className='font-semibold mr-2 lg:hidden cursor-pointer'>Phones</span>
+              <span onClick={() => setNavbarItemTwoOpen(!navbarItemTwoOpen)} className='font-semibold mr-2 cursor-pointer'>Phones</span>
               <span className='group-hover:rotate-180'><IoIosArrowUp /></span>
             </span>
 
             {/* phone's navitems */}
             <ul className={`${navbarItemTwoOpen ? "block" : "hidden"} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
+              <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/none'>All Phones</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/xiaomi'>Xiaomi</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/samsung'>Samsung</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/apple'>Apple</Link></li>

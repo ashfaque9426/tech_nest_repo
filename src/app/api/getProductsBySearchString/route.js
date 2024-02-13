@@ -273,6 +273,16 @@ export async function GET(req) {
                                     $or: orConditionsOne
                                 },
                                 {
+                                    $or: orConditionsOne
+                                }
+                            ]
+                        },
+                        {
+                            $and: [
+                                {
+                                    $or: orConditionsOne
+                                },
+                                {
                                     $or: orConditionsTwo
                                 }
                             ]
@@ -328,6 +338,16 @@ export async function GET(req) {
                                     $or: orConditionsTwo
                                 },
                                 {
+                                    $or: orConditionsTwo
+                                }
+                            ]
+                        },
+                        {
+                            $and: [
+                                {
+                                    $or: orConditionsTwo
+                                },
+                                {
                                     $or: orConditionsThree
                                 }
                             ]
@@ -383,6 +403,16 @@ export async function GET(req) {
                                     $or: orConditionsThree
                                 },
                                 {
+                                    $or: orConditionsThree
+                                }
+                            ]
+                        },
+                        {
+                            $and: [
+                                {
+                                    $or: orConditionsThree
+                                },
+                                {
                                     $or: orConditionsFour
                                 }
                             ]
@@ -438,6 +468,16 @@ export async function GET(req) {
                                     $or: orConditionsFour
                                 },
                                 {
+                                    $or: orConditionsFour
+                                }
+                            ]
+                        },
+                        {
+                            $and: [
+                                {
+                                    $or: orConditionsFour
+                                },
+                                {
                                     $or: orConditionsFive
                                 }
                             ]
@@ -484,6 +524,16 @@ export async function GET(req) {
                                 },
                                 {
                                     $or: orConditionsFour
+                                }
+                            ]
+                        },
+                        {
+                            $and: [
+                                {
+                                    $or: orConditionsFive
+                                },
+                                {
+                                    $or: orConditionsFive
                                 }
                             ]
                         },
@@ -640,7 +690,7 @@ export async function GET(req) {
             });
         }
 
-        if (result.length === 0 && result1.length > 0) {
+        if (result.length === 0 && result1?.length > 0) {
             return NextResponse.json({
                 success: true,
                 data: result1
