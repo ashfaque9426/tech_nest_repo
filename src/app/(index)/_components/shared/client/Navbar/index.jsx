@@ -26,7 +26,7 @@ function Navbar() {
 
   }
   return (
-    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#333333] dark:bg-opacity-50 flex flex-col gap-5 md:gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
+    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#1c1c1c] dark:bg-opacity-50 flex flex-col gap-5 md:gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5 md:gap-2'>
 
@@ -66,7 +66,7 @@ function Navbar() {
             </span>
 
             {/* laptops nav items */}
-            <ul className={`${navbarItemOpen ? 'block' : 'hidden'} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#232323] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
+            <ul className={`${navbarItemOpen ? 'block' : 'hidden'} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/msi'>MSI</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/asus'>ASUS</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/laptop/hp'>HP</Link></li>
@@ -84,7 +84,7 @@ function Navbar() {
             </span>
 
             {/* component's navitems */}
-            <ul className={`${navbarItemOneOpen ? "block" : "hidden"} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#232323] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
+            <ul className={`${navbarItemOneOpen ? "block" : "hidden"} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
               <li className='hover:underline flex flex-col md:flex-row justify-center items-center group/item'>
                 <span className='w-full px-3 py-2 flex justify-center md:justify-start items-center'>
                   <Link className='hidden lg:block mr-2 hover:text-orange-400' href='/showAllProductsOfSameCategory/desktop%20processor/none'>Processors</Link>
@@ -94,7 +94,7 @@ function Navbar() {
 
                 {/* component's nested nav items one */}
                 <span className='md:relative'>
-                  <ul className={`${nestedCompItemOneOpen ? 'block' : 'hidden'} lg:group-hover/item:block text-center md:text-start group-hover/item:text-black dark:group-hover/item:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute md:left-0 md:-top-3 bg-[#ffffff] shadow-md dark:bg-[#232323] dark:shadow-none rounded-lg`}>
+                  <ul className={`${nestedCompItemOneOpen ? 'block' : 'hidden'} lg:group-hover/item:block text-center md:text-start group-hover/item:text-black dark:group-hover/item:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute md:left-0 md:-top-3 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-lg`}>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/desktop%20processor/intel'>Intel</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/desktop%20processor/amd'>AMD</Link></li>
                   </ul>
@@ -111,7 +111,7 @@ function Navbar() {
 
                 {/* component's nested nav items two */}
                 <span className='md:relative'>
-                  <ul className={`${nestedCompItemTwoOpen ? 'block' : 'hidden'} lg:group-hover/item:block text-center md:text-start group-hover/item:text-black dark:group-hover/item:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute md:left-0 md:-top-3 bg-[#ffffff] shadow-md dark:bg-[#232323] dark:shadow-none rounded-lg`}>
+                  <ul className={`${nestedCompItemTwoOpen ? 'block' : 'hidden'} lg:group-hover/item:block text-center md:text-start group-hover/item:text-black dark:group-hover/item:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute md:left-0 md:-top-3 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-lg`}>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/msi'>MSI</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/asus'>Asus</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/asrock'>ASRock</Link></li>
@@ -131,7 +131,7 @@ function Navbar() {
             </span>
 
             {/* phone's navitems */}
-            <ul className={`${navbarItemTwoOpen ? "block" : "hidden"} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#232323] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
+            <ul className={`${navbarItemTwoOpen ? "block" : "hidden"} lg:group-hover:block text-center md:text-start group-hover:text-black dark:group-hover:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute top-6 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-br-lg rounded-bl-lg`}>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/xiaomi'>Xiaomi</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/samsung'>Samsung</Link></li>
               <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/smart%20phone/apple'>Apple</Link></li>
