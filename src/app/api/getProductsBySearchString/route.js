@@ -67,7 +67,7 @@ export async function GET(req) {
             { "keyFeatures.memory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
             { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.videoMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+            { "keyFeatures.videoMemory": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) } }
         ]
 
         const orConditionsFive = [
@@ -117,13 +117,6 @@ export async function GET(req) {
             {
                 "productSpecifications": {
                     $elemMatch: {
-                        "memory.ramType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
                         "memory.busSpeed": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
                     }
                 }
@@ -166,14 +159,14 @@ export async function GET(req) {
             {
                 "productSpecifications": {
                     $elemMatch: {
-                        "graphics.graphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                        "graphics.graphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) }
                     }
                 }
             },
             {
                 "productSpecifications": {
                     $elemMatch: {
-                        "graphicsSpecifications.processorGraphics": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
+                        "graphicsSpecifications.processorGraphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) }
                     }
                 }
             },
@@ -258,7 +251,6 @@ export async function GET(req) {
                 }
             })
         }
-
 
         // Pipelines for product filteration and search.
 
@@ -632,14 +624,13 @@ export async function GET(req) {
             pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
 
-        // console.log(searchedStrArr);
-
         // console.log(brandName, pipeline);
 
         // looking for results according to pipeline options.
         const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
         const result1 = result.length === 0 && await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
         // console.log(result);
+        // console.log(result1);
 
         // returning results if match found.
         if (result.length > 0) {
