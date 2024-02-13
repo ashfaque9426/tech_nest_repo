@@ -257,381 +257,33 @@ export async function GET(req) {
         // pipeline is for $and conditonal operations.
         const pipeline = {
             productCategory: { $regex: category, $options: 'i' },
+            $and: [
+                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
+                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
+            ]
+        }
+
+        // pipeline is for $or conditonal operations.
+        const pipelineOne = {
+            productCategory: { $regex: category, $options: 'i' },
             $or: [
                 {
-                    $and: [
-                        { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                        { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-                    ]
-                },
-
-                {
-                    $or: [
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsOne
-                                },
-                                {
-                                    $or: orConditionsOne
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsOne
-                                },
-                                {
-                                    $or: orConditionsTwo
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsOne
-                                },
-                                {
-                                    $or: orConditionsThree
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsOne
-                                },
-                                {
-                                    $or: orConditionsFour
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsOne
-                                },
-                                {
-                                    $or: orConditionsFive
-                                }
-                            ]
-                        },
-                    ],
-                },
-
-                {
-                    $or: [
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsTwo
-                                },
-                                {
-                                    $or: orConditionsOne
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsTwo
-                                },
-                                {
-                                    $or: orConditionsTwo
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsTwo
-                                },
-                                {
-                                    $or: orConditionsThree
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsTwo
-                                },
-                                {
-                                    $or: orConditionsFour
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsTwo
-                                },
-                                {
-                                    $or: orConditionsFive
-                                }
-                            ]
-                        },
-                    ],
-                },
-
-                {
-                    $or: [
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsThree
-                                },
-                                {
-                                    $or: orConditionsOne
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsThree
-                                },
-                                {
-                                    $or: orConditionsTwo
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsThree
-                                },
-                                {
-                                    $or: orConditionsThree
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsThree
-                                },
-                                {
-                                    $or: orConditionsFour
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsThree
-                                },
-                                {
-                                    $or: orConditionsFive
-                                }
-                            ]
-                        },
-                    ],
-                },
-
-                {
-                    $or: [
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFour
-                                },
-                                {
-                                    $or: orConditionsOne
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFour
-                                },
-                                {
-                                    $or: orConditionsTwo
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFour
-                                },
-                                {
-                                    $or: orConditionsThree
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFour
-                                },
-                                {
-                                    $or: orConditionsFour
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFour
-                                },
-                                {
-                                    $or: orConditionsFive
-                                }
-                            ]
-                        },
-                    ],
-                },
-
-                {
-                    $or: [
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFive
-                                },
-                                {
-                                    $or: orConditionsOne
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFive
-                                },
-                                {
-                                    $or: orConditionsTwo
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFive
-                                },
-                                {
-                                    $or: orConditionsThree
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFive
-                                },
-                                {
-                                    $or: orConditionsFour
-                                }
-                            ]
-                        },
-                        {
-                            $and: [
-                                {
-                                    $or: orConditionsFive
-                                },
-                                {
-                                    $or: orConditionsFive
-                                }
-                            ]
-                        },
-                    ],
-                },
-                
-                {
-                    $and: [
-                        {
-                            $or: orConditionsOne
-                        },
-                        {
-                            $or: orConditionsTwo
-                        },
-                        {
-                            $or: orConditionsThree
-                        },
-                        {
-                            $or: orConditionsFour
-                        },
-                        {
-                            $or: orConditionsFive
-                        }
-                    ]
-                },
-
-                {
-                    $and: [
-                        {
-                            $or: orConditionsOne
-                        },
-                        {
-                            $or: orConditionsForProductSpecsPipeline
-                        },
-                    ]
+                    $or: orConditionsOne
                 },
                 {
-                    $and: [
-                        {
-                            $or: orConditionsTwo
-                        },
-                        {
-                            $or: orConditionsForProductSpecsPipeline
-                        },
-                    ]
+                    $or: orConditionsTwo
                 },
                 {
-                    $and: [
-                        {
-                            $or: orConditionsThree
-                        },
-                        {
-                            $or: orConditionsForProductSpecsPipeline
-                        },
-                    ]
+                    $or: orConditionsThree
                 },
                 {
-                    $and: [
-                        {
-                            $or: orConditionsFour
-                        },
-                        {
-                            $or: orConditionsForProductSpecsPipeline
-                        },
-                    ]
+                    $or: orConditionsFour
                 },
                 {
-                    $and: [
-                        {
-                            $or: orConditionsFive
-                        },
-                        {
-                            $or: orConditionsForProductSpecsPipeline
-                        },
-                    ]
+                    $or: orConditionsFive
                 },
-
                 {
-                    $and: [
-                        {
-                            $or: orConditionsOne
-                        },
-                        {
-                            $or: orConditionsTwo
-                        },
-                        {
-                            $or: orConditionsThree
-                        },
-                        {
-                            $or: orConditionsFour
-                        },
-                        {
-                            $or: orConditionsFive
-                        },
-                        {
-                            $or: orConditionsForProductSpecsPipeline
-                        }
-                    ]
+                    $or: orConditionsForProductSpecsPipeline
                 }
             ]
         }
@@ -639,24 +291,35 @@ export async function GET(req) {
         // if brand name is true that means product is searched for only a specifiq brand from the front end
         if (brandName) {
             pipeline["brand"] = { $regex: brandName, $options: 'i' };
+            pipelineOne["brand"] = { $regex: brandName, $options: 'i' };
         }
 
         // if brand checked is true that means in the sidebar filtering options product for any specifiq brand or multiple brands are selected
         if (brandChecked) {
             pipeline["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
+            pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
 
         // console.log(brandName, pipeline);
 
         // looking for results according to pipeline options.
         const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+        const result1 = result.length === 0 && await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
         // console.log(result);
+        // console.log(result1);
 
         // returning results if match found.
         if (result.length > 0) {
             return NextResponse.json({
                 success: true,
                 data: result
+            });
+        }
+
+        if (result1?.length > 0) {
+            return NextResponse.json({
+                success: true,
+                data: result1
             });
         }
 
