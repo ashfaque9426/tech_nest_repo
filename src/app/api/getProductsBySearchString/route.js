@@ -285,8 +285,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -297,8 +295,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -309,8 +305,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -336,8 +330,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -348,8 +340,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -360,8 +350,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -387,8 +375,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -399,8 +385,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -411,8 +395,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -438,8 +420,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -450,8 +430,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -462,8 +440,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -489,8 +465,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -501,8 +475,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -513,8 +485,6 @@ export async function GET(req) {
                                 }
                             ]
                         },
-                    ],
-                    $or: [
                         {
                             $and: [
                                 {
@@ -664,11 +634,12 @@ export async function GET(req) {
 
         // console.log(searchedStrArr);
 
-        // console.log(brandName, pipeline, pipelineOne);
+        // console.log(brandName, pipeline);
 
         // looking for results according to pipeline options.
         const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
         const result1 = result.length === 0 && await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
+        // console.log(result);
 
         // returning results if match found.
         if (result.length > 0) {
