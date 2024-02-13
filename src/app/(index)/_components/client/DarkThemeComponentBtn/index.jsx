@@ -22,10 +22,10 @@ function DarkThemeCompoentBtn() {
   useEffect(() => {
     if (theme === 'dark') {
       document.body.classList.remove('light');
-      document.body.classList.add('dark', 'bg-[#121212]', 'text-white');
+      document.body.classList.add('dark', 'bg-[#202124]', 'text-white');
       localStorage.setItem('theme', 'dark');
     } else {
-      document.body.classList.remove('dark', 'bg-[#121212]', 'text-white');
+      document.body.classList.remove('dark', 'bg-[#202124]', 'text-white');
       document.body.classList.add('light');
       localStorage.setItem('theme', 'light');
     }

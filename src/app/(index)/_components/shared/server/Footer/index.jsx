@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 function Footer() {
     return (
-        <footer className='mt-24 flex flex-col items-center gap-5 bg-black text-white p-5' role="contentinfo">
+        <footer className='mt-24 flex flex-col items-center gap-8 bg-black text-white p-5' role="contentinfo">
             <section className='flex justify-around gap-5'>
                 <div>
                     <Image className='object-contain w-full h-full' src='/Logos/techNestLogo.JPG' alt='Company Logo' width={101} height={101} />

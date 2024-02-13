@@ -23,8 +23,6 @@ function AllProductsByCategoryLayout({ category, brand }) {
         setParamStrArr(prevStr => paramStrArr.includes(str) ? paramStrArr.filter(arrStr => str !== arrStr) : [...prevStr, str]);
     }
 
-    console.log(productArr)
-
     useEffect(() => {
         let url = `http://localhost:3000/api/getProductsBySearchString?category=${category}&searchStr=`;
         
@@ -101,7 +99,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
             }).catch(err => console.log(err.message));
 
             brand !== 'none' && getProductsByBrandName(brand, 0, category).then(result => {
-                console.log(result);
+                
                 if (result.success) {
                     // emptying error msg state to empty string.
                     setResMsgStr("");

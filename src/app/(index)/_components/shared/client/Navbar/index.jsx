@@ -7,6 +7,7 @@ import SearchBarComponentForNavbar from '../../../client/SearchBarComponentForNa
 import Image from 'next/image';
 import { IoIosArrowUp } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaHome } from "react-icons/fa";
 
 function Navbar() {
   const [navbarVisibility, setNavbarVisibility] = useState(false);
@@ -26,7 +27,7 @@ function Navbar() {
 
   }
   return (
-    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#1c1c1c] dark:bg-opacity-50 flex flex-col gap-5 md:gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
+    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#171717] flex flex-col gap-5 md:gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5 md:gap-2'>
 
@@ -58,6 +59,7 @@ function Navbar() {
       <section className={`${navbarVisibility ? 'block md:block' : 'hidden md:block'}`} role='region' aria-label="Main Content">
         {/* laptop's navgigation */}
         <ul className='flex flex-col md:flex-row justify-around items-center gap-5 md:gap-0'>
+          <li onClick={handleAllOpendNavigation}><Link className='flex gap-2 items-center' href="/"><span>Home</span> <FaHome /></Link></li>
           <li className='relative flex flex-col md:flex-row items-center hover:text-orange-400 group'>
             <span className='flex items-center'>
               <Link className='font-semibold mr-2 hidden lg:block' href='/showAllProductsOfSameCategory/laptop/none'>Laptops</Link>
