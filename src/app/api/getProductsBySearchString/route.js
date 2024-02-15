@@ -34,15 +34,15 @@ export async function GET(req) {
             if (item.includes('GeForce RTX') || item.includes('GeForce GTX') || item.includes('Radeon RX')) searchedStrArr[index] = item.slice(0, -2);
         });
 
-        // console.log(searchedStrArr);
-
-        if (!searchedStrArr.every(strElem => strElem.includes('br-'))) {
+        if (searchedStrArr.some(str => str.includes("br-")) && !searchedStrArr.every(strElem => strElem.includes('br-'))) {
             brandNameStrWithOtherElementSelected = true;
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         } else {
             brandNameStrWithOtherElementSelected = false;
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         }
+
+        // console.log(brandNameStrWithOtherElementSelected);
 
         // or conditionals for $or operator for key features of the product's doucment in mongodb for product filteration.
         const orConditionsOne = [
