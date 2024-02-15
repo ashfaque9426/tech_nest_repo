@@ -22,7 +22,7 @@ export async function GET(req) {
         const brandChecked = searchParams.get('brandChecked');
 
         // if brandname is selected on the front end this value will be changed to true somewhere in the next lines of code.
-        let brandNameStr = false;
+        let brandNameStrWithOtherElementSelected = false;
 
         // replacing string from searchedStrArr and making them ready for regex in proper form.
         searchedStrArr.forEach((item, index) => {
@@ -37,10 +37,10 @@ export async function GET(req) {
         // console.log(searchedStrArr);
 
         if (!searchedStrArr.every(strElem => strElem.includes('br-'))) {
-            brandNameStr = true;
+            brandNameStrWithOtherElementSelected = true;
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         } else {
-            brandNameStr = false;
+            brandNameStrWithOtherElementSelected = false;
             searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         }
 
@@ -236,7 +236,7 @@ export async function GET(req) {
         ]
 
         // to avoid matching issue while brand name string is true first two properties are shifted form array.
-        if (category !== "graphics card" && category !== "desktop processor" && brandName || brandChecked && searchedStrArr.length > 1 && brandNameStr) {
+        if (category !== "graphics card" && category !== "desktop processor" && brandName || brandChecked && searchedStrArr.length > 1 && brandNameStrWithOtherElementSelected) {
             orConditionsOne.shift();
             orConditionsOne.shift();
         }
