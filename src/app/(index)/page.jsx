@@ -25,7 +25,7 @@ async function Page() {
         <ExclusiveOfferComponent className='mt-12' discountSlogan="You can get 10% off on Electronic Products. Click here and have a look at our Products around 10% off." discountValue={10} exact={false} />
       </aside>
 
-      <main className='px-16 2xl:px-0' role="main" aria-labelledby="subMainContentLabel">
+      <main className='px-16 lg:px-5 2xl:px-0' role="main" aria-labelledby="subMainContentLabel">
         
         {/* Desktop Processors by Category section */}
         <section className='mt-24' role="region" aria-labelledby="section1Label">
