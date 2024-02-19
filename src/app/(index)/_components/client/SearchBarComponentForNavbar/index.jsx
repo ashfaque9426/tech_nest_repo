@@ -38,22 +38,20 @@ function SearchBarComponentForNavbar() {
     useEffect(() => {
         if (searchBarStr.length > 0) {
             setSearchResultVisibility(true);
+            getProductSuggestions(searchBarStr).then(result => {
+                if (result.success) {
+                    setResponseMessage(false);
+                    setSearchedProductArr(result.data);
+                }
+
+                if (result.message) {
+                    setSearchedProductArr([]);
+                    setResponseMessage(result.message);
+                }
+            });
         } else {
             setSearchResultVisibility(false);
-            setSearchedProductArr([]);
         }
-
-        getProductSuggestions(searchBarStr).then(result => {
-            if(result.success) {
-                setResponseMessage(false);
-                setSearchedProductArr(result.data);
-            }
-
-            if (result.message) {
-                setSearchedProductArr([]);
-                setResponseMessage(result.message);
-            }
-        })
     }, [searchBarStr]);
 
   return (
