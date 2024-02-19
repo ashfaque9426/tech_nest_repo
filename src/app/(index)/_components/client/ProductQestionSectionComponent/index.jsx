@@ -4,13 +4,13 @@ import { addQuestionForProduct } from '@/services/productServices';
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import BtnComponentOne from '../../server/BtnComponentOne';
-import UsersQuestionsComponent from '../UsersQuestionsComponent';
+import UsersQuestionsComponent from '../../server/UsersQuestionsComponent';
 
 function ProductQestionSectionComponent({ id, serverResMsg, productData }) {
     const [viewQuestionFrom, setViewQuestionForm] = useState(false);
     const [questionsArr, setQuestionsArr] = useState([]);
 
-    const handleQuestionSubmit = e => {
+    const handleQuestionSubmit = async e => {
         e.preventDefault();
         const form = e.target;
         const userName = form.userName.value;
@@ -24,7 +24,7 @@ function ProductQestionSectionComponent({ id, serverResMsg, productData }) {
             usersQuestions: [{ question: usersQuestion, ansswer: '' }]
         }
 
-        addQuestionForProduct(id, questionObj, userEmail).then(data => {
+        await addQuestionForProduct(id, questionObj, userEmail).then(data => {
             if (data.success) {
                 // refetching the data again on successfull question added to the server.
                 setQuestionsArr(data.updatedDataArr);
@@ -62,7 +62,7 @@ function ProductQestionSectionComponent({ id, serverResMsg, productData }) {
     return (
         <section className='mt-24 mx-5 2xl:mx-0' role="region" aria-labelledby="section4Label">
             {
-                !serverResMsg && productData?.questions.length > 0 && <div>
+                !serverResMsg && (productData?.questions.length > 0 || questionsArr.length > 0) && <div>
                     <h2 id='section4LabelHeading' className='font-semibold text-[22px] md:text-2xl mb-8 md:text-center'>Questions related to {productData?.productTitle}.</h2>
 
                     <UsersQuestionsComponent usersQuestionsArr={questionsArr.length > 0 ? questionsArr : productData.questions} />
