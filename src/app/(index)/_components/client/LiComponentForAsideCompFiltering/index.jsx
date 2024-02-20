@@ -2,9 +2,28 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParamsForUrl, indexArr, setIndexArr, sidebarObjKey, setChkBrandChecked, multipleObjsOfStateArr }) {
+function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParamsForUrl, indexStr, indexArr, setIndexArr, sidebarObjKey, setChkBrandChecked, multipleObjsOfStateArr }) {
     const onClickActions = () => {
-        if (sidebarObjKey === 'brandList') handleParamsForUrl('br-'+strItem);
+        // console.log(indexStr);
+        if (sidebarObjKey === 'brandList') handleParamsForUrl('br-' + strItem);
+        else if (sidebarObjKey === 'brand') handleParamsForUrl('singleBr-' + strItem);
+        else if (sidebarObjKey === 'models') handleParamsForUrl('mod-' + strItem);
+        else if (sidebarObjKey === 'soketLists' || indexStr === 'socketList') handleParamsForUrl('soc-' + strItem);
+        else if (sidebarObjKey === 'storageLists') handleParamsForUrl('storlts-' + strItem);
+        else if (sidebarObjKey === 'ramSizes') handleParamsForUrl('rms-' + strItem);
+        else if (sidebarObjKey === 'ramType' || sidebarObjKey === 'supportedMemory') handleParamsForUrl('supm-' + strItem);
+        else if (sidebarObjKey === 'supportedSlots') handleParamsForUrl('suppslt-' + strItem);
+        else if (sidebarObjKey === 'displayType') handleParamsForUrl('dispt-' + strItem);
+        else if (sidebarObjKey === 'displaySize') handleParamsForUrl('disps-' + strItem);
+        else if (sidebarObjKey === 'processorType') handleParamsForUrl('proct-' + strItem);
+        else if (sidebarObjKey === 'supportedCpus') handleParamsForUrl('proct-' + strItem);
+        else if (sidebarObjKey === 'soketList') handleParamsForUrl('soc-' + strItem);
+        else if (sidebarObjKey === 'warrantyLists') handleParamsForUrl('warr-' + strItem);
+        else if (sidebarObjKey === 'graphicsList') handleParamsForUrl('gpu-' + strItem);
+        else if (sidebarObjKey === 'graphicsOutput') handleParamsForUrl('gro-' + strItem);
+        else if (sidebarObjKey === 'cameraType') handleParamsForUrl('camt-' + strItem);
+        else if (sidebarObjKey === 'batteryType') handleParamsForUrl('btr-' + strItem);
+        else if (sidebarObjKey === 'warrantyLists') handleParamsForUrl('warr-' + strItem);
         else handleParamsForUrl(strItem);
         
         if (!multipleObjsOfStateArr) {

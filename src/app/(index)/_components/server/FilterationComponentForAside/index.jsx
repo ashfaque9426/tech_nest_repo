@@ -26,7 +26,7 @@ function FilterationComponentForAside({ sidebarArr, handleParamsForUrl, indexArr
                                                   {/* iterate through the array from the object of given state and return li component. */}
                                                   {
                                                       sidebarComponentObj[keyObj][indexStr].map((strItem, i) => (
-                                                          <LiComponentForAsideCompFiltering key={`processorFilteringByModels${uuidv4()}`} strItem={strItem} i={i} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={multipleObjsOfStateArr} />
+                                                          <LiComponentForAsideCompFiltering key={`processorFilteringByModels${uuidv4()}`} strItem={strItem} i={i} handleParamsForUrl={handleParamsForUrl} indexStr={indexStr} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={multipleObjsOfStateArr} />
                                                       ))
                                                   }
                                               </ul>

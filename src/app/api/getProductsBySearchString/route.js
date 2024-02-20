@@ -43,283 +43,208 @@ export async function GET(req) {
         }
 
         // console.log(brandNameStrWithOtherElementSelected);
+        const pipeLineObj = {
+            productCategory: { $regex: category, $options: 'i' },
+        };
 
-        // or conditionals for $or operator for key features of the product's doucment in mongodb for product filteration.
-        const orConditionsOne = [
-            { productTitle: { $in: searchedStrArr.map(str => category === 'graphics card' ? str.length > 5 ? new RegExp(str, 'i') : "" : new RegExp(str, 'i')) } },
-            { "keyFeatures.model": { $in: searchedStrArr.map(str => str.length > 5 ? new RegExp(str, 'i') : "") } },
-            { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-        ]
+        console.log(searchedStrArr);
 
-        const orConditionsTwo = [
-            { "keyFeatures.display": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.camera": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-        ]
+        const containsMoreThanOnce = () => {
+            // Check if any of the specified prefixes occur more than once
+            const prefixes = ['rms-', 'supm-', 'proct-', 'scpu-', 'soc-', 'mod-', 'suppslt-', 'storlts-', 'disps-', 'dist-', 'proct-', 'scpu-', 'gpu-', 'gro-', 'camt-', 'btr-', 'warr-'];
 
-        const orConditionsThree = [
-            { "keyFeatures.processor": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.supportedCpu": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.features": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-        ]
+            let prefixOccurrences = {};
 
-        const orConditionsFour = [
-            { "keyFeatures.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.memory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.supportedRam": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.supportedMemory": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.videoMemory": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) } }
-        ]
+            prefixes.forEach(prefix => {
+                prefixOccurrences[prefix] = 0;
+            });
 
-        const orConditionsFive = [
-            { "keyFeatures.graphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) } },
-            { "keyFeatures.output": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.graphicsOutput": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-            { "keyFeatures.storage": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-        ]
+            searchedStrArr.forEach(str => {
+                prefixes.forEach(prefix => {
+                    const regex = new RegExp(`\\b${prefix}\\b`, 'g');
+                    const prefixCount = (str.match(regex) || []).length;
+                    prefixOccurrences[prefix] += prefixCount;
+                });
+            });
 
-        // or conditionals for $or operator for productSpecs arrao of the product's doucment in mongodb for product filteration
-        const orConditionsForProductSpecsPipeline = [
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "display.size": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "display.displaySize": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "display.displayType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "display.displayResolution": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "processor.processorModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "memory.busSpeed": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "memory.totalRamSlot": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "storage.storageType": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "storage.storageCapacity": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "ports&Slots.usbType-c/ThunderboltPort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "ports&Slots.headphone&MicrophonePort": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "graphics.graphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "graphicsSpecifications.processorGraphics": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "graphics.graphicsModel": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "graphics.graphicsMemory": { $in: searchedStrArr.map(str => str.length === 3 ? new RegExp(`\\b${str}\s(?!\\w)`, 'i') : new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "features.fingerprint": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "features.sensors": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "battery.type": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "warrantyInformation.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "motherboard.warranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "warranty.warrantyDetails": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
-            },
-            {
-                "productSpecifications": {
-                    $elemMatch: {
-                        "warrantyInformation.manufacturingWarranty": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
-                }
+            const occurences =  Object.keys(prefixOccurrences).filter(key => prefixOccurrences[key] > 1);
+
+            // Check if any prefix occurs more than once
+            if (occurences.length > 0) return true;
+
+            return false;
+        }
+
+
+        const occerencesOfSameType = containsMoreThanOnce();
+
+        const arrForConditionals = [];
+
+        searchedStrArr.forEach(strItem => {
+            console.log(strItem);
+
+            if (strItem.includes('singleBr-') || !strItem.includes('-')) {
+                const pureStr = (strItem.includes('singleBr-') && strItem.replace('singleBr-', '')) || (!strItem.includes('-') && strItem);
+                const conditionObj = { productTitle: { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+
             }
-        ]
 
-        // to avoid matching issue while brand name string is true first two properties are shifted form array.
-        if (category !== "graphics card" && category !== "desktop processor" && brandName || brandChecked && searchedStrArr.length > 1 && brandNameStrWithOtherElementSelected) {
-            orConditionsOne.shift();
-            orConditionsOne.shift();
-        }
+            if (strItem.includes('soc-')) {
+                const pureStr = strItem.includes('soc-') && strItem.replace('soc-', '');
+                const conditionObj = { "keyFeatures.socket": { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+            }
 
-        // adding filtering conditions for centain category to orConditionsForProductSpecsPipeline array.
-        if(category === "smart phone") {
-            orConditionsForProductSpecsPipeline.push({
-                "productSpecifications": {
-                    $elemMatch: {
-                        "memory.ram": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) }
-                    }
+            if (strItem.includes('mod-')) {
+                const pureStr = strItem.includes('mod-') && strItem.replace('mod-', '');
+                const conditionObj = { "keyFeatures.model": { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+
+            }
+
+            if (strItem.includes('supm-') || strItem.includes('rms-')) {
+                const pureStr = (strItem.includes('supm-') && strItem.replace('supm-', '')) || (strItem.includes('rms-') && strItem.replace('rms-', ''));
+
+                const conditionObj = {
+                    '$or': [
+                        { "keyFeatures.ram": { $regex: pureStr, $options: 'i' } },
+                        { "keyFeatures.memory": { $regex: pureStr, $options: 'i' } },
+                        { "keyFeatures.supportedRam": { $regex: pureStr, $options: 'i' } },
+                        { "keyFeatures.supportedMemory": { $regex: pureStr, $options: 'i' } }
+                    ]
                 }
-            })
-        }
 
-        // Pipelines for product filteration and search.
+                arrForConditionals.push(conditionObj);
+            }
 
-        // pipeline is for $and conditonal operations.
-        const pipeline = {
-            productCategory: { $regex: category, $options: 'i' },
-            $and: [
-                { productTitle: { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } },
-                { "keyFeatures.socket": { $in: searchedStrArr.map(str => new RegExp(str, 'i')) } }
-            ]
-        }
+            if (strItem.includes('suppslt-')) {
+                const pureStr = strItem.includes('suppslt-') && strItem.replace('suppslt-', '');
+                const conditionObj = { "keyFeatures.features": { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+            }
 
-        // pipeline is for $or conditonal operations.
-        const pipelineOne = {
-            productCategory: { $regex: category, $options: 'i' },
-            $or: [
-                {
-                    $or: orConditionsOne
-                },
-                {
-                    $or: orConditionsTwo
-                },
-                {
-                    $or: orConditionsThree
-                },
-                {
-                    $or: orConditionsFour
-                },
-                {
-                    $or: orConditionsFive
-                },
-                {
-                    $or: orConditionsForProductSpecsPipeline
+            if (strItem.includes('disps-') || strItem.includes('dispt-')) {
+                console.log('inside')
+                const pureStr = (strItem.includes('disps-') && strItem.replace('disps-', '')) || (strItem.includes('dispt-') && strItem.replace('dispt-', ''));
+                const conditionObj = { "keyFeatures.display": { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+            }
+
+            if (strItem.includes('camt-')) {
+                const pureStr = strItem.includes('camt-') && strItem.replace('camt-', '');
+                const conditionObj = { "keyFeatures.camera": { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+            }
+
+            if (strItem.includes('proct-') || strItem.includes('scpu-')) {
+                const pureStr = (strItem.includes('proct-') && strItem.replace('proct-', '')) || (strItem.includes('scpu-') && strItem.replace('scpu-', ''));
+
+                const conditionObj = {
+                    '$or': [
+                        { "keyFeatures.processor": { $regex: pureStr, $options: 'i' } },
+                        { "keyFeatures.supportedCpu": { $regex: pureStr, $options: 'i' } }
+                    ]
                 }
-            ]
+
+                arrForConditionals.push(conditionObj);
+            }
+
+            if (strItem.includes('gpu-')) {
+                const pureStr = strItem.includes('gpu-') && strItem.replace('gpu-', '');
+
+                const conditionObj = {
+                    '$or': [
+                        { "keyFeatures.graphics": { $regex: pureStr, $options: 'i' } },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "graphics.graphicsModel": { $regex: pureStr, $options: 'i' }
+                                }
+                            }
+                        }
+                    ]
+                }
+
+                arrForConditionals.push(conditionObj);
+            }
+
+            if (strItem.includes('storlts-')) {
+                const pureStr = strItem.includes('storlts-') && strItem.replace('storlts-', '');
+
+                const conditionObj = {
+                    '$or': [
+                        { "keyFeatures.ram": { $regex: pureStr, $options: 'i' } },
+                        { "keyFeatures.storage": { $regex: pureStr, $options: 'i' } }
+                    ]
+                };
+
+                arrForConditionals.push(conditionObj);
+            }
+            
+            if (strItem.includes('warr-')) {
+                const pureStr = strItem.includes('warr-') && strItem.replace('warr-', '');
+
+                const conditionObj = {
+                    '$or': [
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "warranty.warrantyDetails": { $regex: pureStr, $options: 'i' }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "warrantyInformation.warranty": { $regex: pureStr, $options: 'i' }
+                                }
+                            }
+                        },
+                        {
+                            "productSpecifications": {
+                                $elemMatch: {
+                                    "warrantyInformation.manufacturingWarranty": { $regex: pureStr, $options: 'i' }
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                arrForConditionals.push(conditionObj);
+            }
+
+        });
+
+        // console.log(arrForConditionals);
+
+        if (!occerencesOfSameType) {
+            pipeLineObj['$and'] = arrForConditionals
         }
+
+        if (occerencesOfSameType) {
+            pipeLineObj['$or'] = arrForConditionals
+        }
+
+        // console.log(pipeLineObj);
 
         // if brand name is true that means product is searched for only a specifiq brand from the front end
         if (brandName) {
-            pipeline["brand"] = { $regex: brandName, $options: 'i' };
-            pipelineOne["brand"] = { $regex: brandName, $options: 'i' };
+            pipeLineObj["brand"] = { $regex: brandName, $options: 'i' };
         }
 
         // if brand checked is true that means in the sidebar filtering options product for any specifiq brand or multiple brands are selected
         if (brandChecked) {
-            pipeline["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
-            pipelineOne["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
+            pipeLineObj["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
         }
-
-        // console.log(brandName, pipeline);
-
-        // looking for results according to pipeline options.
-        const result = await Product.find(pipeline).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
-        const result1 = result.length === 0 && await Product.find(pipelineOne).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
-        // console.log(result);
-        // console.log(result1);
+        
+        const result = await Product.find(pipeLineObj).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
 
         // returning results if match found.
         if (result.length > 0) {
             return NextResponse.json({
                 success: true,
                 data: result
-            });
-        }
-
-        if (result1?.length > 0) {
-            return NextResponse.json({
-                success: true,
-                data: result1
             });
         }
 
