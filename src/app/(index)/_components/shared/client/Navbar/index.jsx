@@ -36,7 +36,7 @@ function Navbar() {
             <Image className='object-contain w-full h-full' src='/Logos/techNestLogo.JPG' alt='Logo Image' width={60} height={60} />
           </span>
           <SearchBarComponentForNavbar />
-          <span onClick={() => setNavbarVisibility(!navbarVisibility)} className='md:hidden text-4xl'><GiHamburgerMenu /></span>
+          <span onClick={() => { setNavbarVisibility(!navbarVisibility); setNavbarItemOpen(false); setNavbarItemOneOpen(false); setNavbarItemTwoOpen(false); setNestedNavbarCompItemOneOpen(false); setNestedNavbarCompItemTwoOpen(false); }} className='md:hidden text-4xl'><GiHamburgerMenu /></span>
         </div>
 
         <div className={`${navbarVisibility ? 'flex' : 'hidden'} md:flex justify-center items-center gap-5 md:gap-0`}>
@@ -62,7 +62,7 @@ function Navbar() {
           <li onClick={handleAllOpendNavigation}><Link className='flex gap-2 items-center hover:text-orange-400' href="/"><span>Home</span> <FaHome /></Link></li>
           <li className='relative flex flex-col md:flex-row items-center hover:text-orange-400 group'>
             <span className='flex items-center'>
-              <span onClick={() => setNavbarItemOpen(!navbarItemOpen)} className='font-semibold mr-2 cursor-pointer'>Laptops</span>
+              <span onClick={() => { setNavbarItemOpen(!navbarItemOpen); setNavbarItemOneOpen(false); setNavbarItemTwoOpen(false)}} className='font-semibold mr-2 cursor-pointer'>Laptops</span>
               <span className='group-hover:rotate-180'><IoIosArrowUp /></span>
             </span>
 
@@ -81,7 +81,7 @@ function Navbar() {
           {/* component's navigations */}
           <li className='relative flex flex-col md:flex-row items-center hover:text-orange-400 group'>
             <span className='flex items-center'>
-              <span onClick={() => setNavbarItemOneOpen(!navbarItemOneOpen)} className='font-semibold mr-2 cursor-pointer'>Components</span>
+              <span onClick={() => { setNavbarItemOneOpen(!navbarItemOneOpen); setNavbarItemOpen(false); setNavbarItemTwoOpen(false); setNestedNavbarCompItemOneOpen(false); setNestedNavbarCompItemTwoOpen(false); }} className='font-semibold mr-2 cursor-pointer'>Components</span>
               <span className='group-hover:rotate-180'><IoIosArrowUp /></span>
             </span>
 
@@ -90,13 +90,14 @@ function Navbar() {
               <li className='hover:underline flex flex-col md:flex-row justify-center items-center group/item'>
                 <span className='w-full px-3 py-2 flex justify-center md:justify-start items-center'>
                   <Link className='hidden lg:block mr-2 hover:text-orange-400' href='/showAllProductsOfSameCategory/desktop%20processor/none'>Processors</Link>
-                  <span onClick={() => setNestedNavbarCompItemOneOpen(!nestedCompItemOneOpen)} className='block lg:hidden mr-2 hover:text-orange-400'>Processors</span>
+                  <span onClick={() => { setNestedNavbarCompItemOneOpen(!nestedCompItemOneOpen); setNestedNavbarCompItemTwoOpen(false); }} className='block lg:hidden mr-2 hover:text-orange-400'>Processors</span>
                   <span className='group-hover/item:rotate-180 md:group-hover/item:rotate-90'><IoIosArrowUp /></span>
                 </span>
 
                 {/* component's nested nav items one */}
                 <span className='md:relative'>
                   <ul className={`${nestedCompItemOneOpen ? 'block' : 'hidden'} lg:group-hover/item:block text-center md:text-start group-hover/item:text-black dark:group-hover/item:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute md:left-0 md:-top-3 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-lg`}>
+                    <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/desktop%20processor/none'>All Processors</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/desktop%20processor/intel'>Intel</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/desktop%20processor/amd'>AMD</Link></li>
                   </ul>
@@ -107,13 +108,14 @@ function Navbar() {
               <li className='hover:underline flex flex-col md:flex-row justify-center items-center group/item'>
                 <span className='w-full px-3 py-2 flex justify-center md:justify-start items-center'>
                   <Link className='hidden md:block mr-2 hover:text-orange-400' href='/showAllProductsOfSameCategory/motherboard/none'>Motherboards</Link>
-                  <span onClick={() => setNestedNavbarCompItemTwoOpen(!nestedCompItemTwoOpen)} className='block md:hidden mr-2 hover:text-orange-400' href='/showAllProductsOfSameCategory/motherboard/none'>Motherboards</span>
+                  <span onClick={() => { setNestedNavbarCompItemTwoOpen(!nestedCompItemTwoOpen); setNestedNavbarCompItemOneOpen(false); }} className='block md:hidden mr-2 hover:text-orange-400' href='/showAllProductsOfSameCategory/motherboard/none'>Motherboards</span>
                   <span className='group-hover/item:rotate-180 md:group-hover/item:rotate-90'><IoIosArrowUp /></span>
                 </span>
 
                 {/* component's nested nav items two */}
                 <span className='md:relative'>
                   <ul className={`${nestedCompItemTwoOpen ? 'block' : 'hidden'} lg:group-hover/item:block text-center md:text-start group-hover/item:text-black dark:group-hover/item:text-white w-full md:w-[150px] px-3 py-2 md:pt-5 md:pb-2 md:absolute md:left-0 md:-top-3 bg-[#ffffff] shadow-md dark:bg-[#171717] dark:shadow-none rounded-lg`}>
+                    <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/none'>All Motherboard</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/msi'>MSI</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/asus'>Asus</Link></li>
                     <li onClick={handleAllOpendNavigation} className='my-2 hover:underline'><Link href='/showAllProductsOfSameCategory/motherboard/asrock'>ASRock</Link></li>
@@ -127,7 +129,7 @@ function Navbar() {
           {/* phone's navigations */}
           <li className='relative flex flex-col md:flex-row items-center hover:text-orange-400 group'>
             <span className='flex items-center'>
-              <span onClick={() => setNavbarItemTwoOpen(!navbarItemTwoOpen)} className='font-semibold mr-2 cursor-pointer'>Phones</span>
+              <span onClick={() => { setNavbarItemTwoOpen(!navbarItemTwoOpen); setNavbarItemOpen(false); setNavbarItemOneOpen(false); setNestedNavbarCompItemOneOpen(false); setNestedNavbarCompItemTwoOpen(false); }} className='font-semibold mr-2 cursor-pointer'>Phones</span>
               <span className='group-hover:rotate-180'><IoIosArrowUp /></span>
             </span>
 
