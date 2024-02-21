@@ -36,10 +36,8 @@ export async function GET(req) {
 
         if (searchedStrArr.some(str => str.includes("br-")) && !searchedStrArr.every(strElem => strElem.includes('br-'))) {
             brandNameStrWithOtherElementSelected = true;
-            searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         } else {
             brandNameStrWithOtherElementSelected = false;
-            searchedStrArr.forEach((strItem, i) => searchedStrArr[i] = strItem.replace('br-', ''));
         }
 
         // console.log(brandNameStrWithOtherElementSelected);
@@ -47,11 +45,12 @@ export async function GET(req) {
             productCategory: { $regex: category, $options: 'i' },
         };
 
-        console.log(searchedStrArr);
+        // console.log('line49:');
+        // console.log(searchedStrArr);
 
         const containsMoreThanOnce = () => {
             // Check if any of the specified prefixes occur more than once
-            const prefixes = ['rms-', 'supm-', 'proct-', 'scpu-', 'soc-', 'mod-', 'suppslt-', 'storlts-', 'disps-', 'dist-', 'proct-', 'scpu-', 'gpu-', 'gro-', 'camt-', 'btr-', 'warr-'];
+            const prefixes = ['rms-', 'supm-', 'proct-', 'scpu-', 'soc-', 'cpuMod-', 'mod-', 'suppslt-', 'storlts-', 'disps-', 'dist-', 'gpu-', 'gro-', 'camt-', 'btr-', 'warr-'];
 
             let prefixOccurrences = {};
 
@@ -70,6 +69,7 @@ export async function GET(req) {
             const occurences =  Object.keys(prefixOccurrences).filter(key => prefixOccurrences[key] > 1);
 
             // Check if any prefix occurs more than once
+            
             if (occurences.length > 0) return true;
 
             return false;
@@ -81,7 +81,7 @@ export async function GET(req) {
         const arrForConditionals = [];
 
         searchedStrArr.forEach(strItem => {
-            console.log(strItem);
+            // console.log('line84' + strItem);
 
             if (strItem.includes('singleBr-') || !strItem.includes('-')) {
                 const pureStr = (strItem.includes('singleBr-') && strItem.replace('singleBr-', '')) || (!strItem.includes('-') && strItem);
@@ -91,13 +91,19 @@ export async function GET(req) {
             }
 
             if (strItem.includes('soc-')) {
-                const pureStr = strItem.includes('soc-') && strItem.replace('soc-', '');
+                const pureStr = strItem.replace('soc-', '');
                 const conditionObj = { "keyFeatures.socket": { $regex: pureStr, $options: 'i' } };
                 arrForConditionals.push(conditionObj);
             }
 
+            if (strItem.includes('cpuMod-')) {
+                const pureStr = strItem.replace('cpuMod-', '');
+                const conditionObj = { productTitle: { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
+            }
+
             if (strItem.includes('mod-')) {
-                const pureStr = strItem.includes('mod-') && strItem.replace('mod-', '');
+                const pureStr = strItem.replace('mod-', '');
                 const conditionObj = { "keyFeatures.model": { $regex: pureStr, $options: 'i' } };
                 arrForConditionals.push(conditionObj);
 
@@ -119,7 +125,7 @@ export async function GET(req) {
             }
 
             if (strItem.includes('suppslt-')) {
-                const pureStr = strItem.includes('suppslt-') && strItem.replace('suppslt-', '');
+                const pureStr = strItem.replace('suppslt-', '');
                 const conditionObj = { "keyFeatures.features": { $regex: pureStr, $options: 'i' } };
                 arrForConditionals.push(conditionObj);
             }
@@ -132,7 +138,7 @@ export async function GET(req) {
             }
 
             if (strItem.includes('camt-')) {
-                const pureStr = strItem.includes('camt-') && strItem.replace('camt-', '');
+                const pureStr = strItem.replace('camt-', '');
                 const conditionObj = { "keyFeatures.camera": { $regex: pureStr, $options: 'i' } };
                 arrForConditionals.push(conditionObj);
             }
@@ -151,7 +157,7 @@ export async function GET(req) {
             }
 
             if (strItem.includes('gpu-')) {
-                const pureStr = strItem.includes('gpu-') && strItem.replace('gpu-', '');
+                const pureStr = strItem.replace('gpu-', '');
 
                 const conditionObj = {
                     '$or': [
@@ -170,7 +176,7 @@ export async function GET(req) {
             }
 
             if (strItem.includes('storlts-')) {
-                const pureStr = strItem.includes('storlts-') && strItem.replace('storlts-', '');
+                const pureStr = strItem.replace('storlts-', '');
 
                 const conditionObj = {
                     '$or': [
@@ -183,7 +189,7 @@ export async function GET(req) {
             }
             
             if (strItem.includes('warr-')) {
-                const pureStr = strItem.includes('warr-') && strItem.replace('warr-', '');
+                const pureStr = strItem.replace('warr-', '');
 
                 const conditionObj = {
                     '$or': [
@@ -216,17 +222,18 @@ export async function GET(req) {
 
         });
 
+        // console.log('line221:');
+        // console.log(searchedStrArr);
+        // console.log('line227:');
         // console.log(arrForConditionals);
 
-        if (!occerencesOfSameType) {
+        if ((!searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType || searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType) && arrForConditionals.length > 0) {
             pipeLineObj['$and'] = arrForConditionals
         }
 
-        if (occerencesOfSameType) {
+        if ((searchedStrArr.some(str => str.includes('br-')) || !searchedStrArr.some(str => str.includes('br-'))) && occerencesOfSameType && arrForConditionals.length > 0) {
             pipeLineObj['$or'] = arrForConditionals
         }
-
-        // console.log(pipeLineObj);
 
         // if brand name is true that means product is searched for only a specifiq brand from the front end
         if (brandName) {
@@ -235,8 +242,10 @@ export async function GET(req) {
 
         // if brand checked is true that means in the sidebar filtering options product for any specifiq brand or multiple brands are selected
         if (brandChecked) {
-            pipeLineObj["brand"] = { $in: searchedStrArr.map(str => new RegExp(str, 'i')) };
+            pipeLineObj["brand"] = { $in: searchedStrArr.map(str => str.includes('br-') ? new RegExp(str.split('-')[1], 'i') : '') };
         }
+
+        // console.log(pipeLineObj);
         
         const result = await Product.find(pipeLineObj).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
 

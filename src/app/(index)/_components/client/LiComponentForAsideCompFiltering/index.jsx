@@ -7,6 +7,7 @@ function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParams
         // console.log(indexStr);
         if (sidebarObjKey === 'brandList') handleParamsForUrl('br-' + strItem);
         else if (sidebarObjKey === 'brand') handleParamsForUrl('singleBr-' + strItem);
+        else if (indexStr === 'models') handleParamsForUrl('cpuMod-' + strItem);
         else if (sidebarObjKey === 'models') handleParamsForUrl('mod-' + strItem);
         else if (sidebarObjKey === 'soketLists' || indexStr === 'socketList') handleParamsForUrl('soc-' + strItem);
         else if (sidebarObjKey === 'storageLists') handleParamsForUrl('storlts-' + strItem);
