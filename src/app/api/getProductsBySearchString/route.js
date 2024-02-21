@@ -50,7 +50,7 @@ export async function GET(req) {
 
         const containsMoreThanOnce = () => {
             // Check if any of the specified prefixes occur more than once
-            const prefixes = ['rms-', 'supm-', 'proct-', 'scpu-', 'soc-', 'cpuMod-', 'mod-', 'suppslt-', 'storlts-', 'disps-', 'dist-', 'gpu-', 'gro-', 'camt-', 'btr-', 'warr-'];
+            const prefixes = ['rms-', 'supm-', 'proct-', 'scpu-', 'soc-', 'mod-', 'suppslt-', 'storlts-', 'disps-', 'dist-', 'gpu-', 'gro-', 'camt-', 'btr-', 'warr-'];
 
             let prefixOccurrences = {};
 
@@ -78,10 +78,15 @@ export async function GET(req) {
 
         const occerencesOfSameType = containsMoreThanOnce();
 
-        const arrForConditionals = [];
+        // this array for holding specific search conditonal objects.
+        let arrForConditionals = [];
 
+        // just for cpuMod- prefix which value this array holds for seperating the cpus only for later search operations.
+        const cpuModelArr = [];
+
+        // checking individual prefixes of search string followed by "-" sign and for each prefix doing specific actions and preparing the conditions for pushing the condition objects to arrForConditionals array.
         searchedStrArr.forEach(strItem => {
-            // console.log('line84' + strItem);
+            // console.log('line84: ' + strItem);
 
             if (strItem.includes('singleBr-') || !strItem.includes('-')) {
                 const pureStr = (strItem.includes('singleBr-') && strItem.replace('singleBr-', '')) || (!strItem.includes('-') && strItem);
@@ -90,23 +95,33 @@ export async function GET(req) {
 
             }
 
-            if (strItem.includes('soc-')) {
-                const pureStr = strItem.replace('soc-', '');
-                const conditionObj = { "keyFeatures.socket": { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
-            }
-
             if (strItem.includes('cpuMod-')) {
                 const pureStr = strItem.replace('cpuMod-', '');
-                const conditionObj = { productTitle: { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
+                let conditionObj;
+                cpuModelArr.push(pureStr);
+
+                if (cpuModelArr.length > 1) {
+                    conditionObj = { productTitle: { $in: cpuModelArr.map(cpuTitleStr => new RegExp(cpuTitleStr.replace('cpuMod-', ''), 'i')) }}
+                    arrForConditionals = [];
+                    arrForConditionals.push(conditionObj);
+                } else {
+                    conditionObj = { productTitle: { $regex: pureStr, $options: 'i' } };
+                    arrForConditionals.push(conditionObj);
+                }
+                
+                
             }
 
             if (strItem.includes('mod-')) {
                 const pureStr = strItem.replace('mod-', '');
                 const conditionObj = { "keyFeatures.model": { $regex: pureStr, $options: 'i' } };
                 arrForConditionals.push(conditionObj);
+            }
 
+            if (strItem.includes('soc-')) {
+                const pureStr = strItem.replace('soc-', '');
+                const conditionObj = { "keyFeatures.socket": { $regex: pureStr, $options: 'i' } };
+                arrForConditionals.push(conditionObj);
             }
 
             if (strItem.includes('supm-') || strItem.includes('rms-')) {
@@ -227,12 +242,13 @@ export async function GET(req) {
         // console.log('line227:');
         // console.log(arrForConditionals);
 
-        if ((!searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType || searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType) && arrForConditionals.length > 0) {
-            pipeLineObj['$and'] = arrForConditionals
+        // based on some prefixes and multiple occurence of those prefixes which determines the multiple clicks of same type of filtering options from the value of 'occerencesOfSameType' variable from containsMoreThanOnce() function call changing the search conditional special operators such as $and and $or for database filtering operations.
+        if ((!searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType || searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType || searchedStrArr.some(str => str.includes('cpuMod-')) && !occerencesOfSameType) && arrForConditionals.length > 0) {
+            pipeLineObj['$and'] = arrForConditionals;
         }
 
         if ((searchedStrArr.some(str => str.includes('br-')) || !searchedStrArr.some(str => str.includes('br-'))) && occerencesOfSameType && arrForConditionals.length > 0) {
-            pipeLineObj['$or'] = arrForConditionals
+            pipeLineObj['$or'] = arrForConditionals;
         }
 
         // if brand name is true that means product is searched for only a specifiq brand from the front end
@@ -245,8 +261,10 @@ export async function GET(req) {
             pipeLineObj["brand"] = { $in: searchedStrArr.map(str => str.includes('br-') ? new RegExp(str.split('-')[1], 'i') : '') };
         }
 
+        // console.log('line: 265');
         // console.log(pipeLineObj);
         
+        // after all the above procedure finally searching for the filtering results and receiving the results in the results array.
         const result = await Product.find(pipeLineObj).select('_id brand imgUrls productTitle productCategory productStatus keyFeatures points regularPrice price offer createdAt').limit(typeConvertedLimValue > 0 ? typeConvertedLimValue : 0).sort({ regularPrice: 1 });
 
         // returning results if match found.
@@ -268,7 +286,7 @@ export async function GET(req) {
         console.log(err);
         return NextResponse.json({
             success: false,
-            message: `Unable to communicate with database. Err: ${err.message}`
+            message: `Unable to communicate with database. Please try again later.`
         });
     }
 }
