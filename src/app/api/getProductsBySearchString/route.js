@@ -21,9 +21,6 @@ export async function GET(req) {
         const brandName = searchParams.get('brand');
         const brandChecked = searchParams.get('brandChecked');
 
-        // if brandname is selected on the front end this value will be changed to true somewhere in the next lines of code.
-        let brandNameStrWithOtherElementSelected = false;
-
         // replacing string from searchedStrArr and making them ready for regex in proper form.
         searchedStrArr.forEach((item, index) => {
             searchedStrArr[index] = item.replace(/"/g, '');
@@ -33,47 +30,14 @@ export async function GET(req) {
             if (/M\.\d/.test(item) || /\(/.test(item)) searchedStrArr[index] = item.replace(/\./, '\\.').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
             if (item.includes('GeForce RTX') || item.includes('GeForce GTX') || item.includes('Radeon RX')) searchedStrArr[index] = item.slice(0, -2);
         });
-
-        if (searchedStrArr.some(str => str.includes("br-")) && !searchedStrArr.every(strElem => strElem.includes('br-'))) {
-            brandNameStrWithOtherElementSelected = true;
-        } else {
-            brandNameStrWithOtherElementSelected = false;
-        }
-
+        
         // console.log(brandNameStrWithOtherElementSelected);
         const pipeLineObj = {
             productCategory: { $regex: category, $options: 'i' },
         };
 
-        // console.log('line49:');
+        // console.log('line40:');
         // console.log(searchedStrArr);
-
-        const containsMoreThanOnce = () => {
-            // Check if any of the specified prefixes occur more than once
-            const prefixes = ['rms-', 'supm-', 'proct-', 'scpu-', 'soc-', 'mod-', 'suppslt-', 'storlts-', 'disps-', 'dist-', 'gpu-', 'gro-', 'camt-', 'btr-', 'warr-'];
-
-            let prefixOccurrences = {};
-
-            prefixes.forEach(prefix => {
-                prefixOccurrences[prefix] = 0;
-            });
-
-            searchedStrArr.forEach(str => {
-                prefixes.forEach(prefix => {
-                    const regex = new RegExp(`\\b${prefix}\\b`, 'g');
-                    const prefixCount = (str.match(regex) || []).length;
-                    prefixOccurrences[prefix] += prefixCount;
-                });
-            });
-
-            const occurence =  Object.keys(prefixOccurrences).filter(key => prefixOccurrences[key] > 1);
-
-            // Check if any prefix occurs more than once
-            
-            if (occurence.length > 0) return;
-
-            return false;
-        }
 
         // count the string prfixes such as cpuMod- is the prefix of "cpuMod-Intel Pentium" String.
         function countStringPrefixesMoreThanOnce(prefix) {
@@ -85,7 +49,69 @@ export async function GET(req) {
         }
 
 
-        const occerencesOfSameType = containsMoreThanOnce();
+        function pushOnPipelineObj (strItem, prefix, nameOfTheField ='', nameFieldArr=[], nameOfNestedField='', nestedNameFieldArr=[]) {
+            const pureStr = strItem.replace(prefix, '');
+            const prefixOccurence = countStringPrefixesMoreThanOnce(prefix);
+            const arrForOrConditionals = [];
+
+            // nameFieldArr is for stings that requires $or operations.
+            // nestedNameFileldArray with nameOfNestedField for searching through nested documents.
+
+            if ((prefixOccurence.occurence || !prefixOccurence.occurence) && nameOfTheField.length > 0 && nameOfNestedField.length > 0 && nestedNameFieldArr.length > 0) {
+
+                const firstTypeOfObjForOrOperation = {};
+                if (prefixOccurence.occurence) {
+                    firstTypeOfObjForOrOperation[nameOfTheField] = { $in: prefixOccurence.prefixArray.map(strElem => new RegExp(strElem.replace(prefix, ''), 'i')) };
+                } else {
+                    firstTypeOfObjForOrOperation[nameOfTheField] = { $regex: pureStr, $options: 'i' };
+                }
+                arrForOrConditionals.push(firstTypeOfObjForOrOperation);
+
+                nestedNameFieldArr.forEach(fieldName => {
+                    const secondTypeOfObjForOrOperation = {};
+                    if (prefixOccurence.occurence) {
+                        secondTypeOfObjForOrOperation[nameOfNestedField] = { $elemMatch: { [fieldName]: { $in: prefixOccurence.prefixArray.map(strElem => new RegExp(strElem.replace(prefix, ''), 'i')) } } };
+                    } else {
+                        secondTypeOfObjForOrOperation[nameOfNestedField] = { $elemMatch: { [fieldName]: { $regex: pureStr, $options: 'i' } } };
+                    }
+                    arrForOrConditionals.push(secondTypeOfObjForOrOperation);
+                });
+                pipeLineObj['$or'] = arrForOrConditionals;
+            }
+            else if (prefixOccurence.occurence && nameOfTheField.length > 0) {
+                pipeLineObj[nameOfTheField] = { $in: prefixOccurence.prefixArray.map(strElem => new RegExp(strElem.replace(prefix, ''), 'i')) };
+            }
+            else if ((prefixOccurence.occurence || !prefixOccurence.occurence) && nameFieldArr.length > 0) {
+                nameFieldArr.forEach(fieldName => {
+                    const objForOrOperation = {};
+                    if(prefixOccurence.occurence) {
+                        objForOrOperation[fieldName] = { $in: prefixOccurence.prefixArray.map(strElem => new RegExp(strElem.replace(prefix, ''), 'i')) };
+                    } else {
+                        objForOrOperation[fieldName] = { $regex: pureStr, $options: 'i' };
+                    }
+                    arrForOrConditionals.push(objForOrOperation);
+                });
+                pipeLineObj['$or'] = arrForOrConditionals;
+            }
+            else if ((prefixOccurence.occurence || !prefixOccurence.occurence) && nestedNameFieldArr.length > 0) {
+                nestedNameFieldArr.forEach(fieldName => {
+                    const objForOrOperation = {};
+                    if (prefixOccurence.occurence) {
+                        objForOrOperation[nameOfNestedField] = { $elemMatch: { [fieldName]: { $in: prefixOccurence.prefixArray.map(strElem => new RegExp(strElem.replace(prefix, ''), 'i')) } } }
+                    } else {
+                        objForOrOperation[nameOfNestedField] = { $elemMatch: { [fieldName]: { $regex: pureStr, $options: 'i' } } }
+                    }
+                    arrForOrConditionals.push(objForOrOperation);
+                });
+                pipeLineObj['$or'] = arrForOrConditionals;
+            }
+            else {
+                pipeLineObj[nameOfTheField] = { $regex: pureStr, $options: 'i' };
+            }
+
+            // console.log(pipeLineObj);
+
+        }
 
         // this array for holding specific search conditonal objects.
         let arrForConditionals = [];
@@ -102,160 +128,59 @@ export async function GET(req) {
             }
 
             if (strItem.includes('cpuMod-')) {
-                const pureStr = strItem.replace('cpuMod-', '');
-                let conditionObj;
-                
-                const prefixOccurence = countStringPrefixesMoreThanOnce('cpuMod-');
-
-                if (prefixOccurence.occurence) {
-                    conditionObj = { productTitle: { $in: prefixOccurence.prefixArray.map(cpuTitleStr => new RegExp(cpuTitleStr.replace('cpuMod-', ''), 'i')) }}
-                    arrForConditionals = [];
-                    arrForConditionals.push(conditionObj);
-                } else {
-                    conditionObj = { productTitle: { $regex: pureStr, $options: 'i' } };
-                    arrForConditionals.push(conditionObj);
-                }
-                
+                pushOnPipelineObj(strItem, 'cpuMod-', 'productTitle');
             }
 
             if (strItem.includes('mod-')) {
-                const pureStr = strItem.replace('mod-', '');
-                const conditionObj = { "keyFeatures.model": { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
+                pushOnPipelineObj(strItem, 'mod-', 'keyFeatures.model');
             }
 
             if (strItem.includes('soc-')) {
-                const pureStr = strItem.replace('soc-', '');
-                const conditionObj = { "keyFeatures.socket": { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
+                pushOnPipelineObj(strItem, 'soc-', 'keyFeatures.socket');
             }
 
             if (strItem.includes('supm-') || strItem.includes('rms-')) {
-                const pureStr = (strItem.includes('supm-') && strItem.replace('supm-', '')) || (strItem.includes('rms-') && strItem.replace('rms-', ''));
+                strItem.includes('supm-') && pushOnPipelineObj(strItem, 'supm-', '', ['keyFeatures.ram', 'keyFeatures.memory', 'keyFeatures.supportedRam', 'keyFeatures.supportedMemory']);
 
-                const conditionObj = {
-                    '$or': [
-                        { "keyFeatures.ram": { $regex: pureStr, $options: 'i' } },
-                        { "keyFeatures.memory": { $regex: pureStr, $options: 'i' } },
-                        { "keyFeatures.supportedRam": { $regex: pureStr, $options: 'i' } },
-                        { "keyFeatures.supportedMemory": { $regex: pureStr, $options: 'i' } }
-                    ]
-                }
-
-                arrForConditionals.push(conditionObj);
+                strItem.includes('rms-') && pushOnPipelineObj(strItem, 'rms-', '', ['keyFeatures.ram', 'keyFeatures.memory', 'keyFeatures.supportedRam', 'keyFeatures.supportedMemory']);
             }
 
             if (strItem.includes('suppslt-')) {
-                const pureStr = strItem.replace('suppslt-', '');
-                const conditionObj = { "keyFeatures.features": { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
+                pushOnPipelineObj(strItem, 'suppslt-', 'keyFeatures.features');
             }
 
             if (strItem.includes('disps-') || strItem.includes('dispt-')) {
-                console.log('inside')
-                const pureStr = (strItem.includes('disps-') && strItem.replace('disps-', '')) || (strItem.includes('dispt-') && strItem.replace('dispt-', ''));
-                const conditionObj = { "keyFeatures.display": { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
+                strItem.includes('disps-') && pushOnPipelineObj(strItem, 'disps-', 'keyFeatures.display', []);
+
+                strItem.includes('dispt-') && pushOnPipelineObj(strItem, 'dispt-', 'keyFeatures.display', []);
             }
 
             if (strItem.includes('camt-')) {
-                const pureStr = strItem.replace('camt-', '');
-                const conditionObj = { "keyFeatures.camera": { $regex: pureStr, $options: 'i' } };
-                arrForConditionals.push(conditionObj);
+                pushOnPipelineObj(strItem, 'camt-', 'keyFeatures.camera', []);
             }
 
             if (strItem.includes('proct-') || strItem.includes('scpu-')) {
-                const pureStr = (strItem.includes('proct-') && strItem.replace('proct-', '')) || (strItem.includes('scpu-') && strItem.replace('scpu-', ''));
-
-                const conditionObj = {
-                    '$or': [
-                        { "keyFeatures.processor": { $regex: pureStr, $options: 'i' } },
-                        { "keyFeatures.supportedCpu": { $regex: pureStr, $options: 'i' } }
-                    ]
-                }
-
-                arrForConditionals.push(conditionObj);
+                strItem.includes('proct-') && pushOnPipelineObj(strItem, 'proct-', '', ['keyFeatures.processor', 'keyFeatures.supportedCpu']);
+                
+                strItem.includes('scpu-') && pushOnPipelineObj(strItem, 'scpu-', '', ['keyFeatures.processor', 'keyFeatures.supportedCpu']);
             }
 
             if (strItem.includes('gpu-')) {
-                const pureStr = strItem.replace('gpu-', '');
-
-                const conditionObj = {
-                    '$or': [
-                        { "keyFeatures.graphics": { $regex: pureStr, $options: 'i' } },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "graphics.graphicsModel": { $regex: pureStr, $options: 'i' }
-                                }
-                            }
-                        }
-                    ]
-                }
-
-                arrForConditionals.push(conditionObj);
+                pushOnPipelineObj(strItem, 'gpu-', 'keyFeatures.graphics', [], 'productSpecifications', ['graphics.graphicsModel']);
             }
 
             if (strItem.includes('storlts-')) {
-                const pureStr = strItem.replace('storlts-', '');
-
-                const conditionObj = {
-                    '$or': [
-                        { "keyFeatures.ram": { $regex: pureStr, $options: 'i' } },
-                        { "keyFeatures.storage": { $regex: pureStr, $options: 'i' } }
-                    ]
-                };
-
-                arrForConditionals.push(conditionObj);
+                strItem.includes('storlts-') && pushOnPipelineObj(strItem, 'storlts-', '', ['keyFeatures.ram', 'keyFeatures.storage']);
             }
             
             if (strItem.includes('warr-')) {
-                const pureStr = strItem.replace('warr-', '');
-
-                const conditionObj = {
-                    '$or': [
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "warranty.warrantyDetails": { $regex: pureStr, $options: 'i' }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "warrantyInformation.warranty": { $regex: pureStr, $options: 'i' }
-                                }
-                            }
-                        },
-                        {
-                            "productSpecifications": {
-                                $elemMatch: {
-                                    "warrantyInformation.manufacturingWarranty": { $regex: pureStr, $options: 'i' }
-                                }
-                            }
-                        }
-                    ]
-                };
-
-                arrForConditionals.push(conditionObj);
+                pushOnPipelineObj(strItem, 'warr-', '', [], 'productSpecifications', ['warranty.warrantyDetails', 'warrantyInformation.warranty', 'warrantyInformation.manufacturingWarranty']);
             }
 
         });
 
         // console.log('line221:');
         // console.log(searchedStrArr);
-        // console.log('line227:');
-        // console.log(arrForConditionals);
-
-        // based on some prefixes and multiple occurence of those prefixes which determines the multiple clicks of same type of filtering options from the value of 'occerencesOfSameType' variable from containsMoreThanOnce() function call changing the search conditional special operators such as $and and $or for database filtering operations.
-        if ((!searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType || searchedStrArr.some(str => str.includes('br-')) && !occerencesOfSameType || searchedStrArr.some(str => str.includes('cpuMod-')) && !occerencesOfSameType) && arrForConditionals.length > 0) {
-            pipeLineObj['$and'] = arrForConditionals;
-        }
-
-        if ((searchedStrArr.some(str => str.includes('br-')) || !searchedStrArr.some(str => str.includes('br-'))) && occerencesOfSameType && arrForConditionals.length > 0) {
-            pipeLineObj['$or'] = arrForConditionals;
-        }
 
         // if brand name is true that means product is searched for only a specifiq brand from the front end
         if (brandName) {
