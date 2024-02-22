@@ -66,13 +66,22 @@ export async function GET(req) {
                 });
             });
 
-            const occurences =  Object.keys(prefixOccurrences).filter(key => prefixOccurrences[key] > 1);
+            const occurence =  Object.keys(prefixOccurrences).filter(key => prefixOccurrences[key] > 1);
 
             // Check if any prefix occurs more than once
             
-            if (occurences.length > 0) return true;
+            if (occurence.length > 0) return;
 
             return false;
+        }
+
+        // count the string prfixes such as cpuMod- is the prefix of "cpuMod-Intel Pentium" String.
+        function countStringPrefixesMoreThanOnce(prefix) {
+            const prefixArray = [];
+
+            searchedStrArr.forEach(str => str.includes(prefix) && prefixArray.push(str));
+
+            return prefixArray.length > 1 && {occurence: true, prefixArray} || {occurence: false};
         }
 
 
@@ -80,9 +89,6 @@ export async function GET(req) {
 
         // this array for holding specific search conditonal objects.
         let arrForConditionals = [];
-
-        // just for cpuMod- prefix which value this array holds for seperating the cpus only for later search operations.
-        const cpuModelArr = [];
 
         // checking individual prefixes of search string followed by "-" sign and for each prefix doing specific actions and preparing the conditions for pushing the condition objects to arrForConditionals array.
         searchedStrArr.forEach(strItem => {
@@ -98,17 +104,17 @@ export async function GET(req) {
             if (strItem.includes('cpuMod-')) {
                 const pureStr = strItem.replace('cpuMod-', '');
                 let conditionObj;
-                cpuModelArr.push(pureStr);
+                
+                const prefixOccurence = countStringPrefixesMoreThanOnce('cpuMod-');
 
-                if (cpuModelArr.length > 1) {
-                    conditionObj = { productTitle: { $in: cpuModelArr.map(cpuTitleStr => new RegExp(cpuTitleStr.replace('cpuMod-', ''), 'i')) }}
+                if (prefixOccurence.occurence) {
+                    conditionObj = { productTitle: { $in: prefixOccurence.prefixArray.map(cpuTitleStr => new RegExp(cpuTitleStr.replace('cpuMod-', ''), 'i')) }}
                     arrForConditionals = [];
                     arrForConditionals.push(conditionObj);
                 } else {
                     conditionObj = { productTitle: { $regex: pureStr, $options: 'i' } };
                     arrForConditionals.push(conditionObj);
                 }
-                
                 
             }
 
