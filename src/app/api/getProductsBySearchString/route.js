@@ -18,7 +18,10 @@ export async function GET(req) {
 
         // seperating srings from search params by ;
         const searchedStrArr = searchedStrings.split(" ;");
+        // getting the value of brand if available for checking products are searched for specified brand only.
         const brandName = searchParams.get('brand');
+
+        // if brandChecked value is not null then specific brand or brands are checked in the filtering options of the front end.
         const brandChecked = searchParams.get('brandChecked');
 
         // replacing string from searchedStrArr and making them ready for regex in proper form.
@@ -31,7 +34,7 @@ export async function GET(req) {
             if (item.includes('GeForce RTX') || item.includes('GeForce GTX') || item.includes('Radeon RX')) searchedStrArr[index] = item.slice(0, -2);
         });
         
-        // console.log(brandNameStrWithOtherElementSelected);
+        // initializing pipeline for later use case where it will be passed to find method for filtering.
         const pipeLineObj = {
             productCategory: { $regex: category, $options: 'i' },
         };
@@ -48,15 +51,30 @@ export async function GET(req) {
             return prefixArray.length > 1 && {occurence: true, prefixArray} || {occurence: false};
         }
 
+        // arrOfAndConditionals is out of the pushOnPipelineObj functional scope to preserve all the conditional objects which requires $and operation.
+        const arrOfAndConditionals = [];
 
         function pushOnPipelineObj (strItem, prefix, nameOfTheField ='', nameFieldArr=[], nameOfNestedField='', nestedNameFieldArr=[]) {
+            // strItem is for input string.
+            // pureStr is the variable for keeping the strItem after removing the prefix form the strItem input.
             const pureStr = strItem.replace(prefix, '');
+
+            // prefixOccurence variable holds the returned value from countStringPrefixesMoreThanOnce function where prefix should be passed as a parameter to see if there are multiple occurence of strings with the same prefix followed by '-'. if so it will return the occurence which should be true and an array which contains all the strings with the same prefix else it will return only the occurence value which should be false within an object.
             const prefixOccurence = countStringPrefixesMoreThanOnce(prefix);
-            const arrForOrConditionals = [];
 
-            // nameFieldArr is for stings that requires $or operations.
-            // nestedNameFileldArray with nameOfNestedField for searching through nested documents.
+            // for holding objects for or operations
+            const arrOfOrConditionals = [];
 
+            // checking if there are any non similler prefixes available in the searchedStrArray.
+            const checkArrForOtherPrefixes = searchedStrArr.filter(strElem => !strElem.includes(prefix));
+
+            // nameFieldArr is for multiple name for multiple fields if required. while nameFieldArr is passed as a parameter with name of the mulple fields the nameOfTheField which is for single field name for search operation always should be an empty string.
+
+            // nameOfNestedField is for the name of the field of that perticular object where nested documents live.
+
+            // nestedNameFieldArr with nameOfNestedField for searching through nested documents with multiple field names.
+
+            // multiple operations are performed for multiple situations which will make sense if you read the previous comments above and by observing the names of input parameters and other variables.
             if ((prefixOccurence.occurence || !prefixOccurence.occurence) && nameOfTheField.length > 0 && nameOfNestedField.length > 0 && nestedNameFieldArr.length > 0) {
 
                 const firstTypeOfObjForOrOperation = {};
@@ -65,7 +83,7 @@ export async function GET(req) {
                 } else {
                     firstTypeOfObjForOrOperation[nameOfTheField] = { $regex: pureStr, $options: 'i' };
                 }
-                arrForOrConditionals.push(firstTypeOfObjForOrOperation);
+                arrOfOrConditionals.push(firstTypeOfObjForOrOperation);
 
                 nestedNameFieldArr.forEach(fieldName => {
                     const secondTypeOfObjForOrOperation = {};
@@ -74,9 +92,9 @@ export async function GET(req) {
                     } else {
                         secondTypeOfObjForOrOperation[nameOfNestedField] = { $elemMatch: { [fieldName]: { $regex: pureStr, $options: 'i' } } };
                     }
-                    arrForOrConditionals.push(secondTypeOfObjForOrOperation);
+                    arrOfOrConditionals.push(secondTypeOfObjForOrOperation);
                 });
-                pipeLineObj['$or'] = arrForOrConditionals;
+                
             }
             else if (prefixOccurence.occurence && nameOfTheField.length > 0) {
                 pipeLineObj[nameOfTheField] = { $in: prefixOccurence.prefixArray.map(strElem => new RegExp(strElem.replace(prefix, ''), 'i')) };
@@ -89,9 +107,9 @@ export async function GET(req) {
                     } else {
                         objForOrOperation[fieldName] = { $regex: pureStr, $options: 'i' };
                     }
-                    arrForOrConditionals.push(objForOrOperation);
+                    arrOfOrConditionals.push(objForOrOperation);
                 });
-                pipeLineObj['$or'] = arrForOrConditionals;
+                
             }
             else if ((prefixOccurence.occurence || !prefixOccurence.occurence) && nestedNameFieldArr.length > 0) {
                 nestedNameFieldArr.forEach(fieldName => {
@@ -101,15 +119,24 @@ export async function GET(req) {
                     } else {
                         objForOrOperation[nameOfNestedField] = { $elemMatch: { [fieldName]: { $regex: pureStr, $options: 'i' } } }
                     }
-                    arrForOrConditionals.push(objForOrOperation);
+                    arrOfOrConditionals.push(objForOrOperation);
                 });
-                pipeLineObj['$or'] = arrForOrConditionals;
+                
             }
             else {
                 pipeLineObj[nameOfTheField] = { $regex: pureStr, $options: 'i' };
             }
 
-            // console.log(pipeLineObj);
+            // finally after all above operations are done then if there are multiple occurences where prefixes are available in searchedStrArr different from the prefix as input string and if the arrOfOrConditionals holding objects for or operations then and $and operatonr to the pipeline with specified $or operator attached for or operations based on the objects of arrOfOrConditionals or arrOfAndConditionals array or both.
+            if (checkArrForOtherPrefixes.length > 0 && arrOfOrConditionals.length > 0) {
+                arrOfAndConditionals.push({'$or': arrOfOrConditionals});
+                pipeLineObj['$and'] = arrOfAndConditionals;
+            }
+
+            // if there are no non similler prefixes are included in the searchedStrArr who are different from prefix as an input string of this function the add $or operator and assign the arrOfOrConditionals array to that $or operator which contains objects for or oeprations.
+            if (checkArrForOtherPrefixes.length === 0 && arrOfOrConditionals.length > 0) {
+                pipeLineObj['$or'] = arrOfOrConditionals;
+            }
 
         }
 
@@ -179,8 +206,6 @@ export async function GET(req) {
 
         });
 
-        // console.log('line221:');
-        // console.log(searchedStrArr);
 
         // if brand name is true that means product is searched for only a specifiq brand from the front end
         if (brandName) {
@@ -192,7 +217,7 @@ export async function GET(req) {
             pipeLineObj["brand"] = { $in: searchedStrArr.map(str => str.includes('br-') ? new RegExp(str.split('-')[1], 'i') : '') };
         }
 
-        // console.log('line: 265');
+        // console.log('line: 203');
         // console.log(pipeLineObj);
         
         // after all the above procedure finally searching for the filtering results and receiving the results in the results array.
