@@ -27,7 +27,7 @@ function Navbar() {
   }
   
   return (
-    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#171717] flex flex-col gap-5 md:gap-3 py-5 md:p-3' role="navigation" aria-label="Main Navigation">
+    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#171717] flex flex-col gap-5 md:gap-3 py-5 md:p-3 4xl:px-8' role="navigation" aria-label="Main Navigation">
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5 md:gap-2'>
 

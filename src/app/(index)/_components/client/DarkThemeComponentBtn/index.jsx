@@ -26,11 +26,11 @@ function DarkThemeCompoentBtn() {
       document.body.classList.remove('light');
       document.body.classList.add('dark','text-white');
 
-      if (pathname === '/login') {
+      if (pathname === '/login' || pathname === '/registration') {
         document.body.classList.remove('bg-[#202124]');
-        document.body.classList.add('bg-[#f3f4f6]');
+        document.body.classList.add('bg-[#ffffff]');
       } else {
-        document.body.classList.remove('bg-[#f3f4f6]');
+        document.body.classList.remove('bg-[#ffffff]');
         document.body.classList.add('bg-[#202124]');
       }
       
@@ -39,9 +39,9 @@ function DarkThemeCompoentBtn() {
       document.body.classList.remove('dark', 'bg-[#202124]', 'text-white');
       document.body.classList.add('light');
 
-      if (pathname !== '/login' && document.body.classList.contains('bg-[#f3f4f6]')) document.body.classList.remove('bg-[#f3f4f6]');
+      if ((pathname !== '/login' || pathname !== '/registration') && document.body.classList.contains('bg-[#ffffff]')) document.body.classList.remove('bg-[#ffffff]');
       
-      if (pathname === '/login') document.body.classList.add('bg-[#f3f4f6]');
+      if (pathname === '/login' || pathname === '/registration') document.body.classList.add('bg-[#ffffff]');
 
       localStorage.setItem('theme', 'light');
     }
@@ -51,6 +51,7 @@ function DarkThemeCompoentBtn() {
   const handleThemeSwitch = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   }
+  
   return (
     <>
       <ThemeSwitchBTN theme={theme} handleThemeSwitch={handleThemeSwitch} />
