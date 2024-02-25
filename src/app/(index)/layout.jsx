@@ -5,10 +5,10 @@ import Footer from './_components/shared/server/Footer';
 function Layout1({ children }) {
   return (
     <>
-      <header className='sticky top-0 z-20 w-full 2xl:w-2/3 mx-auto'>
+      <header className='sticky top-0 z-20 w-full 2xl:w-[80%] 5xl:w-2/3 mx-auto'>
         <Navbar />
       </header>
-      <main className='relative w-full 2xl:w-2/3 mx-auto dark:bg-[#202124]' role='main' aria-labelledby='mainContentLabel'>
+      <main className='relative w-full 2xl:w-[80%] 5xl:w-2/3 mx-auto' role='main' aria-labelledby='mainContentLabel'>
         {children}
       </main>
       <Footer />

@@ -5,6 +5,7 @@ import HomePageBannerSlider from './_components/server/HomePageBannerSlider';
 import { getAllBannerData } from '@/services/bannerServices';
 import ShowMoreBtn from './_components/shared/server/ShowMoreBtn';
 
+
 export const metadata = {
   title: 'TechNest/Home Page',
   description: 'If you want to buy a Laptop or Pre-build Destop computers or Customize the configuaration for your Desktop computer of your choice then you will get Processors form Intel or Amd and Rams from different vendors, Brands such as G-Skill, Corsair or Brand of your choice, Power supply, PC Case, Keyboards, Mouse, Headphones, Phones from Apple or Androids, Pendrives, Usb Chargers, Phone cover and much more.',
@@ -14,7 +15,7 @@ async function Page() {
   const { success, data=[], message=false } = await getAllBannerData();
   
   return (
-    <>
+    <div className="5xl:w-[95%] mx-auto">
       {/* Banner section */}
       <header className='mt-12 mb-16' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
         <HomePageBannerSlider success={success} dataArr={data} message={message} />
@@ -57,7 +58,7 @@ async function Page() {
 
       </main>
 
-    </>
+    </div>
   )
 }
 

@@ -41,10 +41,10 @@ function Navbar() {
 
         <div className={`${navbarVisibility ? 'flex' : 'hidden'} md:flex justify-center items-center gap-5 md:gap-0`}>
           <div className='flex items-center gap-5 md:gap-3'>
-            <Link href="#">
+            <Link href="/login">
               <BtnComponentOne className='bg-[#3498db] dark:bg-[#2c3e50]'>Login</BtnComponentOne>
             </Link>
-            <Link href="#">
+            <Link href="/registration">
               <BtnComponentOne className='bg-[#c7723a] dark:bg-[#905b37]'>Register</BtnComponentOne>
             </Link>
           </div>
