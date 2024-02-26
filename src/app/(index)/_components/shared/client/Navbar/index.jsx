@@ -27,7 +27,7 @@ function Navbar() {
   }
   
   return (
-    <nav className='shadow-md dark:shadow-none bg-[#ffffff] dark:bg-[#171717] flex flex-col gap-5 md:gap-3 py-5 md:p-3 4xl:px-8' role="navigation" aria-label="Main Navigation">
+    <nav className='flex flex-col gap-5 md:gap-3 py-5 md:p-3 4xl:px-8 5xl:w-[75%] mx-auto' role="navigation" aria-label="Main Navigation">
 
       <section role='region' className='flex flex-col md:flex-row justify-between items-center gap-5 md:gap-2'>
 
@@ -42,10 +42,10 @@ function Navbar() {
         <div className={`${navbarVisibility ? 'flex' : 'hidden'} md:flex justify-center items-center gap-5 md:gap-0`}>
           <div className='flex items-center gap-5 md:gap-3'>
             <Link href="/login">
-              <BtnComponentOne className='bg-[#3498db] dark:bg-[#2c3e50]'>Login</BtnComponentOne>
+              <BtnComponentOne className='bg-[#3498db] dark:bg-[#2c3e50] py-1'>Login</BtnComponentOne>
             </Link>
             <Link href="/registration">
-              <BtnComponentOne className='bg-[#c7723a] dark:bg-[#905b37]'>Register</BtnComponentOne>
+              <BtnComponentOne className='bg-[#c7723a] dark:bg-[#905b37] py-1'>Register</BtnComponentOne>
             </Link>
           </div>
 

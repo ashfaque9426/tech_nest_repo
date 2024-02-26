@@ -15,7 +15,7 @@ async function Page() {
   const { success, data=[], message=false } = await getAllBannerData();
   
   return (
-    <div className="5xl:w-[95%] mx-auto">
+    <>
       {/* Banner section */}
       <header className='mt-12 mb-16' role="banner" aria-labelledby="carouselLabel" aria-live="polite">
         <HomePageBannerSlider success={success} dataArr={data} message={message} />
@@ -58,7 +58,7 @@ async function Page() {
 
       </main>
 
-    </div>
+    </>
   )
 }
 
