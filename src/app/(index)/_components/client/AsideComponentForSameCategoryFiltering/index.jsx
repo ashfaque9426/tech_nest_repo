@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FilterationComponentForAside from '../../server/FilterationComponentForAside';
 import cn from '@/lib/clsx/cn';
 
@@ -19,6 +19,13 @@ function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsF
     // for smartPhone Filtering options
     const [phoneSidebar, setPhoneSidebar] = useState([{ brandList: ["Xiaomi", "Samsung", "Apple", "Vivo", "Nokia", "Google", "One Plus", "OPPO"], displaySize: ['6.67"', '6.5"', '6.1"', '6.3"', '6.51"', '6.52"', '6.56"'], displayType: ["HD+", "FHD+", "Super Retina XDR", "Liquid Retina HD", "OLED"], cameraType: ["16 MP", "13+2 MP", "12 MP", "48 MP", "50+2 MP", "8 MP"], batteryType: ["5000 mAh", "4355 mAh", "5050 mAh", "4000 mAh"] }]);
 
+    // for updating the value of brand is checked or not on the aside component of filtering sidebar for sending to the database through backend api server.
+    useEffect(() => {
+        if (indexArr.some(strElem => strElem.includes('brandList'))) setChkBrandChecked(true);
+        else setChkBrandChecked(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [indexArr]);
+
     return (
         <aside className={cn('md:w-[25%]', className)} role="complementary" aria-labelledby="sidebar-heading">
             <h2 className='text-xl font-semibold text-center mt-2' id="sidebar-heading">Filtering Options</h2>
@@ -30,17 +37,17 @@ function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsF
 
             {/* for motherboard Filtering options */}
             {
-                category === "motherboard" && <FilterationComponentForAside sidebarArr={motherboardSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} setChkBrandChecked={setChkBrandChecked} />
+                category === "motherboard" && <FilterationComponentForAside sidebarArr={motherboardSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} />
             }
 
             {/* for laptop Filtering options */}
             {
-                category === "laptop" && <FilterationComponentForAside sidebarArr={laptopSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} setChkBrandChecked={setChkBrandChecked} />
+                category === "laptop" && <FilterationComponentForAside sidebarArr={laptopSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} />
             }
 
             {/* for phone Filtering options */}
             {
-                category === "smart%20phone" && <FilterationComponentForAside sidebarArr={phoneSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} setChkBrandChecked={setChkBrandChecked} />
+                category === "smart%20phone" && <FilterationComponentForAside sidebarArr={phoneSidebar} handleParamsForUrl={handleParamsForUrl} indexArr={indexArr} setIndexArr={setIndexArr} multipleObjsOfStateArr={false} brand={brand} />
             }
 
         </aside>

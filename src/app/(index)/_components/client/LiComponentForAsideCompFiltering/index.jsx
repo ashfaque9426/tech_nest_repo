@@ -2,7 +2,8 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParamsForUrl, indexStr, indexArr, setIndexArr, sidebarObjKey, setChkBrandChecked, multipleObjsOfStateArr }) {
+function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParamsForUrl, indexStr, indexArr, setIndexArr, sidebarObjKey }) {
+
     const onClickActions = () => {
         // setting the index array with the index of the brand if the sidebarObjKey value is 'brandList' for multiple brand name concatenated with index number and with the value of strItem so that brand names are to be checked on click of specific brand name or multiple brand names and if not the brand name then index number concated with the strItem variable (its for checking on the input:checkbox item).
         setIndexArr(prevIndexs => sidebarObjKey === 'brandList' ? indexArr.includes(sidebarObjKey + i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== sidebarObjKey + i + strItem) : [...prevIndexs, sidebarObjKey + i + strItem] : indexArr.includes(i + strItem) ? indexArr.filter(indexFromArr => indexFromArr !== i + strItem) : [...prevIndexs, i + strItem]);
@@ -29,15 +30,8 @@ function LiComponentForAsideCompFiltering({ strItem, strItemXTN, i, handleParams
         else if (sidebarObjKey === 'batteryType') handleParamsForUrl('btr-' + strItem);
         else if (sidebarObjKey === 'warrantyLists') handleParamsForUrl('warr-' + strItem);
         else handleParamsForUrl(strItem);
-        
-        if (!multipleObjsOfStateArr) {
-            const regex = new RegExp(/brandList\d./, 'i');
-            // console.log((indexArr.length > 0 && indexArr.some(elemStr => regex.test(elemStr))) || (indexArr.length === 0 && !indexArr.some(elemStr => regex.test(elemStr))));
-            
-            if (sidebarObjKey === 'brandList') setChkBrandChecked(true);
-            if (sidebarObjKey !== 'brandList' && !indexArr.some(elemStr => regex.test(elemStr))) setChkBrandChecked(false);
-        }
     }
+
     return (
         <li onClick={onClickActions} className='hover:cursor-pointer flex items-center gap-1' key={`processorFilteringByModels${uuidv4()}`}>
             <label>
