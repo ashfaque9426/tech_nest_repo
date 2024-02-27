@@ -22,7 +22,8 @@ export async function GET(req) {
         const brandName = searchParams.get('brand');
 
         // if brandChecked value is not null then specific brand or brands are checked in the filtering options of the front end.
-        const brandChecked = searchParams.get('brandChecked');
+        const brandChecked = Boolean(searchParams.get('brandChecked'));
+        // console.log(brandChecked);
 
         // replacing string from searchedStrArr and making them ready for regex in proper form.
         searchedStrArr.forEach((item, index) => {

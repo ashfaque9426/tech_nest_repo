@@ -138,7 +138,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
             {/* Product display section */}
             <section className='md:w-[75%]' role='region' aria-labelledby="section-heading">
                 <h2 className='mb-5 flex flex-col md:flex-row md:justify-between md:items-center' id="section-heading">
-                    <span className='text-xl font-bold md:text-2xl text-center md:text-start mb-5 md:mb-0'>
+                    <span className='hidden md:block text-xl font-bold md:text-2xl text-center md:text-start mb-5 md:mb-0'>
                         {productArr?.length > 0 && productArr[0].productCategory + 's:'}
                     </span> 
                     <span className='flex justify-between md:justify-normal items-center'>
