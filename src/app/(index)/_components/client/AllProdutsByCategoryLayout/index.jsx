@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import CardComponentTwo from '../../shared/server/CardComponentTwo';
 import { v4 as uuidv4 } from 'uuid';
 import AsideComponentForSameCategoryFiltering from '../AsideComponentForSameCategoryFiltering';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 
 function AllProductsByCategoryLayout({ category, brand }) {
@@ -13,6 +14,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
     const [paramStrArr, setParamStrArr] = useState([]);
     const [resMsgStr, setResMsgStr] = useState("");
     const [chkBrandChecked, setChkBrandChecked] = useState(false);
+    const [sidebarVisibility, setSidebarVisibility] = useState(false);
 
     // for changing sort order state
     const handleSortOrderChange = e => {
@@ -127,13 +129,20 @@ function AllProductsByCategoryLayout({ category, brand }) {
     }, [paramStrArr, category, sortOrder, brand]);
     return (
         <>
+            {/* Hamburger Menu */}
+            <span onClick={() => setSidebarVisibility(!sidebarVisibility)} className='md:hidden text-3xl'><GiHamburgerMenu /></span>
+
             {/* sidebar component */}
-            <AsideComponentForSameCategoryFiltering category={category} brand={brand} handleParamsForUrl={handleParamsForUrl} setChkBrandChecked={setChkBrandChecked} />
+            <AsideComponentForSameCategoryFiltering className={`${sidebarVisibility ? 'block' : 'hidden'} md:block`} category={category} brand={brand} handleParamsForUrl={handleParamsForUrl} setChkBrandChecked={setChkBrandChecked} />
 
             {/* Product display section */}
             <section className='md:w-[75%]' role='region' aria-labelledby="section-heading">
-                <h2 className='mb-5 flex flex-col md:flex-row justify-center md:justify-between items-center' id="section-heading">
-                    <span className='text-lg md:text-2xl font-bold'>{productArr?.length > 0 && productArr[0].productCategory + 's:'}</span> <span><label className='text-lg font-semibold mr-2' htmlFor="sortOrder">Sort By Price:</label>
+                <h2 className='mb-5 flex flex-col md:flex-row md:justify-between md:items-center' id="section-heading">
+                    <span className='text-xl font-bold md:text-2xl text-center md:text-start mb-5 md:mb-0'>
+                        {productArr?.length > 0 && productArr[0].productCategory + 's:'}
+                    </span> 
+                    <span className='flex justify-between md:justify-normal items-center'>
+                        <label className='text-xl font-semibold mr-2' htmlFor="sortOrder">Sort By Price:</label>
                         <select onChange={handleSortOrderChange} id="sortOrder" name="sortOrder" className="p-2 border border-gray-300 rounded cursor-pointer focus:border-gray-500 dark:bg-[#1e1e1e]">
                             <option value="lowToHigh">Low to High</option>
                             <option value="highToLow">High to Low</option>

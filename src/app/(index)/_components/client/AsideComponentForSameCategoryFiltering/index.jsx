@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from 'react';
 import FilterationComponentForAside from '../../server/FilterationComponentForAside';
+import cn from '@/lib/clsx/cn';
 
-function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsForUrl, setChkBrandChecked }) {
+function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsForUrl, setChkBrandChecked, className }) {
     // initializing states
     // for checkboxes
     const [indexArr, setIndexArr] = useState([]);
@@ -19,7 +20,7 @@ function AsideComponentForSameCategoryFiltering({ category, brand, handleParamsF
     const [phoneSidebar, setPhoneSidebar] = useState([{ brandList: ["Xiaomi", "Samsung", "Apple", "Vivo", "Nokia", "Google", "One Plus", "OPPO"], displaySize: ['6.67"', '6.5"', '6.1"', '6.3"', '6.51"', '6.52"', '6.56"'], displayType: ["HD+", "FHD+", "Super Retina XDR", "Liquid Retina HD", "OLED"], cameraType: ["16 MP", "13+2 MP", "12 MP", "48 MP", "50+2 MP", "8 MP"], batteryType: ["5000 mAh", "4355 mAh", "5050 mAh", "4000 mAh"] }]);
 
     return (
-        <aside className='md:w-[25%]' role="complementary" aria-labelledby="sidebar-heading">
+        <aside className={cn('md:w-[25%]', className)} role="complementary" aria-labelledby="sidebar-heading">
             <h2 className='text-xl font-semibold text-center mt-2' id="sidebar-heading">Filtering Options</h2>
 
             {/* for destop processors side menubar filtering options */}

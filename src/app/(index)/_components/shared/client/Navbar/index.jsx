@@ -42,10 +42,10 @@ function Navbar() {
         <div className={`${navbarVisibility ? 'flex' : 'hidden'} md:flex justify-center items-center gap-5 md:gap-0`}>
           <div className='flex items-center gap-5 md:gap-3'>
             <Link href="/login">
-              <BtnComponentOne className='bg-[#3498db] dark:bg-[#2c3e50] py-1'>Login</BtnComponentOne>
+              <BtnComponentOne onClickFunc={() => setNavbarVisibility(false)} className='bg-[#3498db] dark:bg-[#2c3e50] py-1'>Login</BtnComponentOne>
             </Link>
             <Link href="/registration">
-              <BtnComponentOne className='bg-[#c7723a] dark:bg-[#905b37] py-1'>Register</BtnComponentOne>
+              <BtnComponentOne onClickFunc={() => setNavbarVisibility(false)} className='bg-[#c7723a] dark:bg-[#905b37] py-1'>Register</BtnComponentOne>
             </Link>
           </div>
 
