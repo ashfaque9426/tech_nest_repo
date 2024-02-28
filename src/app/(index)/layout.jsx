@@ -11,7 +11,7 @@ function Layout1({ children }) {
       <main className='relative w-full 2xl:w-[80%] 5xl:w-2/3 mx-auto' role='main' aria-labelledby='mainContentLabel'>
         {children}
       </main>
-      <footer className='mt-24 p-5 5xl:py-8 dark:bg-black dark:text-white' role="contentinfo">
+      <footer className='mt-24 py-8 dark:bg-black dark:text-white' role="contentinfo">
         <Footer />
       </footer>
     </>
