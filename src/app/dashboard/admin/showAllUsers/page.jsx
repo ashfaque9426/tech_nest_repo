@@ -83,9 +83,9 @@ function Page() {
     return (
         <main className='border w-full lg:w-2/3 md:p-5' role="main" aria-labelledby="subMainContentLabel">
             
-            {/* dynamic table component for different types of user data. */}
+            {/*customizable dynamic table component for different types of user data. */}
             {
-                users.length > 0 && <DashboardTableCompOne tableHeadingDataArr={['image', 'name', 'email', 'role', 'make admin', 'make dealer', 'delete']} tableDataArr={users} btnFuncOne={handleMakeAdmin} btnFuncTwo={handleMakeDealer} btnThreeFunc={handleDeleteUser} imgKeyStr='imgUrl' btnOne={true} btnTwo={true} delBtn={true} classNameForBtnOne='text-2xl bg-blue-500 disabled:opacity-50 hover:bg-blue-700 disabled:hover:bg-blue-500 text-white font-bold py-2 px-4 rounded' classNameForBtnTwo='text-2xl bg-[#f4745c] disabled:opacity-50 hover:bg-red-700 disabled:hover:bg-[#f4745c] text-white font-bold py-2 px-4 rounded capitalize' classNameForBtnThree='text-4xl text-center text-red-400 hover:text-red-500 cursor-pointer' btnOneIcon={<RiAdminFill />} btnTwoIcon={<FaHandshake />} btnThreeIcon={<RiDeleteBin2Fill />} />
+                users.length > 0 && <DashboardTableCompOne tableHeadingDataArr={['image', 'name', 'email', 'role', 'make admin', 'make dealer', 'delete']} tableDataArr={users} btnFuncOne={handleMakeAdmin} btnFuncTwo={handleMakeDealer} btnThreeFunc={handleDeleteUser} imgKeyStr='imgUrl' btnOne={true} btnTwo={true} delBtn={true} btnOneFieldKeyValue='role' btnTwoFieldKeyValue='role' btnOneDisabledStr='admin' btnTwoDisabledStr='dealer' classNameForBtnOne='text-2xl bg-blue-500 disabled:opacity-50 hover:bg-blue-700 disabled:hover:bg-blue-500 text-white font-bold py-2 px-4 rounded' classNameForBtnTwo='text-2xl bg-[#f4745c] disabled:opacity-50 hover:bg-red-700 disabled:hover:bg-[#f4745c] text-white font-bold py-2 px-4 rounded capitalize' classNameForBtnThree='text-4xl text-center text-red-400 hover:text-red-500 cursor-pointer' btnOneIcon={<RiAdminFill />} btnTwoIcon={<FaHandshake />} btnThreeIcon={<RiDeleteBin2Fill />} />
             }
 
         </main>

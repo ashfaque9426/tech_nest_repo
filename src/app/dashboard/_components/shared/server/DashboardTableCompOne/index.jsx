@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 import cn from '@/lib/clsx/cn';
 import { TiTick } from "react-icons/ti";
 
-function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameForTH, classNameForTh, classNameForTb, classNameForTr, classNameForTd, classNameForBtnOne, classNameForBtnTwo, classNameForBtnThree, tableHeadingDataArr, tableDataArr, btnFuncOne, btnFuncTwo, btnThreeFunc, imgKeyStr, fieldKeyStrOne, fieldKeyStrTwo, fieldKeyStrThree, btnOne, btnTwo, delBtn, btnOneText, btnTwoText, btnThreeText, btnOneIcon, btnTwoIcon, btnThreeIcon }) {
+function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameForTH, classNameForTh, classNameForTb, classNameForTr, classNameForTd, classNameForBtnOne, classNameForBtnTwo, classNameForBtnThree, tableHeadingDataArr, tableDataArr, btnFuncOne, btnFuncTwo, btnThreeFunc, imgKeyStr, fieldKeyStrOne, fieldKeyStrTwo, fieldKeyStrThree, btnOne, btnTwo, btnOneFieldKeyValue, btnTwoFieldKeyValue, btnOneDisabledStr, btnTwoDisabledStr, delBtn, btnOneText, btnTwoText, btnThreeText, btnOneIcon, btnTwoIcon, btnThreeIcon }) {
     return (
         <div className="relative overflow-x-auto shadow-md">
-            <h1 className='md:hidden uppercase font-bold'>move &lt; --- &gt; to navigate</h1>
-            <table className={cn('min-w-full border border-gray-300 shadow-md table-auto', classNameForTable)}>
+            <h1 className='fixed left-3 my-2 md:hidden uppercase font-bold'>move &lt; --- &gt; to navigate</h1>
+            <table className={cn('mt-12 md:mt-0 min-w-full border border-gray-300 shadow-md table-auto', classNameForTable)}>
                 {/* table heading */}
                 <thead className={classNameForTH}>
                     {/* iterating from prop array called tableHeadingDataArr*/}
@@ -61,22 +61,22 @@ function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameF
                                 {/* button one */}
                                 {
                                     btnOne && <td className="border-b p-2 text-center">
-                                        <button disabled={userObj.role === 'admin'} onClick={btnFuncOne} className={classNameForBtnOne}>
+                                        <button disabled={userObj[btnOneFieldKeyValue] === btnOneDisabledStr} onClick={btnFuncOne} className={classNameForBtnOne}>
                                             <span className='xl:hidden capitalize'>
                                                 {
-                                                    userObj.role !== 'admin' && btnOneText && btnOneText.split(' ').length > 1 ? btnOneText.split(' ')[1] : btnOneText
+                                                    userObj[btnOneFieldKeyValue] !== btnOneDisabledStr && btnOneText && btnOneText.split(' ').length > 1 ? btnOneText.split(' ')[1] : btnOneText
                                                 }
 
                                                 {
-                                                    userObj.role !== 'admin' &&  !btnOneText && (btnOneIcon || 'No Icon Found')
+                                                    userObj[btnOneFieldKeyValue] !== btnOneDisabledStr &&  !btnOneText && (btnOneIcon || 'No Icon Found')
                                                 }
 
                                                 {
-                                                    userObj.role === 'admin' && <TiTick />
+                                                    userObj[btnOneFieldKeyValue] === btnOneDisabledStr && <TiTick />
                                                 }
                                             </span>
                                             <span className='hidden xl:block capitalize'>
-                                                {btnOneText || (btnOneIcon || 'No Icon Found')}
+                                                {userObj[btnOneFieldKeyValue] === btnOneDisabledStr ? <TiTick /> : btnOneText || (btnOneIcon || 'No Icon Found')}
                                             </span>
                                         </button>
                                     </td>
@@ -88,19 +88,19 @@ function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameF
                                         <button disabled={userObj.role === 'dealer'} onClick={btnFuncTwo} className={classNameForBtnTwo}>
                                             <span className='xl:hidden capitalize'>
                                                 {
-                                                    userObj.role !== 'dealer' && btnTwoText && btnTwoText.split(' ').length > 1 ? btnTwoText.split(' ')[1] : btnTwoText
+                                                    userObj[btnTwoFieldKeyValue] !== btnTwoDisabledStr && btnTwoText && btnTwoText.split(' ').length > 1 ? btnTwoText.split(' ')[1] : btnTwoText
                                                 }
 
                                                 {
-                                                    userObj.role !== 'dealer' && !btnTwoText && (btnTwoIcon || 'No Icon Found')
+                                                    userObj[btnTwoFieldKeyValue] !== btnTwoDisabledStr && !btnTwoText && (btnTwoIcon || 'No Icon Found')
                                                 }
 
                                                 {
-                                                    userObj.role === 'dealer' && <TiTick />
+                                                    userObj[btnTwoFieldKeyValue] === btnTwoDisabledStr && <TiTick />
                                                 }
                                             </span>
                                             <span className='hidden xl:block capitalize'>
-                                                {btnTwoText || (btnTwoIcon || 'No Icon Found')}
+                                                {userObj[btnTwoFieldKeyValue] === btnTwoDisabledStr ? <TiTick /> : btnTwoText || (btnTwoIcon || 'No Icon Found')}
                                             </span>
                                         </button>
                                     </td>
