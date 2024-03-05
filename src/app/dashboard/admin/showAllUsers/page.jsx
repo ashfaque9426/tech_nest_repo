@@ -1,13 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 import DashboardTableCompOne from '../../_components/shared/server/DashboardTableCompOne';
+import { RiAdminFill, RiDeleteBin2Fill } from "react-icons/ri";
+import { FaHandshake } from "react-icons/fa";
 
 function Page() {
     const [users, setUsers] = useState([
         {
             name: "Sumon",
             email: "sumonahmed9416@gmail.com",
-            role: "user",
+            role: "admin",
             imgUrl: "https://i.ibb.co/6PwR13Q/devid.jpg"
         },
         {
@@ -70,6 +72,10 @@ function Page() {
         console.log('User is admin now');
     }
 
+    const handleMakeDealer = () => {
+        console.log('User is a dealer now');
+    }
+
     const handleDeleteUser = () => {
         console.log('user has been deleted');
     }
@@ -79,7 +85,7 @@ function Page() {
             
             {/* dynamic table component for different types of user data. */}
             {
-                users.length > 0 && <DashboardTableCompOne tableHeadingDataArr={['image', 'name', 'email', 'role', 'make admin', 'delete']} tableDataArr={users} btnFuncOne={handleMakeAdmin} btnFuncTwo={handleDeleteUser} imgKeyStr='imgUrl' btnOneText='make admin' btnTwoText='delete' />
+                users.length > 0 && <DashboardTableCompOne tableHeadingDataArr={['image', 'name', 'email', 'role', 'make admin', 'make dealer', 'delete']} tableDataArr={users} btnFuncOne={handleMakeAdmin} btnFuncTwo={handleMakeDealer} btnThreeFunc={handleDeleteUser} imgKeyStr='imgUrl' btnOne={true} btnTwo={true} delBtn={true} classNameForBtnOne='text-2xl bg-blue-500 disabled:opacity-50 hover:bg-blue-700 disabled:hover:bg-blue-500 text-white font-bold py-2 px-4 rounded' classNameForBtnTwo='text-2xl bg-[#f4745c] disabled:opacity-50 hover:bg-red-700 disabled:hover:bg-[#f4745c] text-white font-bold py-2 px-4 rounded capitalize' classNameForBtnThree='text-4xl text-center text-red-400 hover:text-red-500 cursor-pointer' btnOneIcon={<RiAdminFill />} btnTwoIcon={<FaHandshake />} btnThreeIcon={<RiDeleteBin2Fill />} />
             }
 
         </main>

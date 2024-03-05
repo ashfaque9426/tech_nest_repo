@@ -2,10 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import cn from '@/lib/clsx/cn';
+import { TiTick } from "react-icons/ti";
 
-function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameForTH, classNameForTh, classNameForTb, classNameForTr, classNameForTd, classNameForBtnOne, classNameForBtnTwo, tableHeadingDataArr, tableDataArr, btnFuncOne, btnFuncTwo, imgKeyStr, fieldKeyStrOne, fieldKeyStrTwo, fieldKeyStrThree, btnOneText, btnTwoText }) {
+function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameForTH, classNameForTh, classNameForTb, classNameForTr, classNameForTd, classNameForBtnOne, classNameForBtnTwo, classNameForBtnThree, tableHeadingDataArr, tableDataArr, btnFuncOne, btnFuncTwo, btnThreeFunc, imgKeyStr, fieldKeyStrOne, fieldKeyStrTwo, fieldKeyStrThree, btnOne, btnTwo, delBtn, btnOneText, btnTwoText, btnThreeText, btnOneIcon, btnTwoIcon, btnThreeIcon }) {
     return (
         <div className="relative overflow-x-auto shadow-md">
+            <h1 className='md:hidden uppercase font-bold'>move &lt; --- &gt; to navigate</h1>
             <table className={cn('min-w-full border border-gray-300 shadow-md table-auto', classNameForTable)}>
                 {/* table heading */}
                 <thead className={classNameForTH}>
@@ -55,32 +57,73 @@ function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameF
                                     ))
                                 }
 
-                                {/* button components for specifiq actions. */}
-                                <td className="border-b p-2 text-center">
-                                    <button onClick={btnFuncOne} className={cn('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded', classNameForBtnOne)}>
-                                        <span className='md:hidden capitalize'>
-                                            {
-                                                btnOneText.split(' ').length > 1 ? btnOneText.split(' ')[1] : btnOneText
-                                            }
-                                        </span>
-                                        <span className='hidden md:block capitalize'>
-                                            {btnOneText}
-                                        </span>
-                                    </button>
-                                </td>
-                                <td className="border-b p-2 text-center">
-                                    <button onClick={btnFuncTwo} className={cn('bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded capitalize', classNameForBtnTwo)}>
-                                        <span className='md:hidden capitalize'>
-                                            {console.log(btnTwoText.split(' '))}
-                                            {
-                                                btnTwoText.split(' ').length > 1 ? btnTwoText.split(' ')[1] : btnTwoText
-                                            }
-                                        </span>
-                                        <span className='hidden md:block capitalize'>
-                                            {btnTwoText}
-                                        </span>
-                                    </button>
-                                </td>
+                                {/* button components for specifiq action. */}
+                                {/* button one */}
+                                {
+                                    btnOne && <td className="border-b p-2 text-center">
+                                        <button disabled={userObj.role === 'admin'} onClick={btnFuncOne} className={classNameForBtnOne}>
+                                            <span className='xl:hidden capitalize'>
+                                                {
+                                                    userObj.role !== 'admin' && btnOneText && btnOneText.split(' ').length > 1 ? btnOneText.split(' ')[1] : btnOneText
+                                                }
+
+                                                {
+                                                    userObj.role !== 'admin' &&  !btnOneText && (btnOneIcon || 'No Icon Found')
+                                                }
+
+                                                {
+                                                    userObj.role === 'admin' && <TiTick />
+                                                }
+                                            </span>
+                                            <span className='hidden xl:block capitalize'>
+                                                {btnOneText || (btnOneIcon || 'No Icon Found')}
+                                            </span>
+                                        </button>
+                                    </td>
+                                }
+
+                                {/* button two */}
+                                {
+                                    btnTwo && <td className="border-b p-2 text-center">
+                                        <button disabled={userObj.role === 'dealer'} onClick={btnFuncTwo} className={classNameForBtnTwo}>
+                                            <span className='xl:hidden capitalize'>
+                                                {
+                                                    userObj.role !== 'dealer' && btnTwoText && btnTwoText.split(' ').length > 1 ? btnTwoText.split(' ')[1] : btnTwoText
+                                                }
+
+                                                {
+                                                    userObj.role !== 'dealer' && !btnTwoText && (btnTwoIcon || 'No Icon Found')
+                                                }
+
+                                                {
+                                                    userObj.role === 'dealer' && <TiTick />
+                                                }
+                                            </span>
+                                            <span className='hidden xl:block capitalize'>
+                                                {btnTwoText || (btnTwoIcon || 'No Icon Found')}
+                                            </span>
+                                        </button>
+                                    </td>
+                                }
+
+                                {/* button three */}
+                                {
+                                    delBtn && <td className="border-b p-2 text-center">
+                                        <button onClick={btnThreeFunc} className={classNameForBtnThree}>
+                                            <span className='xl:hidden capitalize'>
+                                                {
+                                                    btnThreeText && btnThreeText.split(' ').length > 1 ? btnThreeText.split(' ')[1] : btnThreeText
+                                                }
+                                                {
+                                                    !btnThreeText && (btnThreeIcon || 'No Icon Found')
+                                                }
+                                            </span>
+                                            <span className='hidden xl:block capitalize'>
+                                                {btnThreeText || (btnThreeIcon || 'No Icon Found')}
+                                            </span>
+                                        </button>
+                                    </td>
+                                }
                             </tr>
                         ))
                     }
