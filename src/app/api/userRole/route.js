@@ -17,7 +17,7 @@ export async function GET(req) {
         let decodedValue = null;
 
         // implementation of verifyJWT middleware based on Auth token.
-        const {error} = verifyJWT(req, decodedValue);
+        const { error = null } = verifyJWT(req, decodedValue);
 
         if(error) {
             return NextResponse.json({
