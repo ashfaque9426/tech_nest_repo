@@ -17,13 +17,13 @@ export async function GET(req) {
         let decodedValue = null;
 
         // implementation of verifyJWT middleware based on Auth token.
-        const { error = null } = verifyJWT(req, decodedValue);
+        const { error = null, message = "", status = 0 } = verifyJWT(req, decodedValue);
 
         if(error) {
             return NextResponse.json({
                 success: false,
-                message: "Error Occured. Unauthorized access, Access Denied."
-            });
+                message: message.length > 0 ? message : 'Unauthorized Access. Access Denied.'
+            }, { status: status });
         }
 
         if(decodedValue !== null &&  userEmail !== decodedValue.userEmail) {
