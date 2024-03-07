@@ -11,23 +11,32 @@ export async function GET(req, res) {
         await connectToDB();
 
         // extracting user data from req object.
-        const userData = req.body;
+        const userData = JSON.parse(req.body);
         const userEmail = userData.userEmail;
 
         // implementation of verifyJWT middleware based on Auth token.
-        verifyJWT(req, res, ()=> {
-            res.status(200).json({ success: true, message: 'Access granted.' });
+        verifyJWT(req, res, async ()=> {
+            const decodedEmail = req.decoded.userEmail;
+
+            if (userEmail !== decodedEmail) {
+                return NextResponse.json({
+                    success: false,
+                    message: 'unknown email.'
+                })
+            }
+
+            // if verifyJWT has passed then check for the user and return the user role.
+            const result = await User.findOne({ userEmail: userEmail }).select('role');
+
+            if (result) {
+                return NextResponse.json({
+                    success: true,
+                    userRole: result.role
+                });
+            }
+
+
         });
-
-        // if verifyJWT has passed then check for the user and return the user role.
-        const result = await User.findOne({ userEmail: userEmail }).select('role');
-
-        if(result) {
-            return NextResponse.json({
-                success: true,
-                userRole: result.role
-            });
-        }
 
         // if user is still not found in the database from some reason return the bellow message.
         return NextResponse.json({

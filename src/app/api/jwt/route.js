@@ -19,7 +19,7 @@ export async function POST(req) {
 
         // if user is found then sign the jwt token with the secret key and return the token.
         if(result) {
-            const token = jwt.sign(userEmail, process.env.sst_SecretKey, { expiresIn: '1d' });
+            const token = jwt.sign(userData, process.env.sst_SecretKey, { expiresIn: '1d' });
             return NextResponse.json({
                 success: true,
                 token: token
