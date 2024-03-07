@@ -39,20 +39,20 @@ function DashboardTableCompOne({ classNameForTable, classNameForThTr, classNameF
 
                                 {/* if specified field is known after retriving from the server from the data array exp: usersArr or users which is an array of objects and from that object specified key name is know for specific field whose value is required for that perticular field. The following three fields are for that reason. */}
                                 {
-                                    fieldKeyStrOne?.length > 0 && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!objKey.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[fieldKeyStrOne]}</td>
+                                    fieldKeyStrOne?.length > 0 && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!fieldKeyStrOne.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[fieldKeyStrOne]}</td>
                                 }
 
                                 {
-                                    fieldKeyStrTwo?.length > 0 && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!objKey.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[fieldKeyStrTwo]}</td>
+                                    fieldKeyStrTwo?.length > 0 && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!fieldKeyStrTwo.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[fieldKeyStrTwo]}</td>
                                 }
 
                                 {
-                                    fieldKeyStrThree?.length > 0 && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!objKey.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[fieldKeyStrThree]}</td>
+                                    fieldKeyStrThree?.length > 0 && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!fieldKeyStrThree.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[fieldKeyStrThree]}</td>
                                 }
 
                                 {/* if there are no required field then it will iterate through data array and populate the table cells of each table row. */}
                                 {
-                                    (!fieldKeyStrOne?.length > 0 || !fieldKeyStrTwo.length > 0 || !fieldKeyStrThree?.length > 0) && Object.keys(userObj).map(objKey => (
+                                    ((fieldKeyStrOne?.length > 0) || (fieldKeyStrTwo?.length > 0) || (fieldKeyStrThree?.length > 0)) ? '' : Object.keys(userObj).map(objKey => (
                                         objKey !== imgKeyStr && <td key={`objKey${uuidv4()}`} className={cn(`border-b p-2 text-center ${!objKey.includes('email') && 'capitalize'}`, classNameForTd)}>{userObj[objKey]}</td>
                                     ))
                                 }
