@@ -11,9 +11,13 @@ function RegistrationFormComponent() {
         setPassErr("");
         
         const form = e.target;
+        const firstName = form.firstName.value;
+        const lastName = form.lastName.value;
         const email = form.email.value;
-        const passoword = form.passoword.value;
+        const passoword = form.password.value;
         const confirmPassword = form.password_confirmation.value;
+        const imgUrl = form.imgUrl.value;
+        const address = form.address.value;
 
         if(passoword !== confirmPassword) setPassErr("Passwords Do Not Match.");
     }
@@ -21,16 +25,16 @@ function RegistrationFormComponent() {
     return (
         <form onSubmit={handleRegistration}>
             <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-5  text-gray-700">Name</label>
+                <label htmlFor="firstName" className="block text-sm font-medium leading-5  text-gray-700">First Name</label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                    <input id="name" name="name" placeholder="John Doe" type="text" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="firstName" name="firstName" placeholder="ex.Ashfaq" type="text" required="true" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                 </div>
             </div>
 
             <div className="mt-6">
-                <label htmlFor="username" className="block text-sm font-medium leading-5 text-gray-700">Username</label>
+                <label htmlFor="lastName" className="block text-sm font-medium leading-5 text-gray-700">LastName</label>
                 <div className="mt-1 flex rounded-md shadow-sm">
-                    <input id="username" name="username" placeholder="john" type="text" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="lastName" name="lastName" placeholder="ex.Rahman" type="text" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                 </div>
             </div>
 
@@ -39,7 +43,7 @@ function RegistrationFormComponent() {
                     Email address
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                    <input id="email" name="email" placeholder="user@example.com" type="email" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5
+                    <input id="email" name="email" placeholder="user@example.com" type="email" required="true" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5
                 " />
                     <div className={`${emailErr.length > 0 ? "flex" : "hidden"} absolute inset-y-0 right-0 pr-3 items-center pointer-events-none`}>
                             <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
@@ -56,7 +60,7 @@ function RegistrationFormComponent() {
                     Password
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                    <input id="password" name="password" type="password" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="password" name="password" type="password" required="true" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                     <div className={`${passErr.length > 0 ? "flex" : "hidden"} absolute inset-y-0 right-0 pr-3 items-center pointer-events-none`}>
                         <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd"
@@ -72,7 +76,7 @@ function RegistrationFormComponent() {
                     Confirm Password
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                    <input id="password_confirmation" name="password_confirmation" type="password" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                    <input id="password_confirmation" name="password_confirmation" type="password" required="true" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                     <div className={`${passErr.length > 0 ? "flex" : "hidden"} absolute inset-y-0 right-0 pr-3 items-center pointer-events-none`}>
                         <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd"
@@ -80,6 +84,24 @@ function RegistrationFormComponent() {
                                 clipRule="evenodd"></path>
                         </svg>
                     </div>
+                </div>
+            </div>
+
+            <div className="mt-6">
+                <label htmlFor="imgUrl" className="block text-sm font-medium leading-5 text-gray-700">
+                    Image Url
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                    <input id="imgUrl" name="imgUrl" type="text" required="" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                </div>
+            </div>
+
+            <div className="mt-6">
+                <label htmlFor="address" className="block text-sm font-medium leading-5 text-gray-700">
+                    Address
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                    <input id="address" name="address" type="text" required="true" className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                 </div>
             </div>
 
