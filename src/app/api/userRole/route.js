@@ -46,13 +46,13 @@ export async function GET(req) {
         // if user is still not found in the database from some reason return the bellow message.
         return NextResponse.json({
             success: false,
-            message: 'unable to find the user from database.'
+            message: 'Unable to locate the user from database. Please check if the email is valid or user is logged in to the account.'
         });
 
     } catch (err) {
         console.log(err);
         // if server error occured the return the bellow message.
-        NextResponse.json({
+        return NextResponse.json({
             success: false,
             message: 'Unable to connect to the server. Please try again later.'
         })
