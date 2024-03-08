@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import store from './lib/redux/store/store';
 
 export function middleware(request) {
     if(request.nextUrl.pathname === "/login") {
