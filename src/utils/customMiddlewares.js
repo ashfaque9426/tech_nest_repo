@@ -12,7 +12,7 @@ export const verifyJWT = (req) => {
     const token = authorization.split(' ')[1];
     try {
         const decoded = jwt.verify(token, process.env.sst_SecretKey);
-        return { decoded, error: null, message: "", status: 0 };
+        return { decoded, error: null, message: "", status: 200 };
     } catch (err) {
         if (err) console.log(err);
         return { error: true, message: 'Authorization error, Access Denied.', status: 403 };
