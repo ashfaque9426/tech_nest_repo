@@ -14,10 +14,8 @@ export async function GET(req) {
         const userData = req.json();
         const userEmail = userData.userEmail;
 
-        let decodedValue = null;
-
         // implementation of verifyJWT middleware based on Auth token.
-        const { error = null, message = "", status = 0 } = verifyJWT(req, decodedValue);
+        const { error = null, message = "", status = 0, decoded = null } = verifyJWT(req);
 
         if(error) {
             return NextResponse.json({
@@ -26,7 +24,7 @@ export async function GET(req) {
             }, { status: status });
         }
 
-        if(decodedValue !== null &&  userEmail !== decodedValue.userEmail) {
+        if (decoded !== null && userEmail !== decoded?.userEmail) {
             return NextResponse.json({
                 success: false,
                 message: 'Invalid Email, user access suspended.'
