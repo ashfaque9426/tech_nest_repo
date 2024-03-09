@@ -1,13 +1,13 @@
 "use server"
-
-import axiosSecureConfig from "@/lib/axios/axiosSecure/config";
+// import axiosSecureConfig from "@/lib/axios/axiosSecure/config";
+import axios from "axios";
 
 // for addding product to database
 export const addNewProduct = async formData => {
-    const [axiosSecure] = axiosSecureConfig();
+    // const [axiosSecure] = axiosSecureConfig();
     // console.log(axiosSecure, formData);
     try {
-        const response = await axiosSecure.post('/admin/addAProduct', formData);
+        const response = await axios.post('http://localhost:3000/api/admin/addAProduct', formData);
         return response.data;
     } catch (error) {
         console.log(error.message);

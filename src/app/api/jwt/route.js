@@ -15,7 +15,7 @@ export async function POST(req) {
         const userEmail = userData.userEmail;
 
         // searching the user from the extracted user info ex: userEmail here in the database from user's collection.
-        const result = await User.findOne({userEmail: userEmail});
+        const result = await User.findOne({email: userEmail});
 
         // if user is found then sign the jwt token with the secret key and return the token.
         if(result) {

@@ -2,9 +2,14 @@ import { NextResponse } from 'next/server';
 import store from './lib/redux/store/store';
 
 export function middleware(request) {
-    if(request.nextUrl.pathname === "/login") {
+    const accessPermissionState = store.getState().accessPermission;
+    const isGranted = accessPermissionState.accessPermission;
+
+
+    if(!isGranted && request.nextUrl.pathname === "/login") {
         return NextResponse.redirect(new URL('/', request.url));
     }
+
 }
 
 export const config = {

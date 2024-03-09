@@ -7,17 +7,14 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req) {
     try {
-        // connecting to mongodb
         await connectToDB();
 
-        // extracting user data from req object.
         const userData = req.json();
         const userEmail = userData.userEmail;
 
-        // implementation of verifyJWT middleware based on Auth token.
-        const { error = null, message = "", status = 0, decoded = null } = verifyJWT(req);
+        const { error = null, message = "", decoded = null, status = 0 } = verifyJWT(req);
 
-        if(error) {
+        if (error) {
             return NextResponse.json({
                 success: false,
                 message: message.length > 0 ? message : 'Unauthorized Access. Access Denied.'
@@ -31,28 +28,26 @@ export async function GET(req) {
             });
         }
 
-        // if verifyJWT has passed then check for the user and return the user role.
-        const result = await User.findOne({ email: userEmail }).select('role');
+        const result = await User.findOne({email: userEmail});
 
-        if (result) {
+        if(result) {
             return NextResponse.json({
                 success: true,
-                userRole: result.role
-            });
+                userData: result
+            })
         }
 
         // if user is still not found in the database from some reason return the bellow message.
         return NextResponse.json({
             success: false,
-            message: 'Unable to locate the user from database. Please check if the email is valid or user is logged in to the account.'
+            message: 'Unable to retrieve the user data from database. Please check if the email is valid or user is logged in to the account.'
         });
 
     } catch (err) {
         console.log(err);
-        // if server error occured the return the bellow message.
         return NextResponse.json({
             success: false,
-            message: 'Unable to connect to the server. Please try again later.'
-        })
+            message: 'Unble to connect with server. Please try again later.'
+        }, {status: 408})
     }
 }

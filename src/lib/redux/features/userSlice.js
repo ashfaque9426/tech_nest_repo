@@ -6,7 +6,8 @@ const initialUserState = {
         lastName: null,
         email: null,
         imgUrl: null,
-        role: null
+        role: null,
+        address: null
     },
     userLoading: false
 };
@@ -25,18 +26,19 @@ const userSlice = createSlice({
             state.userData.email = action.payload.email;
             state.userData.imgUrl = action.payload.imgUrl;
             state.userData.role = action.payload.role;
+            state.userData.address = action.payload.address;
         },
         userStateChangeSuccessfull: (state) => {
             state.userData = {...state.userData};
             state.userLoading = false;
         },
-        userStateChangeFailed: (state) => {
+        userStateReset: (state) => {
             state.userData = initialUserState.userData;
             state.userLoading = false;
         }
     }
 });
 
-export const { checkUser, updateUserState, userStateChangeSuccessfull, userStateChangeFailed } = userSlice.actions;
+export const { checkUser, updateUserState, userStateChangeSuccessfull, userStateReset } = userSlice.actions;
 
 export default userSlice.reducer;
