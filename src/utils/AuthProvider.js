@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useEffect, useState } from 'react';
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import app from '@/lib/firebase/config';
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { auth } from '@/lib/firebase/config';
 import axios from 'axios';
 import { fetchUserData } from '@/services/userServices';
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import { checkUser, userStateChangeSuccessfull, userStateReset } from '@/lib/red
 import { accessDenied, accessGranted } from '@/lib/redux/features/authorizationSlice';
 
 export const AuthContext = createContext(null);
-const auth = getAuth(app);
+
 const googleProvider = new GoogleAuthProvider();
 
 function AuthProvider({ children }) {
