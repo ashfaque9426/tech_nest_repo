@@ -56,7 +56,8 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, userCredential => {
-            console.log(userCredential);
+            // console.log(userCredential);
+            const userInfoData = {};
             if (userCredential && userCredential?.email) {
                 axios.post('http://localhost:3000/jwt', { userEmail: userCredential?.email })
                     .then(data => {
@@ -70,7 +71,13 @@ function AuthProvider({ children }) {
                 const { userData = {} } = fetchUserData({ userEmail: userCredential?.email });
 
                 if (Object.keys(userData).length > 0) {
-                    setUser(userData);
+                    userInfoData['firstName'] = userData.firstName;
+                    userInfoData['lastName'] = userData.lastName;
+                    userInfoData['email'] = userData.email;
+                    userInfoData['phone'] = userData.phone;
+                    userInfoData['imgUrl'] = userData.imgUrl;
+                    userInfoData['role'] = userData.role;
+                    userInfoData['address'] = userData.address;
                 }
             }
             else {
@@ -78,14 +85,17 @@ function AuthProvider({ children }) {
                 dispatch(userStateReset());
                 dispatch(accessDenied());
                 setUser({});
+                setLoading(false);
             }
             
 
-            if(Object.keys(user)?.length > 0) {
+            if (Object.keys(userInfoData)?.length > 0) {
                 dispatch(checkUser());
-                dispatch(updateUserState(user));
+                dispatch(updateUserState(userInfoData));
                 dispatch(userStateChangeSuccessfull());
                 dispatch(accessGranted());
+                setUser(userInfoData);
+                setLoading(false);
             }
         });
 
