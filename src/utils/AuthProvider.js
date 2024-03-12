@@ -56,7 +56,8 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, userCredential => {
-            if (userCredential) {
+            console.log(userCredential);
+            if (userCredential && userCredential?.email) {
                 axios.post('http://localhost:3000/jwt', { userEmail: userCredential?.email })
                     .then(data => {
                         if(data.data.success) {
@@ -80,7 +81,7 @@ function AuthProvider({ children }) {
             }
             
 
-            if(Object.keys(user).length > 0) {
+            if(Object.keys(user)?.length > 0) {
                 dispatch(checkUser());
                 dispatch(updateUserState(user));
                 dispatch(userStateChangeSuccessfull());
@@ -89,7 +90,8 @@ function AuthProvider({ children }) {
         });
 
         return () => unsubscribe();
-    }, [user, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <AuthContext.Provider value={authInfo}>
