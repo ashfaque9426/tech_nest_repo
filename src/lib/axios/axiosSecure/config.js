@@ -21,7 +21,7 @@ const axiosSecureConfig = () => {
         }
     });
 
-    return [axiosSecure];
+    return axiosSecure;
 }
 
 export default axiosSecureConfig;

@@ -4,7 +4,7 @@ import axios from "axios";
 
 // for addding product to database
 export const addNewProduct = async formData => {
-    // const [axiosSecure] = axiosSecureConfig();
+    // const axiosSecure = axiosSecureConfig();
     // console.log(axiosSecure, formData);
     try {
         const response = await axios.post('http://localhost:3000/api/admin/addAProduct', formData);

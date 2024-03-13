@@ -23,7 +23,7 @@ export async function getAllBannerData () {
 
 // for adding data to banner collection
 export default async function addBannerData (bannerInfoObj) {
-    const [axiosSecure] = axiosSecureConfig();
+    const axiosSecure = axiosSecureConfig();
 
     try {
         const res = await axiosSecure.post('/admin/addBannerData', bannerInfoObj);

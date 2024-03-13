@@ -1,7 +1,7 @@
 import axiosSecureConfig from "@/lib/axios/axiosSecure/config";
 
 export async function fetchUserRole (userData) {
-    const [axiosSecure] = axiosSecureConfig();
+    const axiosSecure = axiosSecureConfig();
     try {
         const response = await axiosSecure.get('/userRole', userData);
 
@@ -22,7 +22,7 @@ export async function fetchUserRole (userData) {
 }
 
 export async function fetchUserData (userData) {
-    const [axiosSecure] = axiosSecureConfig();
+    const axiosSecure = axiosSecureConfig();
 
     try {
         const response = await axiosSecure.get('/loggedInUserInfo', userData);

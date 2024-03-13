@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import store from './lib/redux/store/store';
+import { auth } from '@/lib/firebase/config';
+import { signOut } from 'firebase/auth';
 
 export function middleware(request) {
     const accessPermissionState = store.getState().accessPermission;
