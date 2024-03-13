@@ -23,6 +23,6 @@ const UserSchema = mongoose.Schema(
     { timestamps: { createdAt: true, updatedAt: false } }
 )
 
-const User = mongoose.Users || mongoose.model("Users", UserSchema);
+const User = mongoose.models.Users || mongoose.model("Users", UserSchema);
 
 export default User;

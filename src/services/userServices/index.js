@@ -17,7 +17,6 @@ export async function fetchUserRole (userData) {
     } catch(err) {
         console.log(err);
     }
-
     
 }
 
