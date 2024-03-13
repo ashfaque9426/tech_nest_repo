@@ -14,11 +14,11 @@ const UserSchema = mongoose.Schema(
                 },
                 message: 'Invalid email address'
             },
-            phone: { type: String, required: true },
-            imgUrl: { type: String, required: true },
-            role: { type: String, required: true },
-            address: String
-        }
+        },
+        phone: { type: String, required: true },
+        imgUrl: { type: String, required: true },
+        role: { type: String, required: true },
+        address: String
     },
     { timestamps: { createdAt: true, updatedAt: false } }
 )
