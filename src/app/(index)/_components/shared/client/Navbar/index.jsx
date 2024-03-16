@@ -29,10 +29,8 @@ function Navbar() {
   }
 
   useEffect(() => {
-    const id = navbarRef.current && navbarRef.current.id;
-
     const handleNavClose = e => {
-      if (navbarRef.current.contains(e.target)) {
+      if (navbarRef.current && navbarRef.current.contains(e.target)) {
         return;
       }
 
