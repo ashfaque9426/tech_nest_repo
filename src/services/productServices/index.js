@@ -7,7 +7,7 @@ export const addNewProduct = async formData => {
     // const axiosSecure = axiosSecureConfig();
     // console.log(axiosSecure, formData);
     try {
-        const response = await axios.post('http://localhost:3000/api/admin/addAProduct', formData);
+        const response = await axios.post('https://tech-nest-repo.vercel.app/api/admin/addAProduct', formData);
         return response.data;
     } catch (error) {
         console.log(error.message);
@@ -22,7 +22,7 @@ export const getAllProducts = async () => {
 // for getting products by its category from the server
 export const productByCategory = async (category, limit = 0) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByCategory?category=${category}&limit=${limit}`, {
+        const res = await fetch(`https://tech-nest-repo.vercel.app/api/productByCategory?category=${category}&limit=${limit}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -42,7 +42,7 @@ export const productByCategory = async (category, limit = 0) => {
 // for retrieving stored products from the database
 export const getProductsByBrandName = async (brandName, limit = 0, category="") => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByBrand?brand=${brandName}&limit=${limit}&category=${category}`, {
+        const res = await fetch(`https://tech-nest-repo.vercel.app/api/productByBrand?brand=${brandName}&limit=${limit}&category=${category}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -62,7 +62,7 @@ export const getProductsByBrandName = async (brandName, limit = 0, category="") 
 // for retrieving stored products from the database
 export const getProductsByModelName = async (modelName, limit = 0) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/productByModel?model=${modelName}&limit=${limit}`, {
+        const res = await fetch(`https://tech-nest-repo.vercel.app/api/productByModel?model=${modelName}&limit=${limit}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -111,7 +111,7 @@ export const productsBySearchStrings = async (url, limit = 0) => {
 // for getting product by it's id
 export const productById = async id => {
     try{
-        const res = await fetch(`http://localhost:3000/api/singleProductDetails?id=${id}`, {
+        const res = await fetch(`https://tech-nest-repo.vercel.app/api/singleProductDetails?id=${id}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -131,7 +131,7 @@ export const productById = async id => {
 // get product suggestion service api
 export const getProductSuggestions = async (searchStr) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/getSearchSuggestionsBySearchStr?searchStr=${searchStr}`, {
+        const response = await fetch(`https://tech-nest-repo.vercel.app/api/getSearchSuggestionsBySearchStr?searchStr=${searchStr}`, {
             method: 'GET',
             cache: 'no-store'
         });
@@ -151,7 +151,7 @@ export const getProductSuggestions = async (searchStr) => {
 // add a question for specific product api
 export const addQuestionForProduct = async (id, questionObj, userEmail="") => {
     try {
-        const res = await fetch(`http://localhost:3000/api/addQuestionForProduct?productId=${id}&userEmail=${userEmail}`, {
+        const res = await fetch(`https://tech-nest-repo.vercel.app/api/addQuestionForProduct?productId=${id}&userEmail=${userEmail}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ export const addQuestionForProduct = async (id, questionObj, userEmail="") => {
 export const getProductsByDiscountedValue = async (discountValue = 0, exact = false) => {
     try {
         if (discountValue > 0) {
-            const res = await fetch(`http://localhost:3000/api/getProductsByDiscountedNumber?discountPercentageNumber=${discountValue}&exact=${exact}`, {
+            const res = await fetch(`https://tech-nest-repo.vercel.app/api/getProductsByDiscountedNumber?discountPercentageNumber=${discountValue}&exact=${exact}`, {
                 method: 'GET',
                 cache: 'no-store'
             });

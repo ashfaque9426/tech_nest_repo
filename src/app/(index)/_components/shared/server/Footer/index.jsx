@@ -33,7 +33,7 @@ function Footer() {
                 </div>
             </section>
             <section className='flex justify-center items-center'>
-                <h5 className='text-lg text-center font-bold'>All rights reserved @Ashfaq&apos;s personal <Link href='http://localhost:3000/'><span className='hover:underline text-red-500'>E-commerce Project</span></Link></h5>
+                <h5 className='text-lg text-center font-bold'>All rights reserved @Ashfaq&apos;s personal <Link href='https://tech-nest-repo.vercel.app/'><span className='hover:underline text-red-500'>E-commerce Project</span></Link></h5>
             </section>
         </div>
     )

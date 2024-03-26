@@ -3,7 +3,7 @@ import axiosSecureConfig from "@/lib/axios/axiosSecure/config";
 // for getting banner information
 export async function getAllBannerData () {
     try {
-        const res = await fetch('http://localhost:3000/api/getBannerInfo', {
+        const res = await fetch('https://tech-nest-repo.vercel.app/api/getBannerInfo', {
             method: 'GET',
             cache: 'no-store'
         })

@@ -59,7 +59,7 @@ function AuthProvider({ children }) {
             // console.log(userCredential);
             const userInfoData = {};
             if (userCredential && userCredential?.email) {
-                axios.post('http://localhost:3000/jwt', { userEmail: userCredential?.email })
+                axios.post('https://tech-nest-repo.vercel.app/jwt', { userEmail: userCredential?.email })
                     .then(data => {
                         if(data.data.success) {
                             localStorage.setItem('tech-token', data.data.token);
