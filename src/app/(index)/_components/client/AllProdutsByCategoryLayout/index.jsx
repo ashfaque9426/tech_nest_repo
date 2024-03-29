@@ -26,7 +26,7 @@ function AllProductsByCategoryLayout({ category, brand }) {
     }
 
     useEffect(() => {
-        let url = `https://tech-nest-repo.vercel.app/api/getProductsBySearchString?category=${category}&searchStr=`;
+        let url = `http://localhost:3000/api/getProductsBySearchString?category=${category}&searchStr=`;
         
         // adding search params as searchStr to the url to according to paramStrArr strings.
         if (paramStrArr.length > 0) {

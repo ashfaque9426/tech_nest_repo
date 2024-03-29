@@ -3,7 +3,7 @@ import store from "@/lib/redux/store/store";
 import { accessDenied } from "@/lib/redux/features/authorizationSlice";
 
 const axiosSecure = axios.create({
-    baseURL: 'https://tech-nest-repo.vercel.app/api'
+    baseURL: 'http://localhost:3000/api'
 });
 
 const axiosSecureConfig = () => {

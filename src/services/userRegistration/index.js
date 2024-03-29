@@ -4,7 +4,7 @@ import axios from "axios";
 
 const userRegistration = async formData => {
     try {
-        const response = await axios.post('https://tech-nest-repo.vercel.app/registerUser', formData);
+        const response = await axios.post('http://localhost:3000/registerUser', formData);
 
         if (response.data.success) {
             // User created successfully
